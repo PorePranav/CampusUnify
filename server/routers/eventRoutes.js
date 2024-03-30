@@ -5,6 +5,18 @@ const eventController = require('./../controllers/eventController');
 const router = express.Router();
 
 router.use(authController.protect);
+
+router
+  .route('/eventDays/:eventId/day/:dayId')
+  .get(eventController.getEventDay)
+  .patch(eventController.updateEventDay)
+  .delete(eventController.deleteEventDay);
+
+router
+  .route('/eventDays/:eventId')
+  .get(eventController.getAllEventDays)
+  .post(eventController.createEventDay);
+
 router
   .route('/:id')
   .get(eventController.getSingleEvent)

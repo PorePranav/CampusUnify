@@ -62,6 +62,8 @@ exports.updateEvent = catchAsync(async (req, res, next) => {
     );
   }
 
+  delete req.body.days;
+
   for (let field in req.body) fetchedEvent[field] = req.body[field];
 
   await fetchedEvent.save();
@@ -91,6 +93,129 @@ exports.deleteEvent = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: deletedEvent,
+  });
+});
+
+exports.getEventDay = catchAsync(async (req, res, next) => {
+  const fetchedEvent = await Event.findById(req.params.eventId);
+  if (!fetchedEvent) {
+    return next(
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+    );
+  }
+
+  const fetchedEventDay = fetchedEvent.days.id(req.params.dayId);
+  if (!fetchedEventDay) {
+    return next(
+      new AppError(
+        `No event day with the given ${req.params.dayId} exists`,
+        404
+      )
+    );
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: fetchedEventDay,
+  });
+});
+
+exports.getAllEventDays = catchAsync(async (req, res, next) => {
+  const fetchedEvent = await Event.findById(req.params.eventId);
+  if (!fetchedEvent) {
+    return next(
+      new AppError(`No event with ${req.params.eventId} exists`, 404)
+    );
+  }
+
+  console.log(fetchedEvent.days);
+
+  res.status(200).json({
+    status: 'success',
+    data: fetchedEvent.days,
+  });
+});
+
+exports.createEventDay = catchAsync(async (req, res, next) => {
+  const fetchedEvent = await Event.findById(req.params.eventId);
+  if (!fetchedEvent) {
+    return next(
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+    );
+  }
+
+  if (!isAuthorized(req.user.id, fetchedEvent)) {
+    return next(
+      new AppError('You are not authorized to eprform this action', 403)
+    );
+  }
+
+  fetchedEvent.days.push(req.body);
+  await fetchedEvent.save();
+
+  res.status(201).json({
+    status: 'success',
+    data: fetchedEvent,
+  });
+});
+
+exports.updateEventDay = catchAsync(async (req, res, next) => {
+  const fetchedEvent = await Event.findById(req.params.eventId);
+  if (!fetchedEvent) {
+    return next(
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+    );
+  }
+
+  if (!isAuthorized(req.user.id, fetchedEvent)) {
+    return next(
+      new AppError('You are unauthorized to perform this action', 403)
+    );
+  }
+
+  const updationDay = fetchedEvent.days.id(req.params.dayId);
+  if (!updationDay) {
+    return next(
+      new AppError(`There is no event day with the id ${req.params.dayId}`)
+    );
+  }
+
+  Object.assign(updationDay, req.body);
+  await fetchedEvent.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: fetchedEvent,
+  });
+});
+
+exports.deleteEventDay = catchAsync(async (req, res, next) => {
+  const fetchedEvent = await Event.findById(req.params.eventId);
+  if (!fetchedEvent) {
+    return next(
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+    );
+  }
+
+  if (!isAuthorized(req.user.id, fetchedEvent)) {
+    return next(
+      new AppError('You are unauthorized to perform this action', 403)
+    );
+  }
+
+  const deletionDay = fetchedEvent.days.id(req.params.dayId);
+  if (!deletionDay) {
+    return next(
+      new AppError(`There is no event day with the id ${req.params.dayId}`)
+    );
+  }
+
+  fetchedEvent.days.pull(req.params.dayId);
+  await fetchedEvent.save();
+
+  res.status(204).json({
+    status: 'success',
+    data: fetchedEvent,
   });
 });
 
