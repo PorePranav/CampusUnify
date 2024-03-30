@@ -128,8 +128,6 @@ exports.getAllEventDays = catchAsync(async (req, res, next) => {
     );
   }
 
-  console.log(fetchedEvent.days);
-
   res.status(200).json({
     status: 'success',
     data: fetchedEvent.days,
