@@ -1,7 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Event = require('../models/eventModel');
-const authController = require('./authController');
 const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
