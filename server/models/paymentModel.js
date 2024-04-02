@@ -6,18 +6,14 @@ const paymentSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'A payment should be associated with an user'],
   },
-  eventIds: {
-    type: [mongoose.Schema.ObjectId],
-    ref: 'Event',
-    required: [true, 'A payment should have atleast one event'],
-  },
-  totalAmount: {
-    type: Number,
-    required: [true, 'An amount is required for the payment'],
+  orderId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Order',
+    required: [true, 'A orderId is required'],
   },
   paymentDate: {
     type: Date,
-    required: [true, 'An payment should have a date'],
+    required: [true, 'A payment should have a date'],
     default: Date.now,
   },
   rzpOrderId: {
