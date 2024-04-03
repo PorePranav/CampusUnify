@@ -55,7 +55,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   const dbOrder = {
     internalOrderId: generateOrderID(8),
     userId: '6604638d58dbc14a6b2820f3',
-    orderItems: ['6608651eaa2da7c35a8041fe'],
+    orderItems: ['660d121b93d51b97e28f1346', '660d1323357fa10eb585fdbf'],
     totalAmount: 300,
     razorpayOrderId: order.id,
   };
@@ -105,7 +105,7 @@ exports.paymentCaptured = catchAsync(async (req, res, next) => {
     totalAmount,
   } = await Order.findOne({ razorpayOrderId: orderId });
 
-  await Payment.create({
+  const newPayment = await Payment.create({
     userId,
     orderId: fetchedOrderId,
     razorpayOrderId,
@@ -115,9 +115,8 @@ exports.paymentCaptured = catchAsync(async (req, res, next) => {
     totalAmount,
   });
 
-  res.status(200).json({
-    status: 'success',
-  });
+  req.payment = newPayment;
+  next();
 });
 
 exports.paymentFailed = catchAsync(async (req, res, next) => {

@@ -38,6 +38,12 @@ const eventSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'An event must belong to a club'],
   },
+  bookings: {
+    type: [mongoose.Schema.ObjectId],
+    ref: 'User',
+    required: [true, 'An event must have bookings'],
+    default: [],
+  },
 });
 
 const Event = mongoose.model('Event', eventSchema);
