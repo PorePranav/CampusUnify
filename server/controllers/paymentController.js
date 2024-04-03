@@ -5,6 +5,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Cart = require('./../models/cartModel');
 const Order = require('./../models/orderModel');
+const Payment = require('../models/paymentModel');
 
 const rzpInstance = new Razorpay({
   key_id: process.env.RAZORPAY_ID_KEY,
@@ -26,38 +27,38 @@ function generateOrderID(length) {
 }
 
 exports.createOrder = catchAsync(async (req, res, next) => {
-  const fetchedCart = await Cart.findOne({ userId: req.user.id });
+  // const fetchedCart = await Cart.findOne({ userId: req.user.id });
 
-  if (!fetchedCart.totalAmount)
-    return next(new AppError('Add events to your cart first', 404));
-
-  const order = await rzpInstance.orders.create({
-    amount: fetchedCart.totalAmount * 100,
-    currency: 'INR',
-  });
-
-  const dbOrder = {
-    orderId: generateOrderID(8),
-    userId: req.user.id,
-    orderItems: fetchedCart.eventIds,
-    totalAmount: fetchedCart.totalAmount * 100,
-    razorpayOrderId: order.id,
-  };
-
-  //Only for testing
+  // if (!fetchedCart.totalAmount)
+  //   return next(new AppError('Add events to your cart first', 404));
 
   // const order = await rzpInstance.orders.create({
-  //   amount: 300 * 100,
+  //   amount: fetchedCart.totalAmount * 100,
   //   currency: 'INR',
   // });
 
   // const dbOrder = {
   //   orderId: generateOrderID(8),
-  //   userId: '6604638d58dbc14a6b2820f3',
-  //   orderItems: ['6608651eaa2da7c35a8041fe'],
-  //   totalAmount: 30000,
+  //   userId: req.user.id,
+  //   orderItems: fetchedCart.eventIds,
+  //   totalAmount: fetchedCart.totalAmount,
   //   razorpayOrderId: order.id,
   // };
+
+  //Only for testing
+
+  const order = await rzpInstance.orders.create({
+    amount: 300 * 100,
+    currency: 'INR',
+  });
+
+  const dbOrder = {
+    internalOrderId: generateOrderID(8),
+    userId: '6604638d58dbc14a6b2820f3',
+    orderItems: ['6608651eaa2da7c35a8041fe'],
+    totalAmount: 300,
+    razorpayOrderId: order.id,
+  };
 
   await Order.create(dbOrder);
 
@@ -71,23 +72,75 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.capturePayment = catchAsync(async (req, res, next) => {
-  const paymentAuth = await rzpInstance.payments.capture(
-    req.params.paymentId,
-    req.body.amount,
-    req.body.currency
+exports.paymentCaptured = catchAsync(async (req, res, next) => {
+  const shaSum = crypto.createHmac(
+    'sha256',
+    process.env.RAZORPAY_WEBHOOK_SECRET
+  );
+  shaSum.update(JSON.stringify(req.body));
+  const digest = shaSum.digest('hex');
+
+  if (digest !== req.headers['x-razorpay-signature']) {
+    return next(
+      new AppError('You are unauthorized to perform this action', 403)
+    );
+  }
+
+  const {
+    order_id: orderId,
+    id: paymentId,
+    created_at,
+  } = req.body.payload.payment.entity;
+
+  await Order.findOneAndUpdate(
+    { razorpayOrderId: orderId },
+    { status: 'captured' }
   );
 
-  res.status(201).json({
+  const {
+    userId,
+    _id: fetchedOrderId,
+    razorpayOrderId,
+    internalOrderId,
+    totalAmount,
+  } = await Order.findOne({ razorpayOrderId: orderId });
+
+  await Payment.create({
+    userId,
+    orderId: fetchedOrderId,
+    razorpayOrderId,
+    internalPaymentId: internalOrderId,
+    razorpayPaymentId: paymentId,
+    createdAt: new Date(created_at * 1000),
+    totalAmount,
+  });
+
+  res.status(200).json({
     status: 'success',
-    data: {
-      paymentId: paymentAuth.id,
-      paymentStatus: paymentAuth.status,
-    },
   });
 });
 
-exports.authorizePayment = catchAsync(async (req, res, next) => {
+exports.paymentFailed = catchAsync(async (req, res, next) => {
+  const shaSum = crypto.createHmac(
+    'sha256',
+    process.env.RAZORPAY_WEBHOOK_SECRET
+  );
+  shaSum.update(JSON.stringify(req.body));
+  const digest = shaSum.digest('hex');
+
+  if (digest !== req.headers['x-razorpay-signature']) {
+    return next(
+      new AppError('You are unauthorized to perform this action', 403)
+    );
+  }
+
+  const failedOrderId = req.body.payload.payment.entity.order_id;
+
+  await Order.findOneAndUpdate(
+    { razorpayOrderId: failedOrderId },
+    { status: 'failed' }
+  );
+
   res.status(200).json({
     status: 'success',
   });

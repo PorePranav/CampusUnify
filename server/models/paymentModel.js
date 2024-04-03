@@ -11,18 +11,26 @@ const paymentSchema = new mongoose.Schema({
     ref: 'Order',
     required: [true, 'A orderId is required'],
   },
-  paymentDate: {
+  internalPaymentId: {
+    type: String,
+    required: [true, 'A payment should have a payment id'],
+  },
+  paymentTime: {
     type: Date,
     required: [true, 'A payment should have a date'],
     default: Date.now,
   },
-  rzpOrderId: {
+  razorpayOrderId: {
     type: String,
     required: [true, 'A razorpay order_id is required'],
   },
-  rzpPaymentId: {
+  razorpayPaymentId: {
     type: String,
     required: [true, 'A razorpay payment_id is required'],
+  },
+  totalAmount: {
+    type: Number,
+    required: [true, 'A payment should have a totalAmount'],
   },
 });
 

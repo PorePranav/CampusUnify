@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  orderId: {
+  internalOrderId: {
     type: String,
     required: true,
     unique: [true, 'Order ID is required for the order'],
@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['created', 'paid', 'failed'],
+    enum: ['created', 'captured', 'failed'],
     default: 'created',
     required: [true, 'There should be a current status of the order'],
   },
