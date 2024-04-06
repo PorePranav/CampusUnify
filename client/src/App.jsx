@@ -4,12 +4,16 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 
 import Header from './ui/Header';
-import Dashboard from './pages/Dashboard';
 import GlobalStyles from './styles/GlobalStyles';
-import Login from './features/authentication/Login';
+
 import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
 import Events from './pages/Events';
 import ProtectedRoute from './ui/ProtectedRoute';
+import Profile from './pages/Profile';
+import Login from './features/authentication/Login';
+import Signup from './features/authentication/Signup';
+import ForgotPassword from './features/authentication/ForgotPassword';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,9 +33,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route element={<ProtectedRoute />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="events" element={<Events />} />
+              <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>
         </BrowserRouter>

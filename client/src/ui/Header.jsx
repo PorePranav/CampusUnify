@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../features/authentication/useUser';
 
 export default function Header() {
-  const { isLoading, user } = useUser();
+  const { user } = useUser();
+  console.log(user);
 
   return (
     <header>
@@ -14,11 +15,33 @@ export default function Header() {
           </h1>
         </Link>
         <ul className="flex gap-4 items-center">
-          <Link>
-            <li className="hidden sm:inline hover:text-primary-orange">
-              Events
-            </li>
-          </Link>
+          {user ? (
+            <>
+              <Link to="events">
+                <li className="hidden sm:inline hover:text-primary-orange font-bold">
+                  Events
+                </li>
+              </Link>
+              <Link to="dashboard">
+                <li className="hidden sm:inline hover:text-primary-orange font-bold">
+                  Dashboard
+                </li>
+              </Link>
+              <Link to="profile">
+                <img
+                  src={user.avatar}
+                  alt="User Avatar"
+                  className="rounded-full h-8 w-8 object-cover"
+                />
+              </Link>
+            </>
+          ) : (
+            <Link to="/login">
+              <li className="hover:underline bg-primary-orange rounded-lg px-4 py-2 text-white font-bold">
+                Sign In
+              </li>
+            </Link>
+          )}
         </ul>
       </div>
     </header>

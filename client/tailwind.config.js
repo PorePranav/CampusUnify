@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         'primary-orange': '#E67E22',
+        'secondary-orange': '#FDF2E9',
       },
     },
   },

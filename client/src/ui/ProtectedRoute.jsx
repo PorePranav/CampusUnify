@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { CustomSpinner as Spinner } from './Spinner';
+import Spinner from './Spinner';
 import { useUser } from '../features/authentication/useUser';
 
 export default function ProtectedRoute() {
