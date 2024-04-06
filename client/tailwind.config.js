@@ -7,6 +7,9 @@ export default {
         inter: ['inter', 'sans-serif'],
         sono: ['sono', 'sans-serif'],
       },
+      colors: {
+        'primary-orange': '#E67E22',
+      },
     },
   },
   plugins: [],

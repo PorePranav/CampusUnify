@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { useLogin } from './useLogin';
+import Logo from '../../ui/Logo';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Login() {
       {
         onSettled: () => {
           setFormData({ email: '', password: '' });
-          navigate('/');
+          navigate('/dashboard');
         },
       }
     );
@@ -28,9 +29,10 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col w-96 mx-auto items-center">
+      <Logo />
       <h1>Sign In To Your Account</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col">
         <input
           type="email"
           placeholder="email"

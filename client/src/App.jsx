@@ -3,9 +3,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 
+import Header from './ui/Header';
 import Dashboard from './pages/Dashboard';
 import GlobalStyles from './styles/GlobalStyles';
 import Login from './features/authentication/Login';
+import LandingPage from './pages/LandingPage';
+import Events from './pages/Events';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,9 +25,14 @@ export default function App() {
       <ReactQueryDevtools />
       <GlobalStyles>
         <BrowserRouter>
+          <Header />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="login" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="events" element={<Events />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </GlobalStyles>

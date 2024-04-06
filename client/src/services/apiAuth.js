@@ -8,5 +8,15 @@ export async function login({ email, password }) {
   );
 
   if (error) return new Error(error.message);
-  return data;
+  return data.data;
+}
+
+export async function getCurrentUser() {
+  const { data, error } = await axios.get(
+    'http://localhost:3000/api/v1/users/me',
+    { withCredentials: true }
+  );
+
+  if (error) return new Error(error.message);
+  return data.data;
 }
