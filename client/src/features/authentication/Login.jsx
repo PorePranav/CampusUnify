@@ -10,14 +10,7 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!formData.email || !formData.password) return;
-    login(
-      { email: formData.email, password: formData.password },
-      {
-        onSettled: () => {
-          setFormData({ email: '', password: '' });
-        },
-      }
-    );
+    login({ email: formData.email, password: formData.password });
   }
 
   function handleChange(e) {

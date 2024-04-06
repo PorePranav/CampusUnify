@@ -25,3 +25,4 @@ client/*.sw?
 
 */node_modules/
 server/config.env
+client/src/firebase.js

@@ -10,7 +10,7 @@ import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import Events from './pages/Events';
 import ProtectedRoute from './ui/ProtectedRoute';
-import Profile from './pages/Profile';
+import Profile from './features/authentication/Profile';
 import Login from './features/authentication/Login';
 import Signup from './features/authentication/Signup';
 import ForgotPassword from './features/authentication/ForgotPassword';
