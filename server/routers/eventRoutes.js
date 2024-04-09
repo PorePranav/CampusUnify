@@ -17,8 +17,6 @@ router
   .get(eventController.getAllEventDays)
   .post(eventController.createEventDay);
 
-router.route('/:eventId/bookings').get(eventController.getAllBookings);
-
 router
   .route('/:id')
   .get(eventController.getSingleEvent)

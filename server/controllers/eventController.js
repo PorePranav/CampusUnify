@@ -2,6 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Event = require('../models/eventModel');
 const Order = require('../models/orderModel');
+const Bookings = require('../models/bookingsModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
@@ -41,6 +42,10 @@ exports.createEvent = catchAsync(async (req, res, next) => {
   eventData.clubId = req.user.id;
 
   const newEvent = await Event.create(eventData);
+  await Bookings.create({
+    eventId: newEvent._id,
+    registeredUsers: [],
+  });
 
   res.status(201).json({
     status: 'success',
@@ -214,41 +219,6 @@ exports.deleteEventDay = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: fetchedEvent,
-  });
-});
-
-exports.getAllBookings = catchAsync(async (req, res, next) => {
-  const fetchedEvent = await Event.findById(req.params.eventId);
-  if (!fetchedEvent) {
-    return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
-    );
-  }
-
-  if (!isAuthorized(req.user.id, fetchedEvent)) {
-    return next(
-      new AppError('You are unauthorized to perform this action', 403)
-    );
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: fetchedEvent.bookings,
-  });
-});
-
-exports.addBooking = catchAsync(async (req, res, next) => {
-  const fetchedOrder = await Order.findById(req.payment.orderId);
-  const eventIds = fetchedOrder.orderItems;
-
-  for (const eventId of eventIds) {
-    const fetchedEvent = await Event.findById(eventId);
-    fetchedEvent.bookings.push(req.payment.userId);
-    await fetchedEvent.save();
-  }
-
-  res.status(200).json({
-    status: 'success',
   });
 });
 

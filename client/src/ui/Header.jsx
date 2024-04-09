@@ -3,7 +3,6 @@ import { useUser } from '../features/authentication/useUser';
 
 export default function Header() {
   const { user } = useUser();
-  console.log(user);
 
   return (
     <header>

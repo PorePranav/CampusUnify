@@ -48,15 +48,15 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   //Only for testing
 
   const order = await rzpInstance.orders.create({
-    amount: 300 * 100,
+    amount: 400 * 100,
     currency: 'INR',
   });
 
   const dbOrder = {
     internalOrderId: generateOrderID(8),
-    userId: '6604638d58dbc14a6b2820f3',
-    orderItems: ['660d121b93d51b97e28f1346', '660d1323357fa10eb585fdbf'],
-    totalAmount: 300,
+    userId: '66143af612a5436d1cc3a816',
+    orderItems: ['66143adb12a5436d1cc3a80b', '66143ae212a5436d1cc3a810'],
+    totalAmount: 400,
     razorpayOrderId: order.id,
   };
 
