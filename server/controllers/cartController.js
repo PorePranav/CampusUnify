@@ -2,6 +2,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Cart = require('./../models/cartModel');
 const Event = require('./../models/eventModel');
+const Bookings = require('./../models/bookingsModel');
 
 exports.getCart = catchAsync(async (req, res, next) => {
   const fetchedCart = (await Cart.findOne({ userId: req.user.id })) || {};
@@ -23,6 +24,15 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   let fetchedCart = await Cart.findOne({ userId: req.user.id });
   if (!fetchedCart)
     fetchedCart = new Cart({ userId: req.user.id, eventIds: [] });
+
+  const fetchedEventBookings = await Bookings.findOne({
+    eventId: req.params.eventId,
+  });
+
+  if (fetchedEventBookings.registeredUsers.length == fetchedEvent.maxCapacity)
+    return next(
+      new AppError('Maximum bookings have been reached for this event', 403)
+    );
 
   const existingEventId = fetchedCart.eventIds.find(
     (id) => id.toString() === req.params.eventId

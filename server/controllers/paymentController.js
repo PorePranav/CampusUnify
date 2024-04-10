@@ -55,7 +55,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   const dbOrder = {
     internalOrderId: generateOrderID(8),
     userId: '66143af612a5436d1cc3a816',
-    orderItems: ['66143adb12a5436d1cc3a80b', '66143ae212a5436d1cc3a810'],
+    orderItems: ['6616109f9018f8e82c55f8e8'],
     totalAmount: 400,
     razorpayOrderId: order.id,
   };

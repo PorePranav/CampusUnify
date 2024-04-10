@@ -1,13 +1,15 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Event = require('../models/eventModel');
-const Order = require('../models/orderModel');
 const Bookings = require('../models/bookingsModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
   let filter;
-  const features = new APIFeatures(Event.find(filter), req.query)
+  const features = new APIFeatures(
+    Event.find(filter).populate('bookings'),
+    req.query
+  )
     .filter()
     .sort()
     .limitFields()
@@ -23,7 +25,9 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
 });
 
 exports.getSingleEvent = catchAsync(async (req, res, next) => {
-  const fetchedEvent = await Event.findById(req.params.id);
+  const fetchedEvent = await Event.findById(req.params.id)
+    .populate('bookings')
+    .select('-bookings');
 
   if (!fetchedEvent) {
     return next(

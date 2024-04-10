@@ -15,30 +15,61 @@ const daySchema = new mongoose.Schema({
   },
 });
 
-const eventSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'An event must have a name'],
+const eventSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'An event must have a name'],
+    },
+    eventCharges: {
+      type: Number,
+      required: [true, 'An event must have charges'],
+      default: 0,
+    },
+    description: {
+      type: String,
+      required: [true, 'An event must have a description'],
+    },
+    days: {
+      type: [daySchema],
+      required: [true, 'An event must atleast have a day'],
+    },
+    maxCapacity: {
+      type: Number,
+      required: [true, 'An event must have a maximum capacity'],
+    },
+    clubId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, 'An event must belong to a club'],
+    },
   },
-  eventCharges: {
-    type: Number,
-    required: [true, 'An event must have charges'],
-    default: 0,
-  },
-  description: {
-    type: String,
-    required: [true, 'An event must have a description'],
-  },
-  days: {
-    type: [daySchema],
-    required: [true, 'An event must atleast have a day'],
-  },
-  clubId: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: [true, 'An event must belong to a club'],
-  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+eventSchema.virtual('bookings', {
+  ref: 'Bookings',
+  foreignField: 'eventId',
+  localField: '_id',
+  options: { select: '-id' },
 });
+
+eventSchema.virtual('isFull').get(function () {
+  const bookingsCount = this.bookings ? this.bookings.length : 0;
+  return bookingsCount === this.maxCapacity;
+});
+
+eventSchema.options.toJSON = {
+  virtuals: true,
+  transform(doc, ret) {
+    delete ret.bookings;
+    delete ret.id;
+    return ret;
+  },
+};
 
 const Event = mongoose.model('Event', eventSchema);
 
