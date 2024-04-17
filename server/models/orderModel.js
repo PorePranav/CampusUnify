@@ -39,6 +39,11 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
+orderSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
+
 const orderModel = mongoose.model('Order', orderSchema);
 
 module.exports = orderModel;

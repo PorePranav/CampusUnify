@@ -30,6 +30,11 @@ cartSchema.pre('save', async function (next) {
   next();
 });
 
+cartSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
+
 const Cart = mongoose.model('Cart', cartSchema);
 
 module.exports = Cart;

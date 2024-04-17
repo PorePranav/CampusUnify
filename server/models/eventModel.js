@@ -71,6 +71,11 @@ eventSchema.options.toJSON = {
   },
 };
 
+eventSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
+
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;

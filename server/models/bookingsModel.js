@@ -13,6 +13,11 @@ const bookingsSchema = mongoose.Schema({
   },
 });
 
+bookingsSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
+
 const Bookings = mongoose.model('Bookings', bookingsSchema);
 
 module.exports = Bookings;

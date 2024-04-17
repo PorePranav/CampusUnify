@@ -34,6 +34,11 @@ const paymentSchema = new mongoose.Schema({
   },
 });
 
+paymentSchema.pre(/^find/, function (next) {
+  this.select('-__v');
+  next();
+});
+
 const Payment = mongoose.model('Payment', paymentSchema);
 
 module.exports = Payment;
