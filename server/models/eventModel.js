@@ -50,6 +50,10 @@ const eventSchema = new mongoose.Schema(
       default:
         "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg",
     },
+    date: {
+      type: Date,
+      required: [true, "An event must have a date"],
+    },
     category: {
       type: String,
       required: [true, "An event must have a category"],

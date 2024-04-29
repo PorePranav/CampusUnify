@@ -6,7 +6,7 @@ export default function EventClubCard({ event }) {
       <img src={event.cardImage} alt={`cardImage for ${event.name} event`} />
       <div className="flex flex-col gap-1 mt-2">
         <p>{event.name}</p>
-        <p>{formatDate(event.days[0].date)}</p>
+        <p>{formatDate(event.date)}</p>
         <p className="font-sono">{formatCurrency(event.eventCharges)}</p>
       </div>
     </div>

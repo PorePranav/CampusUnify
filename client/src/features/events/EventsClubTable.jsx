@@ -24,7 +24,7 @@ export default function EventsClubTable() {
     .filter((event) =>
       filterQuery === "all" ? true : event.category === filterQuery,
     )
-    .filter((event) => new Date(event.days[0]?.date) >= new Date(dateQuery));
+    .filter((event) => new Date(event.date) >= new Date(dateQuery));
 
   if (isLoading) return <Spinner />;
 
@@ -43,11 +43,10 @@ export default function EventsClubTable() {
         />
       </div>
       <div className="w-3/4">
-        <h1 className="text-xl">My Events</h1>
+        <p className="text-xl">
+          {filteredEvents.length !== 0 ? "My Events" : "No Events Found"}
+        </p>
         <div className="grid grid-cols-3 mt-4 gap-4">
-          {filteredEvents.length === 0 && (
-            <p className="text-xl">No Events Found</p>
-          )}
           {filteredEvents.map((event) => (
             <EventClubCard key={event._id} event={event} />
           ))}
