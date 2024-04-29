@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLogin } from './useLogin';
-import Logo from '../../ui/Logo';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useLogin } from "./useLogin";
+import Logo from "../../ui/Logo";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {

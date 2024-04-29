@@ -10,7 +10,7 @@ export function useLogout() {
   const { mutate: logout, isLoading } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      queryClient.removeQueries();
+      queryClient.resetQueries();
       navigate("/login", { replace: true });
       toast.success("You have been logged out");
     },
