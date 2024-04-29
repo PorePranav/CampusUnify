@@ -44,6 +44,27 @@ const eventSchema = new mongoose.Schema(
       default:
         "https://eventplanning24x7.files.wordpress.com/2018/04/events.png",
     },
+<<<<<<< HEAD
+=======
+    cardImage: {
+      type: String,
+      required: [true, "An event must have a card image"],
+      default:
+        "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg",
+    },
+    category: {
+      type: String,
+      required: [true, "An event must have a category"],
+      enum: [
+        "academic",
+        "cultural",
+        "competition",
+        "technical",
+        "artistic",
+        "outdoor",
+      ],
+    },
+>>>>>>> b4fdd8b (sync commit)
     clubId: {
       type: mongoose.Schema.ObjectId,
       ref: "User",

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 import { useUser } from '../features/authentication/useUser';
+=======
+import { Link } from "react-router-dom";
+import { useUser } from "../features/authentication/useUser";
+>>>>>>> b4fdd8b (sync commit)
 
 export default function Header() {
   const { user } = useUser();
@@ -7,7 +12,11 @@ export default function Header() {
   return (
     <header>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
+<<<<<<< HEAD
         <Link to={`${user ? '/dashboard' : '/'}`}>
+=======
+        <Link to={`${user ? "/events" : "/"}`}>
+>>>>>>> b4fdd8b (sync commit)
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="text-[#cf711f]">Campus</span>
             <span className="text-[#eb984e]">Unify</span>
@@ -21,11 +30,14 @@ export default function Header() {
                   Events
                 </li>
               </Link>
+<<<<<<< HEAD
               <Link to="dashboard">
                 <li className="hidden sm:inline hover:text-primary-orange font-bold">
                   Dashboard
                 </li>
               </Link>
+=======
+>>>>>>> b4fdd8b (sync commit)
               <Link to="profile">
                 <img
                   src={user.avatar}
