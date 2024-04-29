@@ -14,10 +14,7 @@
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",
     "axios": "^1.6.8",
-<<<<<<< HEAD
-=======
     "date-fns": "^3.6.0",
->>>>>>> b4fdd8b (sync commit)
     "firebase": "^10.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

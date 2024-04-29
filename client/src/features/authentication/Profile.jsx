@@ -1,17 +1,17 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from "react";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
-} from 'firebase/storage';
-import { app } from '../../firebase';
-import toast from 'react-hot-toast';
+} from "firebase/storage";
+import { app } from "../../firebase";
+import toast from "react-hot-toast";
 
-import { useUpdate } from './useUpdate';
-import { useUser } from './useUser';
-import { useLogout } from './useLogout';
-import { useDelete } from './useDelete';
+import { useUpdate } from "./useUpdate";
+import { useUser } from "./useUser";
+import { useLogout } from "./useLogout";
+import { useDelete } from "./useDelete";
 
 export default function Profile() {
   const { user } = useUser();
@@ -47,14 +47,14 @@ export default function Profile() {
       toast.promise(
         new Promise((resolve, reject) => {
           uploadTask.on(
-            'state_changed',
+            "state_changed",
             (snapshot) => {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
               setFilePerc(Math.round(progress));
             },
             (error) => {
-              reject('Image size should be less than 2 MB');
+              reject("Image size should be less than 2 MB");
             },
             () => {
               getDownloadURL(uploadTask.snapshot.ref)
@@ -63,19 +63,19 @@ export default function Profile() {
                     ...prevFormData,
                     avatar: downloadURL,
                   }));
-                  resolve('Photo uploaded successfully');
+                  resolve("Photo uploaded successfully");
                 })
                 .catch((error) => {
                   reject(error.message);
                 });
-            }
+            },
           );
         }),
         {
-          loading: 'Uploading photo',
-          success: 'Uploaded photo successfully',
-          error: 'Select an image with size < 2MB',
-        }
+          loading: "Uploading photo",
+          success: "Uploaded photo successfully",
+          error: "Select an image with size < 2MB",
+        },
       );
     };
     if (file) handleFileUpload(file);

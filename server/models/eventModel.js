@@ -44,8 +44,6 @@ const eventSchema = new mongoose.Schema(
       default:
         "https://eventplanning24x7.files.wordpress.com/2018/04/events.png",
     },
-<<<<<<< HEAD
-=======
     cardImage: {
       type: String,
       required: [true, "An event must have a card image"],
@@ -64,7 +62,6 @@ const eventSchema = new mongoose.Schema(
         "outdoor",
       ],
     },
->>>>>>> b4fdd8b (sync commit)
     clubId: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
