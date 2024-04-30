@@ -1,4 +1,4 @@
-import { formatCurrency, formatDate } from "../../utils/helpers";
+import { formatCurrency, formatDate } from "../../../utils/helpers";
 
 export default function EventClubCard({ event }) {
   return (

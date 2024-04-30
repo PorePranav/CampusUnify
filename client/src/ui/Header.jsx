@@ -21,11 +21,6 @@ export default function Header() {
                   Events
                 </li>
               </Link>
-              <Link to="dashboard">
-                <li className="hidden sm:inline hover:text-primary-orange font-bold">
-                  Dashboard
-                </li>
-              </Link>
               <Link to="profile">
                 <img
                   src={user.avatar}

@@ -1,5 +1,5 @@
 import Spinner from "../ui/Spinner";
-import EventsClub from "../features/events/EventsClub";
+import EventsClub from "../features/events/club/EventsClub";
 import { useUser } from "./../features/authentication/useUser";
 
 export default function Events() {
