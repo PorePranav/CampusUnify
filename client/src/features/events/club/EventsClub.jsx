@@ -4,6 +4,7 @@ import { useState } from "react";
 import EventsClubTable from "./EventsClubTable.jsx";
 import Spinner from "../../../ui/Spinner.jsx";
 import SearchFilter from "../../../ui/SearchFilter.jsx";
+import AddEvent from "./AddEvent.jsx";
 
 export default function EventsClub() {
   const { events = [], isLoading } = useEvents();
@@ -26,8 +27,6 @@ export default function EventsClub() {
     )
     .filter((event) => new Date(event.date) >= new Date(dateQuery));
 
-  console.log(filteredEvents);
-
   if (isLoading) return <Spinner />;
 
   return (
@@ -46,9 +45,7 @@ export default function EventsClub() {
           />
         </div>
         <div>
-          <button className="bg-primary-orange px-4 py-2 rounded-md text-white font-semibold">
-            Add New Event
-          </button>
+          <AddEvent />
           {filteredEvents.length === 0 ? (
             <p className="text-xl">No Events Found</p>
           ) : (
