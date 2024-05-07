@@ -13,6 +13,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Profile from "./features/authentication/Profile";
 import Login from "./features/authentication/Login";
 import Signup from "./features/authentication/Signup";
+import Event from "./pages/Event";
 import ForgotPassword from "./features/authentication/ForgotPassword";
 
 const queryClient = new QueryClient({
@@ -38,6 +39,7 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="events" element={<Events />} />
+              <Route path="events/:eventId" element={<Event />} />
               <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>

@@ -20,7 +20,6 @@ export default function Profile() {
 
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
-  const [filePerc, setFilePerc] = useState(0);
   const [formData, setFormData] = useState({});
   const { updateUser, isLoading } = useUpdate();
 
@@ -48,12 +47,8 @@ export default function Profile() {
         new Promise((resolve, reject) => {
           uploadTask.on(
             "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              setFilePerc(Math.round(progress));
-            },
-            (error) => {
+            () => {},
+            () => {
               reject("Image size should be less than 2 MB");
             },
             () => {

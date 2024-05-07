@@ -6,6 +6,16 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import {
+  HiBanknotes,
+  HiCalendarDays,
+  HiCube,
+  HiMapPin,
+  HiMiniBars3,
+  HiMiniUserGroup,
+  HiDocumentText,
+  HiArrowUpOnSquare,
+} from "react-icons/hi2";
 import { app } from "../../../firebase";
 import toast from "react-hot-toast";
 
@@ -84,7 +94,10 @@ export default function CreateEventForm({ onCloseModal }) {
       onSubmit={handleSubmit}
     >
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Name</label>
+        <div className="flex gap-2 items-center">
+          <HiCube className="h-6 w-6 fill-primary-orange" />
+          <label>Name</label>
+        </div>
         <input
           id="name"
           required
@@ -95,7 +108,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Date</label>
+        <div className="flex gap-2 items-center">
+          <HiCalendarDays className="h-6 w-6 fill-primary-orange" />
+          <label>Date</label>
+        </div>
         <input
           id="date"
           required
@@ -105,7 +121,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Charges</label>
+        <div className="flex gap-2 items-center">
+          <HiBanknotes className="h-6 w-6 fill-primary-orange" />
+          <label>Charges</label>
+        </div>
         <input
           id="eventCharges"
           onChange={handleChange}
@@ -115,7 +134,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Venue</label>
+        <div className="flex gap-2 items-center">
+          <HiMapPin className="h-6 w-6 fill-primary-orange" />
+          <label>Venue</label>
+        </div>
         <input
           id="venue"
           required
@@ -126,7 +148,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Category</label>
+        <div className="flex gap-2 items-center">
+          <HiMiniBars3 className="h-6 w-6 fill-primary-orange" />
+          <label>Category</label>
+        </div>
         <select
           id="category"
           required
@@ -144,7 +169,10 @@ export default function CreateEventForm({ onCloseModal }) {
         </select>
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Maximum Capacity</label>
+        <div className="flex gap-2 items-center">
+          <HiMiniUserGroup className="h-6 w-6 fill-primary-orange" />
+          <label>Maximum Capacity</label>
+        </div>
         <input
           id="maxCapacity"
           required
@@ -155,7 +183,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Event description</label>
+        <div className="flex gap-2 items-center">
+          <HiDocumentText className="h-6 w-6 fill-primary-orange" />
+          <label>Event description</label>
+        </div>
         <input
           id="description"
           required
@@ -166,7 +197,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Card Image</label>
+        <div className="flex gap-2 items-center">
+          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-orange" />
+          <label>Card Image</label>
+        </div>
         <input
           id="cardImage"
           accept="image/*"
@@ -176,7 +210,10 @@ export default function CreateEventForm({ onCloseModal }) {
         />
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
-        <label>Cover Image</label>
+        <div className="flex gap-2 items-center">
+          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-orange" />
+          <label>Cover Image</label>
+        </div>
         <input
           id="coverImage"
           accept="image/*"
