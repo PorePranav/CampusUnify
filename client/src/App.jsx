@@ -39,7 +39,7 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="events" element={<Events />} />
-              <Route path="events/:eventId" element={<Event />} />
+              <Route path="/events/:eventId" element={<Event />} />
               <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>

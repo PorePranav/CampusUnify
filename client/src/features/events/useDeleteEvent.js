@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteEvent as deleteEventApi } from "../../services/apiEvents";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export function useDeleteEvent() {

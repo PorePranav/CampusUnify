@@ -31,7 +31,7 @@ export default function EventsClub() {
 
   return (
     <>
-      <div className="flex gap-8">
+      <div className="flex gap-8 mb-4">
         <div className="flex flex-col gap-4 w-1/4">
           <h1 className="text-xl">Filter Options</h1>
           <SearchFilter

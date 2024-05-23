@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production & nodemon server.js"
+    "start:prod": "SET NODE_ENV=production & nodemon server.js"
   },
   "author": "Pranav Pore",
   "license": "ISC",
@@ -22,5 +22,8 @@
     "nodemailer": "^6.9.13",
     "razorpay": "^2.9.2",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

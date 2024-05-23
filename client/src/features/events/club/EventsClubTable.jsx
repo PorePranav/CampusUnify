@@ -1,4 +1,4 @@
-import EventClubCard from "./EventClubCard";
+import EventClubCard from "../EventCard";
 
 export default function EventsClubTable({ events }) {
   return (
