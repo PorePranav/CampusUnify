@@ -1,17 +1,17 @@
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const Event = require("../models/eventModel");
-const Bookings = require("../models/bookingsModel");
-const APIFeatures = require("./../utils/apiFeatures");
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
+const Event = require('../models/eventModel');
+const Bookings = require('../models/bookingsModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
   let filter;
 
-  if (req.user.role === "club") filter = { clubId: req.user.id };
+  if (req.user.role === 'club') filter = { clubId: req.user.id };
 
   const features = new APIFeatures(
-    Event.find(filter).populate("bookings"),
-    req.query,
+    Event.find(filter).populate('bookings'),
+    req.query
   )
     .filter()
     .sort()
@@ -21,7 +21,7 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
   const fetchedEvents = await features.query;
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     results: fetchedEvents.length,
     data: fetchedEvents,
   });
@@ -29,24 +29,22 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
 
 exports.getSingleEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id)
-    .populate("bookings")
-    .select("-bookings");
+    .populate('bookings')
+    .select('-bookings');
 
   if (!fetchedEvent) {
     return next(
-      new AppError(`Event with id ${req.params.id} does not exist`, 404),
+      new AppError(`Event with id ${req.params.id} does not exist`, 404)
     );
   }
 
-  console.log(req.user.id, fetchedEvent._id);
-
-  if (req.user.role === "club" && !isAuthorized(req.user.id, fetchedEvent))
+  if (req.user.role === 'club' && !isAuthorized(req.user.id, fetchedEvent))
     return next(
-      new AppError(`You are unauthorized to perform this action`, 403),
+      new AppError(`You are unauthorized to perform this action`, 403)
     );
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent,
   });
 });
@@ -62,7 +60,7 @@ exports.createEvent = catchAsync(async (req, res, next) => {
   });
 
   res.status(201).json({
-    status: "success",
+    status: 'success',
     data: newEvent,
   });
 });
@@ -71,13 +69,13 @@ exports.updateEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id);
   if (!fetchedEvent) {
     return next(
-      new AppError(`There is no event with the id ${req.params.id}`, 404),
+      new AppError(`There is no event with the id ${req.params.id}`, 404)
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError("You are unauthorized to perform this action", 403),
+      new AppError('You are unauthorized to perform this action', 403)
     );
   }
 
@@ -88,7 +86,7 @@ exports.updateEvent = catchAsync(async (req, res, next) => {
   await fetchedEvent.save();
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent,
   });
 });
@@ -97,20 +95,20 @@ exports.deleteEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id);
   if (!fetchedEvent) {
     return next(
-      new AppError(`There is no event with the id ${req.params.id}`, 404),
+      new AppError(`There is no event with the id ${req.params.id}`, 404)
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError("You are unauthorized to perform this action", 403),
+      new AppError('You are unauthorized to perform this action', 403)
     );
   }
 
   const deletedEvent = await Event.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
-    status: "success",
+    status: 'success',
     data: deletedEvent,
   });
 });
@@ -119,7 +117,7 @@ exports.getEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
     );
   }
 
@@ -128,13 +126,13 @@ exports.getEventDay = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         `No event day with the given ${req.params.dayId} exists`,
-        404,
-      ),
+        404
+      )
     );
   }
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: fetchedEventDay,
   });
 });
@@ -143,12 +141,12 @@ exports.getAllEventDays = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with ${req.params.eventId} exists`, 404),
+      new AppError(`No event with ${req.params.eventId} exists`, 404)
     );
   }
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent.days,
   });
 });
@@ -157,13 +155,13 @@ exports.createEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError("You are not authorized to eprform this action", 403),
+      new AppError('You are not authorized to eprform this action', 403)
     );
   }
 
@@ -171,7 +169,7 @@ exports.createEventDay = catchAsync(async (req, res, next) => {
   await fetchedEvent.save();
 
   res.status(201).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent,
   });
 });
@@ -180,20 +178,20 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError("You are unauthorized to perform this action", 403),
+      new AppError('You are unauthorized to perform this action', 403)
     );
   }
 
   const updationDay = fetchedEvent.days.id(req.params.dayId);
   if (!updationDay) {
     return next(
-      new AppError(`There is no event day with the id ${req.params.dayId}`),
+      new AppError(`There is no event day with the id ${req.params.dayId}`)
     );
   }
 
@@ -201,7 +199,7 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
   await fetchedEvent.save();
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent,
   });
 });
@@ -210,20 +208,20 @@ exports.deleteEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError("You are unauthorized to perform this action", 403),
+      new AppError('You are unauthorized to perform this action', 403)
     );
   }
 
   const deletionDay = fetchedEvent.days.id(req.params.dayId);
   if (!deletionDay) {
     return next(
-      new AppError(`There is no event day with the id ${req.params.dayId}`),
+      new AppError(`There is no event day with the id ${req.params.dayId}`)
     );
   }
 
@@ -231,7 +229,7 @@ exports.deleteEventDay = catchAsync(async (req, res, next) => {
   await fetchedEvent.save();
 
   res.status(204).json({
-    status: "success",
+    status: 'success',
     data: fetchedEvent,
   });
 });

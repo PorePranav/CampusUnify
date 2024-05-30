@@ -1,11 +1,11 @@
-import { useCreateEvent } from "../useCreateEvent";
-import { useEffect, useState } from "react";
+import { useCreateEvent } from '../useCreateEvent';
+import { useEffect, useState } from 'react';
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
-} from "firebase/storage";
+} from 'firebase/storage';
 import {
   HiBanknotes,
   HiCalendarDays,
@@ -15,9 +15,9 @@ import {
   HiMiniUserGroup,
   HiDocumentText,
   HiArrowUpOnSquare,
-} from "react-icons/hi2";
-import { app } from "../../../firebase";
-import toast from "react-hot-toast";
+} from 'react-icons/hi2';
+import { app } from '../../../firebase';
+import toast from 'react-hot-toast';
 
 export default function CreateEventForm({ onCloseModal }) {
   const [formData, setFormData] = useState({});
@@ -34,6 +34,7 @@ export default function CreateEventForm({ onCloseModal }) {
   function handleSubmit(e) {
     e.preventDefault();
     createEvent(formData);
+    onCloseModal?.();
   }
 
   useEffect(() => {
@@ -47,10 +48,10 @@ export default function CreateEventForm({ onCloseModal }) {
       toast.promise(
         new Promise((resolve, reject) => {
           uploadTask.on(
-            "state_changed",
+            'state_changed',
             () => {},
             () => {
-              reject("Image size should be less than 2 MB");
+              reject('Image size should be less than 2 MB');
               setIsUploading(false);
             },
             () => {
@@ -60,30 +61,30 @@ export default function CreateEventForm({ onCloseModal }) {
                     ...prevFormData,
                     [fieldName]: downloadURL,
                   }));
-                  resolve("Photo uploaded successfully");
+                  resolve('Photo uploaded successfully');
                 })
                 .catch((error) => {
                   reject(error.message);
                 });
               setIsUploading(false);
-            },
+            }
           );
         }),
         {
-          loading: "Uploading photo...",
-          success: "Uploaded photo successfully",
-          error: "Select an image with size < 2MB",
-        },
+          loading: 'Uploading photo...',
+          success: 'Uploaded photo successfully',
+          error: 'Select an image with size < 2MB',
+        }
       );
     };
 
     if (cardImage) {
-      handleFileUpload(cardImage, "cardImage");
+      handleFileUpload(cardImage, 'cardImage');
       setCardImage(undefined);
     }
 
     if (coverImage) {
-      handleFileUpload(coverImage, "coverImage");
+      handleFileUpload(coverImage, 'coverImage');
       setCoverImage(undefined);
     }
   }, [cardImage, coverImage]);
@@ -127,6 +128,7 @@ export default function CreateEventForm({ onCloseModal }) {
         </div>
         <input
           id="eventCharges"
+          required
           onChange={handleChange}
           type="number"
           placeholder="Event Charges"

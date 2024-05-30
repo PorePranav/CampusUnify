@@ -1,29 +1,29 @@
-import { useEvents } from "../useEvents.js";
-import { useState } from "react";
+import { useEvents } from '../useEvents.js';
+import { useState } from 'react';
 
-import EventsClubTable from "./EventsClubTable.jsx";
-import Spinner from "../../../ui/Spinner.jsx";
-import SearchFilter from "../../../ui/SearchFilter.jsx";
-import AddEvent from "./AddEvent.jsx";
+import EventsClubTable from './EventsClubTable.jsx';
+import Spinner from '../../../ui/Spinner.jsx';
+import SearchFilter from '../../../ui/SearchFilter.jsx';
+import AddEvent from './AddEvent.jsx';
 
 export default function EventsClub() {
   const { events = [], isLoading } = useEvents();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterQuery, setFilterQuery] = useState("all");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterQuery, setFilterQuery] = useState('all');
   const [dateQuery, setDateQuery] = useState(new Date());
 
   function handleReset() {
-    setSearchQuery("");
-    setFilterQuery("all");
+    setSearchQuery('');
+    setFilterQuery('all');
     setDateQuery(new Date());
   }
 
   const filteredEvents = events
     .filter((event) =>
-      event.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      event.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .filter((event) =>
-      filterQuery === "all" ? true : event.category === filterQuery,
+      filterQuery === 'all' ? true : event.category === filterQuery
     )
     .filter((event) => new Date(event.date) >= new Date(dateQuery));
 
@@ -47,7 +47,7 @@ export default function EventsClub() {
         <div>
           <AddEvent />
           {filteredEvents.length === 0 ? (
-            <p className="text-xl">No Events Found</p>
+            <p className="text-xl mt-4">No Events Found</p>
           ) : (
             <EventsClubTable events={filteredEvents} />
           )}

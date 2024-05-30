@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-import { createEvent as createEventApi } from "../../services/apiEvents";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+import { createEvent as createEventApi } from '../../services/apiEvents';
 
 export function useCreateEvent() {
   const queryClient = useQueryClient();
@@ -8,10 +8,12 @@ export function useCreateEvent() {
   const { mutate: createEvent, isLoading: isCreating } = useMutation({
     mutationFn: (newEvent) => createEventApi(newEvent),
     onSuccess: () => {
-      toast.success("New event created");
-      queryClient.invalidateQueries({ queryKey: ["events"] });
+      toast.success('New event created');
+      queryClient.invalidateQueries({ queryKey: ['events'] });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
   });
 
   return { createEvent, isCreating };

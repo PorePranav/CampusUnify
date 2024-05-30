@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import { useUser } from "../features/authentication/useUser";
+import { Link } from 'react-router-dom';
+import { useUser } from '../features/authentication/useUser';
 
 export default function Header() {
   const { user } = useUser();
 
   return (
-    <header>
+    <header className="sticky top-0 z-50 bg-[#f6f6f6] w-[80%] mx-auto">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <Link to={`${user ? "/events" : "/"}`}>
+        <Link to={`${user ? '/events' : '/'}`}>
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="text-[#cf711f]">Campus</span>
             <span className="text-[#eb984e]">Unify</span>
