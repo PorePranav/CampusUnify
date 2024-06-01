@@ -1,5 +1,6 @@
 import EventInformationCard from './EventInformationCard';
 import EventDaysCard from './EventDaysCard';
+import EventBookingsCard from './EventBookingsCard';
 import PageNotFound from '../../../ui/PageNotFound';
 import Spinner from '../../../ui/Spinner';
 
@@ -58,6 +59,7 @@ export default function EventDetailClub() {
         </div>
         {activeTab === 'info' && <EventInformationCard event={event} />}
         {activeTab === 'days' && <EventDaysCard event={event} />}
+        {activeTab === 'registrations' && <EventBookingsCard event={event} />}
       </div>
     </div>
   );

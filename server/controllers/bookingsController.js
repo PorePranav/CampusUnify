@@ -9,8 +9,12 @@ exports.addBooking = catchAsync(async (req, res, next) => {
   const eventIds = fetchedOrder.orderItems;
 
   for (const eventId of eventIds) {
-    const fetchedBookings = await Bookings.findOne({ eventId: eventId });
-    fetchedBookings.registeredUsers.push(req.payment.userId);
+    const fetchedBookings = await Bookings.findOne({ eventId });
+    const newRegisteredUser = {
+      userId: req.payment.userId,
+      paymentId: req.payment._id,
+    };
+    fetchedBookings.registeredUsers.push(newRegisteredUser);
     await fetchedBookings.save();
   }
 
@@ -36,7 +40,7 @@ exports.getEventBookings = catchAsync(async (req, res, next) => {
 
   const fetchedBookings = await Bookings.findOne({
     eventId: req.params.eventId,
-  });
+  }).populate('registeredUsers.userId registeredUsers.paymentId');
 
   res.status(200).json({
     status: 'success',

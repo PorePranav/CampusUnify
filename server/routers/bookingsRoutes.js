@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(authController.protect);
 router.get(
-  '/event/:eventId',
+  '/:eventId',
   authController.restrictTo('club'),
   bookingsController.getEventBookings
 );
