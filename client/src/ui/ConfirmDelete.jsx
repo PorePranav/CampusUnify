@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function ConfirmDelete({
   onCloseModal,
@@ -14,7 +14,7 @@ export default function ConfirmDelete({
       </p>
       <div className="flex justify-end mt-4 gap-4 w-1/2 mx-auto">
         <button
-          className="px-2 py-1 rounded-md text-white font-semibold bg-red-700 w-40"
+          className="px-2 py-1 rounded-md text-white font-bold bg-red-700 w-40"
           onClick={() => onCloseModal?.()}
         >
           Exit

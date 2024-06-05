@@ -13,8 +13,7 @@ const rzpInstance = new Razorpay({
 });
 
 function generateOrderID(length) {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const randomBytes = crypto.randomBytes(length);
   let result = '';
 

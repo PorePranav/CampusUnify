@@ -1,4 +1,3 @@
-import { useCreateEvent } from '../useCreateEvent';
 import { useEffect, useState } from 'react';
 import {
   getDownloadURL,
@@ -17,14 +16,15 @@ import {
 } from 'react-icons/hi2';
 import { app } from '../../../firebase';
 import toast from 'react-hot-toast';
+import { useEditEvent } from '../useEditEvent';
 
-export default function CreateEventForm({ onCloseModal }) {
+export default function EditEventForm({ event, onCloseModal }) {
   const [formData, setFormData] = useState({});
   const [coverImage, setCoverImage] = useState(undefined);
   const [cardImage, setCardImage] = useState(undefined);
   const [isUploading, setIsUploading] = useState(false);
 
-  const { createEvent, isCreating } = useCreateEvent();
+  const { editEvent, isEditing } = useEditEvent();
 
   function handleChange(e) {
     setFormData((prevData) => ({ ...prevData, [e.target.id]: e.target.value }));
@@ -32,7 +32,8 @@ export default function CreateEventForm({ onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    createEvent(formData);
+    console.log(formData);
+    editEvent({ eventId: event._id, newEventData: formData });
     onCloseModal?.();
   }
 
@@ -102,6 +103,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="name"
           required
           onChange={handleChange}
+          defaultValue={event.name}
           type="text"
           placeholder="Event Name"
           className="border border-slate-400 p-2 rounded-md"
@@ -116,6 +118,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="date"
           required
           onChange={handleChange}
+          defaultValue={new Date(event.date).toLocaleDateString()}
           type="date"
           className="border border-slate-400 p-2 rounded-md"
         />
@@ -129,6 +132,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="eventCharges"
           required
           onChange={handleChange}
+          defaultValue={event.eventCharges}
           type="number"
           placeholder="Event Charges"
           className="border border-slate-400 p-2 rounded-md"
@@ -143,7 +147,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="category"
           required
           onChange={handleChange}
-          defaultValue="technical"
+          defaultValue={event.category}
           placeholder="Event Category"
           className="border border-slate-400 p-2 rounded-md"
         >
@@ -164,6 +168,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="maxCapacity"
           required
           onChange={handleChange}
+          defaultValue={event.maxCapacity}
           type="number"
           placeholder="Maximum Capacity"
           className="border border-slate-400 p-2 rounded-md"
@@ -178,6 +183,7 @@ export default function CreateEventForm({ onCloseModal }) {
           id="description"
           required
           onChange={handleChange}
+          defaultValue={event.description}
           type="text"
           placeholder="Event Description"
           className="border border-slate-400 p-2 rounded-md"
@@ -212,13 +218,13 @@ export default function CreateEventForm({ onCloseModal }) {
       <div className="flex justify-end gap-4 mt-4">
         <button
           className="bg-red-700 text-white w-40 px-2 py-1 rounded-md font-semibold"
-          disabled={isUploading || isCreating}
+          disabled={isUploading || isEditing}
           onClick={() => onCloseModal?.()}
         >
           Exit
         </button>
         <button
-          disabled={isUploading || isCreating}
+          disabled={isUploading || isEditing}
           className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold"
         >
           Add Event

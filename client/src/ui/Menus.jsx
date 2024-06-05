@@ -1,13 +1,13 @@
-import { useState, useContext, useEffect } from "react";
-import { createContext } from "react";
-import { createPortal } from "react-dom";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import useOutsideClick from "../hooks/useOutsideClick";
+import { useState, useContext, useEffect } from 'react';
+import { createContext } from 'react';
+import { createPortal } from 'react-dom';
+import { HiEllipsisVertical } from 'react-icons/hi2';
+import useOutsideClick from '../hooks/useOutsideClick';
 
 const MenusContext = createContext();
 
 function Menu({ children }) {
-  return <div className="flex items-center justify-end">{children}</div>;
+  return <div className="flex items-center justify-start">{children}</div>;
 }
 
 function Toggle({ id }) {
@@ -15,12 +15,12 @@ function Toggle({ id }) {
 
   function handleClick(e) {
     e.stopPropagation();
-    const rect = e.target.closest("button").getBoundingClientRect();
+    const rect = e.target.closest('button').getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-    openId === "" || openId !== id ? open(id) : close();
+    openId === '' || openId !== id ? open(id) : close();
   }
 
   return (
@@ -47,7 +47,7 @@ function List({ id, children }) {
     >
       {children}
     </ul>,
-    document.body,
+    document.body
   );
 }
 
@@ -73,8 +73,8 @@ function Button({ children, icon, onClick }) {
 }
 
 export default function Menus({ children }) {
-  const [openId, setOpenId] = useState("");
-  const close = () => setOpenId("");
+  const [openId, setOpenId] = useState('');
+  const close = () => setOpenId('');
   const open = setOpenId;
   const [position, setPosition] = useState(null);
 
@@ -83,10 +83,10 @@ export default function Menus({ children }) {
       close();
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

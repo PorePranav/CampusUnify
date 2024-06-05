@@ -4,10 +4,16 @@ const bookingsController = require('./../controllers/bookingsController');
 const router = express.Router();
 
 router.use(authController.protect);
+router.use(authController.restrictTo('club'));
+
+router.get('/:eventId', bookingsController.getEventBookings);
 router.get(
-  '/:eventId',
-  authController.restrictTo('club'),
-  bookingsController.getEventBookings
+  '/:eventId/booking/:bookingId',
+  bookingsController.getSingleEventDetails
+);
+router.delete(
+  '/:eventId/booking/:bookingId',
+  bookingsController.deleteEventBooking
 );
 
 module.exports = router;

@@ -81,13 +81,14 @@ exports.updateEvent = catchAsync(async (req, res, next) => {
 
   delete req.body.days;
 
-  for (let field in req.body) fetchedEvent[field] = req.body[field];
-
-  await fetchedEvent.save();
+  const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     status: 'success',
-    data: fetchedEvent,
+    data: updatedEvent,
   });
 });
 
