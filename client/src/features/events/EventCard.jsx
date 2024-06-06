@@ -1,7 +1,7 @@
-import { formatCurrency, formatDate } from "../../utils/helpers";
-import { useUser } from "../authentication/useUser";
-import EventDetailMenu from "./club/EventDetailMenu";
-import { HiBanknotes, HiCalendarDays, HiCube } from "react-icons/hi2";
+import { formatCurrency, formatDate } from '../../utils/helpers';
+import { useUser } from '../authentication/useUser';
+import EventDetailMenu from './club/info/EventDetailMenu';
+import { HiBanknotes, HiCalendarDays, HiCube } from 'react-icons/hi2';
 
 export default function EventClubCard({ event }) {
   const { user } = useUser();
@@ -29,7 +29,7 @@ export default function EventClubCard({ event }) {
           </div>
         </div>
 
-        {user.role === "club" && <EventDetailMenu event={event} />}
+        {user.role === 'club' && <EventDetailMenu event={event} />}
       </div>
     </div>
   );

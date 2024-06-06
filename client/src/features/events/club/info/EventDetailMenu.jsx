@@ -1,8 +1,8 @@
 import { HiEye, HiTrash } from 'react-icons/hi2';
-import Modal from '../../../ui/Modal';
-import Menus from '../../../ui/Menus';
-import ConfirmDelete from '../../../ui/ConfirmDelete';
-import { useDeleteEvent } from '../useDeleteEvent';
+import Modal from '../../../../ui/Modal';
+import Menus from '../../../../ui/Menus';
+import ConfirmDelete from '../../../../ui/ConfirmDelete';
+import { useDeleteEvent } from '../../useDeleteEvent';
 import { useNavigate } from 'react-router-dom';
 
 export default function EventDetailMenu({ event }) {

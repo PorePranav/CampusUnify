@@ -1,7 +1,7 @@
-import { formatDateTime, formatCurrency } from '../../../utils/helpers';
-import { useEventBookings } from '../useEventBookings';
+import { formatDateTime, formatCurrency } from '../../../../utils/helpers';
+import { useEventBookings } from '../../useEventBookings';
 
-import SpinnerMini from '../../../ui/SpinnerMini';
+import SpinnerMini from '../../../../ui/SpinnerMini';
 import toast from 'react-hot-toast';
 import BookingDetailMenu from './BookingDetailMenu';
 

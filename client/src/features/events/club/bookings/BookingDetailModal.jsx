@@ -5,7 +5,7 @@ import {
   HiClock,
   HiCurrencyRupee,
 } from 'react-icons/hi2';
-import { formatDateTime, formatCurrency } from '../../../utils/helpers';
+import { formatDateTime, formatCurrency } from '../../../../utils/helpers';
 
 export default function BookingDetailModal({ booking }) {
   console.log(booking);

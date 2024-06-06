@@ -1,12 +1,12 @@
 import EventInformationCard from './EventInformationCard';
-import EventDaysCard from './EventDaysCard';
-import EventBookingsCard from './EventBookingsCard';
-import PageNotFound from '../../../ui/PageNotFound';
-import Spinner from '../../../ui/Spinner';
-import { useMoveBack } from '../../../hooks/useMoveBack';
+import EventDaysCard from '../days/EventDaysCard';
+import EventBookingsCard from '../bookings/EventBookingsCard';
+import PageNotFound from '../../../../ui/PageNotFound';
+import Spinner from '../../../../ui/Spinner';
+import { useMoveBack } from '../../../../hooks/useMoveBack';
 import { HiArrowLeft } from 'react-icons/hi2';
 
-import { useEvent } from '../useEvent';
+import { useEvent } from '../../useEvent';
 import { useState } from 'react';
 
 export default function EventDetailClub() {
@@ -25,11 +25,11 @@ export default function EventDetailClub() {
           Go Back
         </div>
       </button>
-      <img
+      {/* <img
         className="w-full h-128 rounded-lg mt-4"
         src={event.coverImage}
         alt={`Cover image for ${event.name}`}
-      />
+      /> */}
       <div className="mt-4">
         <div className="flex gap-4 mt-4">
           <button

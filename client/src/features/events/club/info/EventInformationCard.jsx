@@ -1,6 +1,6 @@
 import { HiPencil } from 'react-icons/hi2';
-import Modal from '../../../ui/Modal';
-import EditEventForm from './EditEventForm';
+import Modal from '../../../../ui/Modal';
+import EditEventForm from '../EditEventForm';
 
 export default function EventInformationCard({ event }) {
   return (

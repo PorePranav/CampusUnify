@@ -1,8 +1,8 @@
 import { HiEye, HiTrash } from 'react-icons/hi2';
-import Modal from '../../../ui/Modal';
-import Menus from '../../../ui/Menus';
-import useDeleteEventBooking from '../useDeleteEventBooking';
-import ConfirmDelete from '../../../ui/ConfirmDelete';
+import Modal from '../../../../ui/Modal';
+import Menus from '../../../../ui/Menus';
+import useDeleteEventBooking from '../../useDeleteEventBooking';
+import ConfirmDelete from '../../../../ui/ConfirmDelete';
 import BookingDetailModal from './BookingDetailModal';
 
 export default function BookingDetailMenu({ booking, event }) {

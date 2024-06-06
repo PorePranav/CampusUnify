@@ -81,3 +81,24 @@ export async function deleteEventBooking({ eventId, bookingId }) {
   if (error) return new Error(error.message);
   return data.data;
 }
+
+export async function getEventDays(eventId) {
+  const { data, error } = await axios.get(
+    `http://localhost:3000/api/v1/events/eventDays/${eventId}`,
+    { withCredentials: true }
+  );
+
+  if (error) return new Error(error.message);
+  return data.data;
+}
+
+export async function createEventDay({ eventId, newEventDay }) {
+  const { data, error } = await axios.post(
+    `http://localhost:3000/api/v1/events/eventDays/${eventId}`,
+    newEventDay,
+    { withCredentials: true }
+  );
+
+  if (error) return new Error(error.message);
+  return data.data;
+}

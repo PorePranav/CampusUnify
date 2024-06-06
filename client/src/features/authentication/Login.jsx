@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLogin } from "./useLogin";
-import Logo from "../../ui/Logo";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useLogin } from './useLogin';
+import Logo from '../../ui/Logo';
+import { useUser } from './useUser';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  if (user) navigate('/events');
+
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const { login, isLoading } = useLogin();
 
   function handleSubmit(e) {
