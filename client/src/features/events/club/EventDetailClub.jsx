@@ -3,11 +3,14 @@ import EventDaysCard from './EventDaysCard';
 import EventBookingsCard from './EventBookingsCard';
 import PageNotFound from '../../../ui/PageNotFound';
 import Spinner from '../../../ui/Spinner';
+import { useMoveBack } from '../../../hooks/useMoveBack';
+import { HiArrowLeft } from 'react-icons/hi2';
 
 import { useEvent } from '../useEvent';
 import { useState } from 'react';
 
 export default function EventDetailClub() {
+  const moveBack = useMoveBack();
   const { isLoading, error, event } = useEvent();
   const [activeTab, setActiveTab] = useState('info');
 
@@ -16,8 +19,14 @@ export default function EventDetailClub() {
 
   return (
     <div className="w-[80%] mx-auto mt-6 pb-6">
+      <button onClick={() => moveBack()}>
+        <div className="flex gap-2 items-center bg-primary-orange text-white font-semibold rounded-md px-2 py-1">
+          <HiArrowLeft size={18} />
+          Go Back
+        </div>
+      </button>
       <img
-        className="w-full h-128 rounded-lg"
+        className="w-full h-128 rounded-lg mt-4"
         src={event.coverImage}
         alt={`Cover image for ${event.name}`}
       />

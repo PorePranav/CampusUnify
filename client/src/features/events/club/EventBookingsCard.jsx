@@ -11,8 +11,9 @@ export default function EventBookingsCard({ event }) {
   if (error) toast.error('There was an error fetching event registrations');
 
   return (
-    <div className="mt-6 p-2">
-      <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_4rem] p-2 bg-[#dadada] rounded-t-md font-bold">
+    <div className="mt-4">
+      <p className="text-2xl">Event Registrations</p>
+      <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_4rem] mt-4 p-2 bg-[#dadada] rounded-t-md font-bold">
         <p>Name</p>
         <p>Payment ID</p>
         <p>Razorpay ID</p>
