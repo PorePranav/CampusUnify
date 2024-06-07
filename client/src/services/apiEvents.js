@@ -102,3 +102,24 @@ export async function createEventDay({ eventId, newEventDay }) {
   if (error) return new Error(error.message);
   return data.data;
 }
+
+export async function deleteEventDay({ eventId, dayId }) {
+  const { data, error } = await axios.delete(
+    `http://localhost:3000/api/v1/events/eventDays/${eventId}/day/${dayId}`,
+    { withCredentials: true }
+  );
+
+  if (error) return new Error(error.message);
+  return data.data;
+}
+
+export async function editEventDay({ eventId, dayId, newEventDayData }) {
+  const { data, error } = await axios.patch(
+    `http://localhost:3000/api/v1/events/eventDays/${eventId}/day/${dayId}`,
+    newEventDayData,
+    { withCredentials: true }
+  );
+
+  if (error) return new Error(error.message);
+  return data.data;
+}

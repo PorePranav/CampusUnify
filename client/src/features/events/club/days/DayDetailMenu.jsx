@@ -1,22 +1,22 @@
-import { HiEye, HiTrash } from 'react-icons/hi2';
+import { HiTrash, HiPencil } from 'react-icons/hi2';
 import Modal from '../../../../ui/Modal';
 import Menus from '../../../../ui/Menus';
-import useDeleteEventBooking from '../../useDeleteEventBooking';
+import useDeleteEventDay from '../../useDeleteEventDay';
 import ConfirmDelete from '../../../../ui/ConfirmDelete';
-import BookingDetailModal from './BookingDetailModal';
+import EditDayForm from './EditDayForm';
 
-export default function BookingDetailMenu({ booking, event }) {
-  const { deleteEventBooking } = useDeleteEventBooking();
+export default function DayDetailMenu({ day, event }) {
+  const { deleteEventDay } = useDeleteEventDay();
 
   return (
     <Menus>
       <Modal>
         <Menus.Menu>
-          <Menus.Toggle id={booking._id} />
-          <Menus.List id={booking._id}>
+          <Menus.Toggle id={day._id} />
+          <Menus.List id={day._id}>
             <Modal.Open opens="details">
-              <Menus.Button icon={<HiEye className="fill-primary-orange" />}>
-                See Details
+              <Menus.Button icon={<HiPencil className="fill-primary-orange" />}>
+                Edit Day
               </Menus.Button>
             </Modal.Open>
             <Modal.Open opens="delete">
@@ -27,13 +27,13 @@ export default function BookingDetailMenu({ booking, event }) {
           </Menus.List>
         </Menus.Menu>
         <Modal.Window name="details">
-          <BookingDetailModal booking={booking} />
+          <EditDayForm event={event} day={day} />
         </Modal.Window>
         <Modal.Window name="delete">
           <ConfirmDelete
-            resourceName="booking"
+            resourceName="day"
             onDeleteHandler={() =>
-              deleteEventBooking({ eventId: event._id, bookingId: booking._id })
+              deleteEventDay({ eventId: event._id, dayId: day._id })
             }
           />
         </Modal.Window>

@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 export async function login({ email, password }) {
   const { data, error } = await axios.post(
-    "http://localhost:3000/api/v1/users/login",
+    'http://localhost:3000/api/v1/users/login',
     { email, password },
-    { withCredentials: true },
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);
@@ -13,9 +13,9 @@ export async function login({ email, password }) {
 
 export async function signup({ name, email, password, passwordConfirm }) {
   const { data, error } = await axios.post(
-    "http://localhost:3000/api/v1/users/signup",
+    'http://localhost:3000/api/v1/users/signup',
     { name, email, password, passwordConfirm },
-    { withCredentials: true },
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);
@@ -24,9 +24,9 @@ export async function signup({ name, email, password, passwordConfirm }) {
 
 export async function updateUser(updatedData) {
   const { data, error } = await axios.patch(
-    "http://localhost:3000/api/v1/users/updateMe",
+    'http://localhost:3000/api/v1/users/updateMe',
     updatedData,
-    { withCredentials: true },
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);
@@ -35,8 +35,8 @@ export async function updateUser(updatedData) {
 
 export async function deleteUser() {
   const { data, error } = await axios.delete(
-    "http://localhost:3000/api/v1/users/deleteMe",
-    { withCredentials: true },
+    'http://localhost:3000/api/v1/users/deleteMe',
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);
@@ -45,8 +45,8 @@ export async function deleteUser() {
 
 export async function logout() {
   const { data, error } = await axios.get(
-    "http://localhost:3000/api/v1/users/logout",
-    { withCredentials: true },
+    'http://localhost:3000/api/v1/users/logout',
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);
@@ -55,8 +55,8 @@ export async function logout() {
 
 export async function getCurrentUser() {
   const { data, error } = await axios.get(
-    "http://localhost:3000/api/v1/users/me",
-    { withCredentials: true },
+    'http://localhost:3000/api/v1/users/me',
+    { withCredentials: true }
   );
 
   if (error) return new Error(error.message);

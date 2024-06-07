@@ -227,7 +227,7 @@ export default function EditEventForm({ event, onCloseModal }) {
           disabled={isUploading || isEditing}
           className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold"
         >
-          Add Event
+          Edit Event
         </button>
       </div>
     </form>

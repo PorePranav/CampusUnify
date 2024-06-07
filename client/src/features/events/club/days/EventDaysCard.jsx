@@ -1,6 +1,7 @@
 import SpinnerMini from '../../../../ui/SpinnerMini';
 import { useEventDays } from '../../useEventDays';
 import AddEventDay from './AddEventDay';
+import DayDetailMenu from './DayDetailMenu';
 
 export default function EventDaysCard({ event }) {
   const { isLoading, eventDays } = useEventDays(event._id);
@@ -28,7 +29,7 @@ export default function EventDaysCard({ event }) {
             <p>{new Date(eventDay.date).toLocaleDateString()}</p>
             <p>{eventDay.description}</p>
             <p>{eventDay.venue}</p>
-            <p>Options</p>
+            <DayDetailMenu event={event} day={eventDay} />
           </div>
         ))
       )}

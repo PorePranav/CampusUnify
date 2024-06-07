@@ -189,7 +189,10 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
     );
   }
 
-  const updationDay = fetchedEvent.days.id(req.params.dayId);
+  const updationDay = fetchedEvent.days.find(
+    (day) => day._id.toString() === req.params.dayId
+  );
+
   if (!updationDay) {
     return next(
       new AppError(`There is no event day with the id ${req.params.dayId}`)

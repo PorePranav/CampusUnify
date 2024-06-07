@@ -7,8 +7,7 @@ import {
 } from 'react-icons/hi2';
 import { formatDateTime, formatCurrency } from '../../../../utils/helpers';
 
-export default function BookingDetailModal({ booking }) {
-  console.log(booking);
+export default function BookingDetailModal({ onCloseModal, booking }) {
   return (
     <>
       <div className="flex flex-col gap-2 mt-4 w-[30rem]">
@@ -63,6 +62,17 @@ export default function BookingDetailModal({ booking }) {
           </div>
           <p>{formatDateTime(booking.paymentId.paymentTime)}</p>
         </div>
+      </div>
+      <div className="flex justify-end gap-4 mt-4">
+        <button
+          className="bg-red-700 text-white w-40 px-2 py-1 rounded-md font-semibold"
+          onClick={() => onCloseModal?.()}
+        >
+          Exit
+        </button>
+        <button className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold">
+          Cancel & Refund
+        </button>
       </div>
     </>
   );

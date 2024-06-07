@@ -1,4 +1,4 @@
-import { useCreateEventDay } from '../../useCreateEventDay';
+import { useEditEventDay } from '../../useEditEventDay';
 import {
   HiCube,
   HiCalendarDays,
@@ -7,10 +7,10 @@ import {
 } from 'react-icons/hi2';
 import { useState } from 'react';
 
-export default function CreateEventDayForm({ onCloseModal, event }) {
+export default function EditDayForm({ event, day, onCloseModal }) {
   const [formData, setFormData] = useState({});
 
-  const { createEventDay, isCreating } = useCreateEventDay();
+  const { editEventDay, isEditing } = useEditEventDay();
 
   function handleChange(e) {
     setFormData((prevData) => ({ ...prevData, [e.target.id]: e.target.value }));
@@ -18,7 +18,11 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    createEventDay({ eventId: event._id, newEventDay: formData });
+    editEventDay({
+      eventId: event._id,
+      dayId: day._id,
+      newEventDayData: formData,
+    });
     onCloseModal?.();
   }
 
@@ -36,6 +40,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
           id="serialNumber"
           required
           onChange={handleChange}
+          defaultValue={day.serialNumber}
           type="text"
           placeholder="Event Day"
           className="border border-slate-400 p-2 rounded-md"
@@ -50,6 +55,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
           id="date"
           required
           onChange={handleChange}
+          defaultValue={new Date(day.date).toLocaleDateString()}
           type="date"
           className="border border-slate-400 p-2 rounded-md"
         />
@@ -63,6 +69,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
           id="venue"
           required
           onChange={handleChange}
+          defaultValue={day.venue}
           type="text"
           placeholder="Event Venue"
           className="border border-slate-400 p-2 rounded-md"
@@ -77,6 +84,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
           id="description"
           required
           onChange={handleChange}
+          defaultValue={day.description}
           type="text"
           placeholder="Event Description"
           className="border border-slate-400 p-2 rounded-md"
@@ -85,16 +93,16 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
       <div className="flex justify-end gap-4 mt-4">
         <button
           className="bg-red-700 text-white w-40 px-2 py-1 rounded-md font-semibold"
-          disabled={isCreating}
+          disabled={isEditing}
           onClick={() => onCloseModal?.()}
         >
           Exit
         </button>
         <button
-          disabled={isCreating}
+          disabled={isEditing}
           className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold"
         >
-          Add Event Day
+          Edit Event Day
         </button>
       </div>
     </form>
