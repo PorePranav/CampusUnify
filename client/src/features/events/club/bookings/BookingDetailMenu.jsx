@@ -19,24 +19,24 @@ export default function BookingDetailMenu({ booking, event }) {
                 See Details
               </Menus.Button>
             </Modal.Open>
-            <Modal.Open opens="delete">
+            {/* <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash className="fill-primary-orange" />}>
                 Delete
               </Menus.Button>
-            </Modal.Open>
+            </Modal.Open> */}
           </Menus.List>
         </Menus.Menu>
         <Modal.Window name="details">
           <BookingDetailModal booking={booking} />
         </Modal.Window>
-        <Modal.Window name="delete">
+        {/* <Modal.Window name="delete">
           <ConfirmDelete
             resourceName="booking"
             onDeleteHandler={() =>
               deleteEventBooking({ eventId: event._id, bookingId: booking._id })
             }
           />
-        </Modal.Window>
+        </Modal.Window> */}
       </Modal>
     </Menus>
   );

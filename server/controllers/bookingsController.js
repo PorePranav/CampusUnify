@@ -3,6 +3,8 @@ const AppError = require('./../utils/appError');
 const Bookings = require('./../models/bookingsModel');
 const Event = require('./../models/eventModel');
 const Order = require('./../models/orderModel');
+const Registrations = require('./../models/registrationModel');
+const mongoose = require('mongoose');
 
 exports.addBooking = catchAsync(async (req, res, next) => {
   const fetchedOrder = await Order.findById(req.payment.orderId);
@@ -16,6 +18,12 @@ exports.addBooking = catchAsync(async (req, res, next) => {
     };
     fetchedBookings.registeredUsers.push(newRegisteredUser);
     await fetchedBookings.save();
+
+    await Registrations.create({
+      userId: req.payment.userId,
+      eventId,
+      paymentId: req.payment._id,
+    });
   }
 
   res.status(200).json({
@@ -46,6 +54,18 @@ exports.getEventBookings = catchAsync(async (req, res, next) => {
     status: 'success',
     results: fetchedBookings.registeredUsers.length,
     data: { registeredUsers: fetchedBookings.registeredUsers },
+  });
+});
+
+exports.getUserRegistrations = catchAsync(async (req, res, next) => {
+  const userRegistrations = await Registrations.find({
+    userId: req.user.id,
+  }).populate('eventId paymentId');
+
+  res.status(200).json({
+    status: 'success',
+    results: userRegistrations.length,
+    data: userRegistrations,
   });
 });
 

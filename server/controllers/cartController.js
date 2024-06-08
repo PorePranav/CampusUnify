@@ -5,7 +5,8 @@ const Event = require('./../models/eventModel');
 const Bookings = require('./../models/bookingsModel');
 
 exports.getCart = catchAsync(async (req, res, next) => {
-  const fetchedCart = (await Cart.findOne({ userId: req.user.id })) || {};
+  const fetchedCart =
+    (await Cart.findOne({ userId: req.user.id }).populate('eventIds')) || {};
 
   res.status(200).json({
     status: 'success',

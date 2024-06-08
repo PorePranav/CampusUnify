@@ -4,6 +4,12 @@ const bookingsController = require('./../controllers/bookingsController');
 const router = express.Router();
 
 router.use(authController.protect);
+router.get(
+  '/',
+  authController.restrictTo('user'),
+  bookingsController.getUserRegistrations
+);
+
 router.use(authController.restrictTo('club'));
 
 router.get('/:eventId', bookingsController.getEventBookings);

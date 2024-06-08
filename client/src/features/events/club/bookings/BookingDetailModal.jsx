@@ -70,9 +70,9 @@ export default function BookingDetailModal({ onCloseModal, booking }) {
         >
           Exit
         </button>
-        <button className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold">
+        {/* <button className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold">
           Cancel & Refund
-        </button>
+        </button> */}
       </div>
     </>
   );
