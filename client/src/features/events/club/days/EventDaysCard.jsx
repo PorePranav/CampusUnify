@@ -1,10 +1,12 @@
 import SpinnerMini from '../../../../ui/SpinnerMini';
+import { useUser } from '../../../authentication/useUser';
 import { useEventDays } from '../../useEventDays';
 import AddEventDay from './AddEventDay';
 import DayDetailMenu from './DayDetailMenu';
 
 export default function EventDaysCard({ event }) {
   const { isLoading, eventDays } = useEventDays(event._id);
+  const { user } = useUser();
 
   return (
     <div className="mt-4">
@@ -15,7 +17,7 @@ export default function EventDaysCard({ event }) {
         <p>Date</p>
         <p>Description</p>
         <p>Venue</p>
-        <p>Options</p>
+        {user.role === 'club' && <p>Options</p>}
       </div>
       {isLoading ? (
         <SpinnerMini />
@@ -29,7 +31,9 @@ export default function EventDaysCard({ event }) {
             <p>{new Date(eventDay.date).toLocaleDateString()}</p>
             <p>{eventDay.description}</p>
             <p>{eventDay.venue}</p>
-            <DayDetailMenu event={event} day={eventDay} />
+            {user.role === 'club' && (
+              <DayDetailMenu event={event} day={eventDay} />
+            )}
           </div>
         ))
       )}

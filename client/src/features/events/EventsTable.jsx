@@ -1,10 +1,13 @@
-import Spinner from "./../../ui/Spinner";
-import { useEvents } from "./useEvents";
+import EventClubCard from './EventCard';
 
-export default function EventsTable() {
-  const { events = [], isLoading } = useEvents();
-
-  if (isLoading) return <Spinner />;
-
-  return <div>Events Table</div>;
+export default function EventsTable({ events }) {
+  return (
+    <div>
+      <div className="grid grid-cols-4 mt-4 gap-4">
+        {events.map((event) => (
+          <EventClubCard key={event._id} event={event} />
+        ))}
+      </div>
+    </div>
+  );
 }

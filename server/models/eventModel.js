@@ -77,6 +77,11 @@ const eventSchema = new mongoose.Schema(
       ref: 'User',
       required: [true, 'An event must belong to a club'],
     },
+    isAcceptingRegistrations: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
   },
   {
     toJSON: { virtuals: true },

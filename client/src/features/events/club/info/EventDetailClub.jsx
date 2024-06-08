@@ -25,11 +25,7 @@ export default function EventDetailClub() {
           Go Back
         </div>
       </button>
-      {/* <img
-        className="w-full h-128 rounded-lg mt-4"
-        src={event.coverImage}
-        alt={`Cover image for ${event.name}`}
-      /> */}
+
       <div className="mt-4">
         <div className="flex gap-4 mt-4">
           <button

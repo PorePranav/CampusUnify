@@ -16,6 +16,9 @@ import Signup from './features/authentication/Signup';
 import Event from './pages/Event';
 import ForgotPassword from './features/authentication/ForgotPassword';
 import PageNotFound from './ui/PageNotFound';
+import ProtectedRouteUser from './ui/ProtectedRouteUser';
+import Cart from './pages/Cart';
+import MyRegistrations from './pages/MyRegistrations';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,14 +37,18 @@ export default function App() {
           <Header />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="events" element={<Events />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<Event />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route element={<ProtectedRouteUser />}>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/registration" element={<MyRegistrations />} />
+              </Route>
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>

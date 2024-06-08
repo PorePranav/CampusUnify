@@ -1,12 +1,11 @@
 import { useEvents } from '../useEvents.js';
 import { useState } from 'react';
 
-import EventsClubTable from '../EventsTable.jsx';
+import EventsTable from '../EventsTable.jsx';
 import Spinner from '../../../ui/Spinner.jsx';
 import SearchFilter from '../../../ui/SearchFilter.jsx';
-import AddEvent from './AddEvent.jsx';
 
-export default function EventsClub() {
+export default function EventsUser() {
   const { events = [], isLoading } = useEvents();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterQuery, setFilterQuery] = useState('all');
@@ -45,11 +44,10 @@ export default function EventsClub() {
           />
         </div>
         <div>
-          <AddEvent />
           {filteredEvents.length === 0 ? (
             <p className="text-xl mt-4">No Events Found</p>
           ) : (
-            <EventsClubTable events={filteredEvents} />
+            <EventsTable events={filteredEvents} />
           )}
         </div>
       </div>

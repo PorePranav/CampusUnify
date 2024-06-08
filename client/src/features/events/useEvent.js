@@ -10,7 +10,7 @@ export function useEvent() {
     data: event,
     error,
   } = useQuery({
-    queryKey: ['event', eventId],
+    queryKey: ['event'],
     queryFn: () => getEvent(eventId),
   });
 

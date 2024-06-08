@@ -1,13 +1,18 @@
 import { formatCurrency, formatDate } from '../../utils/helpers';
 import { useUser } from '../authentication/useUser';
 import EventDetailMenu from './club/info/EventDetailMenu';
+import { useNavigate } from 'react-router-dom';
 import { HiBanknotes, HiCalendarDays, HiCube } from 'react-icons/hi2';
 
-export default function EventClubCard({ event }) {
+export default function EventCard({ event }) {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   return (
-    <div className="bg-white p-3 rounded-md shadow-md">
+    <div
+      className="bg-white p-3 rounded-md shadow-md hover:cursor-pointer"
+      onClick={() => navigate(`/events/${event._id}`)}
+    >
       <img
         src={event.cardImage}
         alt={`cardImage for ${event.name} event`}

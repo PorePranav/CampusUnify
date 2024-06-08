@@ -10,7 +10,7 @@ export function useEditEvent() {
       editEventApi({ eventId, newEventData }),
     onSuccess: () => {
       toast.success('Event edited successfully!');
-      queryClient.invalidateQueries({ queryKey: ['events'] });
+      queryClient.invalidateQueries({ queryKey: ['events', 'event'] });
     },
     onError: () => toast.error('There was an error editing the event'),
   });
