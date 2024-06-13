@@ -158,7 +158,11 @@ exports.getAllEventDays = catchAsync(async (req, res, next) => {
 });
 
 exports.createEventDay = catchAsync(async (req, res, next) => {
+  if (new Date(req.body.date) < new Date())
+    return next(new AppError('Cannot create an event day in the past', 403));
+
   const fetchedEvent = await Event.findById(req.params.eventId);
+
   if (!fetchedEvent) {
     return next(
       new AppError(`No event with the given ${req.params.eventId} exists`, 404)

@@ -5,11 +5,11 @@ export function useEventBookings(eventId) {
   const {
     isLoading,
     data: eventBookings,
-    error,
+    isError,
   } = useQuery({
     queryKey: ['eventBookings', eventId],
     queryFn: () => getEventBookings(eventId),
   });
 
-  return { isLoading, error, eventBookings };
+  return { isLoading, isError, eventBookings };
 }

@@ -29,6 +29,8 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  // console.log(import.meta.env.VITE_APP_BACKEND_URL);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
