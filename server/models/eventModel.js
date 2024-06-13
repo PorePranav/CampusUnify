@@ -4,7 +4,6 @@ const daySchema = new mongoose.Schema({
   serialNumber: {
     type: Number,
     required: [true, 'A day must have a serialNumber'],
-    unique: [true, 'Day serial numbers must be unique'],
   },
   date: {
     type: Date,

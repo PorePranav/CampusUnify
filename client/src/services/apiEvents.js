@@ -26,6 +26,7 @@ export async function createEvent(newEvent) {
     newEvent,
     { withCredentials: true }
   );
+  console.log(error);
 
   if (error) return new Error(error.message);
   return data.data;

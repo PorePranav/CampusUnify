@@ -1,9 +1,38 @@
 import { useRegistrations } from '../features/registrations/useRegistrations';
 import Spinner from '../ui/Spinner';
 import { formatCurrency } from '../utils/helpers';
+import axios from 'axios';
 
 export default function MyRegistrations() {
   const { isLoading, error, registrations } = useRegistrations();
+
+  function handleDownloadTicket(registrationId) {
+    axios
+      .get(
+        `http://localhost:3000/api/v1/bookings/generateTicket/${registrationId}`,
+        {
+          responseType: 'blob',
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+
+        const filename = 'ticket.pdf';
+        link.setAttribute('download', filename);
+
+        document.body.appendChild(link);
+
+        link.click();
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error('Error downloading the ticket:', error);
+      });
+  }
 
   return (
     <>
@@ -53,7 +82,10 @@ export default function MyRegistrations() {
                         Status: {currentStatus.toUpperCase()}
                       </p>
                     </div>
-                    <button className="mt-4 bg-primary-orange font-semibold text-white py-2 px-4 rounded-md self-start">
+                    <button
+                      className="mt-4 bg-primary-orange font-semibold text-white py-2 px-4 rounded-md self-start"
+                      onClick={() => handleDownloadTicket(registration._id)}
+                    >
                       Download Ticket
                     </button>
                   </div>

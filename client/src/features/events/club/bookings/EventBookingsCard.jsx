@@ -26,7 +26,7 @@ export default function EventBookingsCard({ event }) {
       ) : (
         eventBookings.registeredUsers.map((registration) => (
           <div
-            className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_4rem] p-2 border-l border-r border-b items-center mb-12"
+            className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_4rem] p-2 border-l border-r border-b items-center"
             key={registration._id}
           >
             <p>{registration.userId.name}</p>
@@ -36,11 +36,7 @@ export default function EventBookingsCard({ event }) {
               {formatCurrency(registration.paymentId.totalAmount)}
             </p>
             <p>{formatDateTime(registration.paymentId.paymentTime)}</p>
-            <BookingDetailMenu
-              className=""
-              booking={registration}
-              event={event}
-            />
+            <BookingDetailMenu booking={registration} event={event} />
           </div>
         ))
       )}

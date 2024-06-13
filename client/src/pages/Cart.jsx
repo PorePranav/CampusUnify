@@ -1,5 +1,6 @@
 import { useCart } from '../features/cart/useCart';
 import { HiTrash } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
 import Spinner from '../ui/Spinner';
 import { formatCurrency } from '../utils/helpers';
 import { useDeleteCartItem } from '../features/cart/useDeleteCartItem';
@@ -72,7 +73,13 @@ export default function Cart() {
               ))}
             </>
           ) : (
-            <h2 className="text">There are no items present your cart!</h2>
+            <h2 className="mt-2">
+              There are no items present your cart!
+              <Link to="/events" className="text-blue-500 hover:text-blue-700">
+                {' '}
+                Add new items to your car &rarr;
+              </Link>
+            </h2>
           )}
         </div>
       )}

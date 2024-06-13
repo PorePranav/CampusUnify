@@ -1,9 +1,11 @@
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
 const Bookings = require('./../models/bookingsModel');
 const Event = require('./../models/eventModel');
 const Order = require('./../models/orderModel');
 const Registrations = require('./../models/registrationModel');
+const User = require('./../models/userModel');
+
+const catchAsync = require('./../utils/catchAsync');
+const AppError = require('./../utils/appError');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
@@ -29,10 +31,9 @@ exports.addBooking = catchAsync(async (req, res, next) => {
     });
   }
 
-  res.status(200).json({
-    status: 'success',
-    data: eventIds,
-  });
+  req.user = await User.findById(req.payment.userId);
+
+  next();
 });
 
 exports.getEventBookings = catchAsync(async (req, res, next) => {

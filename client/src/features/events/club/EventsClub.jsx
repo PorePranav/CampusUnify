@@ -47,7 +47,7 @@ export default function EventsClub() {
         <div>
           <AddEvent />
           {filteredEvents.length === 0 ? (
-            <p className="text-xl mt-4">No Events Found</p>
+            <p className="text-xl mt-4">There are no events currently listed</p>
           ) : (
             <EventsClubTable events={filteredEvents} />
           )}

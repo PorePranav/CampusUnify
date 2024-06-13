@@ -11,7 +11,7 @@ export function useSignup() {
       signupApi({ name, email, password, passwordConfirm }),
     onSuccess: (user) => {
       queryClient.setQueryData(['user'], user);
-      navigate('/dashboard');
+      navigate('/events');
       toast.success('Account created successfully');
     },
     onError: (err) => {

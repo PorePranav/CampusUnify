@@ -51,6 +51,11 @@ exports.getSingleEvent = catchAsync(async (req, res, next) => {
 
 exports.createEvent = catchAsync(async (req, res, next) => {
   const eventData = req.body;
+  if (new Date(eventData.date) < new Date())
+    return next(
+      new AppError('Cannot create an event for a day in the past', 403)
+    );
+
   eventData.clubId = req.user.id;
 
   const newEvent = await Event.create(eventData);
@@ -209,6 +214,7 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteEventDay = catchAsync(async (req, res, next) => {
+  console.log('inDeleteEventDay');
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
