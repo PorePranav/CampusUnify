@@ -10,6 +10,12 @@ router.get(
   bookingsController.getUserRegistrations
 );
 
+router.get(
+  '/generateTicket/:id',
+  authController.restrictTo('user'),
+  bookingsController.generateTicket
+);
+
 router.use(authController.restrictTo('club'));
 
 router.get('/:eventId', bookingsController.getEventBookings);

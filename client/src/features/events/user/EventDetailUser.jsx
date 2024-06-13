@@ -7,11 +7,13 @@ import { HiArrowLeft } from 'react-icons/hi2';
 
 import { useEvent } from '../useEvent';
 import { useState } from 'react';
+import { useAddCartItem } from '../../cart/useAddCartItem';
 
 export default function EventDetailUser() {
   const moveBack = useMoveBack();
   const { isLoading, event } = useEvent();
   const [activeTab, setActiveTab] = useState('info');
+  const { addToCart, isCreating } = useAddCartItem();
 
   if (isLoading) return <Spinner />;
   if (!isLoading && !event) return <PageNotFound />;
@@ -47,6 +49,15 @@ export default function EventDetailUser() {
             onClick={() => setActiveTab('days')}
           >
             Event Days
+          </button>
+          <button
+            onClick={() => addToCart(event._id)}
+            className="px-4 py-2 bg-[#dadada] font-bold rounded-md hover:bg-primary-orange hover:text-white"
+            disabled={
+              event.isFull || !event.isAcceptingRegistrations || isCreating
+            }
+          >
+            Add To Cart
           </button>
         </div>
         {activeTab === 'info' && <EventInformationCard event={event} />}

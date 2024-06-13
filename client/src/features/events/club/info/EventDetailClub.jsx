@@ -8,8 +8,10 @@ import { HiArrowLeft } from 'react-icons/hi2';
 
 import { useEvent } from '../../useEvent';
 import { useState } from 'react';
+import { useUser } from '../../../authentication/useUser';
 
 export default function EventDetailClub() {
+  const { user } = useUser();
   const moveBack = useMoveBack();
   const { isLoading, error, event } = useEvent();
   const [activeTab, setActiveTab] = useState('info');
