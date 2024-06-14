@@ -1,10 +1,9 @@
-import axios from 'axios';
+import api from './api';
 
 export async function initiatePayment() {
-  const { data, error } = await axios.get(
-    'http://localhost:3000/api/v1/payments/createOrder',
-    { withCredentials: true }
-  );
+  const { data, error } = await api.get('/payments/createOrder', {
+    withCredentials: true,
+  });
 
   if (error) return new Error(error.message);
   return data.data;

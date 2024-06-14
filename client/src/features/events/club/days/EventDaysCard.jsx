@@ -14,7 +14,7 @@ export default function EventDaysCard({ event }) {
     <>
       <div className="mt-4">
         <p className="text-2xl mt-4">Event Days</p>
-        <AddEventDay event={event} />
+        {user.role === 'club' && <AddEventDay event={event} />}
         {eventDays.length === 0 ? (
           <p className="mt-4">No Event Days Added!</p>
         ) : (

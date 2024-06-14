@@ -15,7 +15,7 @@ export function useSignup() {
       toast.success('Account created successfully');
     },
     onError: (err) => {
-      toast.error('There was an error creating your account');
+      toast.error(err.response.data.message);
     },
   });
 

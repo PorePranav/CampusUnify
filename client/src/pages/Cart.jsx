@@ -18,7 +18,7 @@ export default function Cart() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-[80%] my-6 mx-auto p-4 bg-gray-100">
+        <div className="w-[80%] my-6 mx-auto">
           <p className="text-2xl">My Cart</p>
           {cart.eventIds.length > 0 ? (
             <>

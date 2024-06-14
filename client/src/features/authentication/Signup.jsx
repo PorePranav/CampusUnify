@@ -21,24 +21,12 @@ export default function Signup() {
       !formData.passwordConfirm
     )
       return;
-    signup(
-      {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        passwordConfirm: formData.passwordConfirm,
-      },
-      {
-        onSettled: () => {
-          setFormData({
-            name: '',
-            email: '',
-            password: '',
-            passwordConfirm: '',
-          });
-        },
-      }
-    );
+    signup({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+    });
   }
 
   function handleChange(e) {
@@ -81,8 +69,9 @@ export default function Signup() {
         <button
           disabled={isLoading}
           className="bg-primary-orange font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          onClick={(e) => handleSubmit(e)}
         >
-          Sign In
+          Sign Up
         </button>
       </form>
       <div className="flex gap-8 mt-5 justify-between text-sm">

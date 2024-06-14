@@ -1,10 +1,7 @@
-import axios from 'axios';
+import api from './api';
 
 export async function getRegistrations() {
-  const { data, error } = await axios.get(
-    'http://localhost:3000/api/v1/bookings',
-    { withCredentials: true }
-  );
+  const { data, error } = await api.get('/bookings', { withCredentials: true });
 
   if (error) return new Error(error.message);
   return data.data;
