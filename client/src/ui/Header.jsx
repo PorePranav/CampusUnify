@@ -52,12 +52,15 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-[#f6f6f6] w-[80%] mx-auto">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
+      <div className="flex justify-between items-center mx-auto p-3">
         <Link to={user ? '/events' : '/'}>
-          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-            <span className="text-[#cf711f]">Campus</span>
-            <span className="text-[#eb984e]">Unify</span>
-          </h1>
+          <div className="flex gap-4 items-center">
+            <img src="logo.png" className="h-16 w-16" alt="" />
+            <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+              <span className="text-[#cf711f]">Campus</span>
+              <span className="text-[#eb984e]">Unify</span>
+            </h1>
+          </div>
         </Link>
         <ul className="flex gap-4 items-center">
           {user ? renderClubLinks() : renderGuestLinks()}
