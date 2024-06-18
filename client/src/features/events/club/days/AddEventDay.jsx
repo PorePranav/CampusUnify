@@ -6,7 +6,7 @@ export default function AddEventDay({ event }) {
     <div className="mt-4">
       <Modal>
         <Modal.Open opens="event-day-form">
-          <button className="py-2 px-4 bg-primary-orange text-white font-semibold rounded-md">
+          <button className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md">
             Add Event Day
           </button>
         </Modal.Open>

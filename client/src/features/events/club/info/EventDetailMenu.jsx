@@ -16,13 +16,13 @@ export default function EventDetailMenu({ event }) {
           <Menus.Toggle id={event._id} />
           <Menus.List id={event._id}>
             <Menus.Button
-              icon={<HiEye className="fill-primary-orange" />}
+              icon={<HiEye className="fill-primary-600" />}
               onClick={() => navigate(`/events/${event._id}`)}
             >
               See Details
             </Menus.Button>
             <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash className="fill-primary-orange" />}>
+              <Menus.Button icon={<HiTrash className="fill-primary-600" />}>
                 Delete
               </Menus.Button>
             </Modal.Open>

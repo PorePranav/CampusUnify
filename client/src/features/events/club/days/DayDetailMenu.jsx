@@ -15,12 +15,12 @@ export default function DayDetailMenu({ day, event }) {
           <Menus.Toggle id={day._id} />
           <Menus.List id={day._id}>
             <Modal.Open opens="details">
-              <Menus.Button icon={<HiPencil className="fill-primary-orange" />}>
+              <Menus.Button icon={<HiPencil className="fill-primary-600" />}>
                 Edit Day
               </Menus.Button>
             </Modal.Open>
             <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash className="fill-primary-orange" />}>
+              <Menus.Button icon={<HiTrash className="fill-primary-600" />}>
                 Delete
               </Menus.Button>
             </Modal.Open>

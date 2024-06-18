@@ -86,7 +86,7 @@ export default function MyRegistrations() {
                         </p>
                       </div>
                       <button
-                        className="mt-4 bg-primary-orange font-semibold text-white py-2 px-4 rounded-md self-start"
+                        className="mt-4 bg-primary-600 font-semibold text-white py-2 px-4 rounded-md self-start"
                         onClick={() => handleDownloadTicket(registration._id)}
                       >
                         Download Ticket

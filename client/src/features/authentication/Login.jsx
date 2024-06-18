@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from './useLogin';
-import Logo from '../../ui/Logo';
 import { useUser } from './useUser';
-import { useNavigate } from 'react-router-dom';
+import Logo from '../../ui/Logo';
 
 export default function Login() {
   const { user } = useUser();
@@ -16,48 +15,61 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!formData.email || !formData.password) return;
-    login({ email: formData.email, password: formData.password });
+    login(formData);
   }
 
   function handleChange(e) {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   }
 
   return (
-    <div className="flex flex-col w-96 mx-auto items-center bg-secondary-orange p-8 rounded-lg shadow-md">
+    <div className="flex flex-col w-96 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
       <Logo />
-      <h1 className="mt-4 font-semibold">Sign In To Your Account</h1>
-      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+      <h1 className="mt-4 text-4xl font-bold">CampusUnify</h1>
+      <p className="mt-2 font-semibold">Sign In To Your Account</p>
+
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="mt-4 flex flex-col gap-4"
+      >
         <input
           type="email"
           placeholder="Email"
           id="email"
-          className="border p-3 rounded-lg"
+          required
+          className="border p-3 rounded-lg placeholder-primary-900"
           onChange={handleChange}
+          value={formData.email}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="border p-3 rounded-lg"
+          required
+          className="border p-3 rounded-lg placeholder-primary-900"
           onChange={handleChange}
+          value={formData.password}
         />
+        <Link
+          to="/forgot-password"
+          className="text-sm underline text-primary-900"
+        >
+          Forgot Password?
+        </Link>
         <button
+          type="submit"
           disabled={isLoading}
-          className="bg-primary-orange font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          onClick={(e) => handleSubmit(e)}
         >
           Sign In
         </button>
       </form>
-      <div className="flex gap-8 mt-5 justify-between text-sm">
-        <Link to="/signup">
-          <span className="text-blue-700">Don't have an account?</span>
-        </Link>
-        <Link to="/forgot-password">
-          <span className="text-blue-700">Forgot password?</span>
-        </Link>
-      </div>
+
+      <Link to="/signup" className="mt-4 text-primary-900 underline text-sm">
+        Don't have an account?
+      </Link>
     </div>
   );
 }

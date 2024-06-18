@@ -28,7 +28,7 @@ function Toggle({ id }) {
       className="bg-none border-none p-2 rounded-sm transition-transform translate-x-2 hover:bg-gray-100"
       onClick={handleClick}
     >
-      <HiEllipsisVertical className="w-6 h-6 fill-primary-orange" />
+      <HiEllipsisVertical className="w-6 h-6 fill-primary-600" />
     </button>
   );
 }

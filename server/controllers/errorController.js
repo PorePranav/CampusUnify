@@ -35,8 +35,24 @@ const handleDuplicationErrorDB = (err) => {
 };
 
 const handleValidationErrorDB = (err) => {
-  const errors = Object.values(err.errors).map((el) => el.message);
-  const message = `Invalid input data. ${errors.join('. ')}`;
+  const errors = [];
+
+  let passwordMinLengthErrorHandled = false;
+
+  Object.values(err.errors).forEach((el) => {
+    if (el.kind === 'minlength' && el.path === 'password') {
+      errors.push(
+        `The password should be at least ${el.properties.minlength} characters long.`
+      );
+      passwordMinLengthErrorHandled = true;
+    } else if (el.path === 'passwordConfirm' && !passwordMinLengthErrorHandled)
+      errors.push('Passwords do not match.');
+    else if (el.kind === 'required')
+      errors.push(`The field ${el.path} is required.`);
+    else errors.push(el.message);
+  });
+
+  const message = `Invalid input data. ${errors.join(' ')}`;
   return new AppError(message, 400);
 };
 

@@ -96,7 +96,7 @@ export default function EditEventForm({ event, onCloseModal }) {
     >
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiCube className="h-6 w-6 fill-primary-orange" />
+          <HiCube className="h-6 w-6 fill-primary-600" />
           <label>Name</label>
         </div>
         <input
@@ -111,7 +111,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiCalendarDays className="h-6 w-6 fill-primary-orange" />
+          <HiCalendarDays className="h-6 w-6 fill-primary-600" />
           <label>Date</label>
         </div>
         <input
@@ -125,7 +125,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiBanknotes className="h-6 w-6 fill-primary-orange" />
+          <HiBanknotes className="h-6 w-6 fill-primary-600" />
           <label>Charges</label>
         </div>
         <input
@@ -140,7 +140,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiMiniBars3 className="h-6 w-6 fill-primary-orange" />
+          <HiMiniBars3 className="h-6 w-6 fill-primary-600" />
           <label>Category</label>
         </div>
         <select
@@ -161,7 +161,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiMiniUserGroup className="h-6 w-6 fill-primary-orange" />
+          <HiMiniUserGroup className="h-6 w-6 fill-primary-600" />
           <label>Maximum Capacity</label>
         </div>
         <input
@@ -176,7 +176,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiDocumentText className="h-6 w-6 fill-primary-orange" />
+          <HiDocumentText className="h-6 w-6 fill-primary-600" />
           <label>Event description</label>
         </div>
         <input
@@ -191,7 +191,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-orange" />
+          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-600" />
           <label>Card Image</label>
         </div>
         <input
@@ -204,7 +204,7 @@ export default function EditEventForm({ event, onCloseModal }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-orange" />
+          <HiArrowUpOnSquare className="h-6 w-6 fill-primary-600" />
           <label>Cover Image</label>
         </div>
         <input
@@ -225,7 +225,7 @@ export default function EditEventForm({ event, onCloseModal }) {
         </button>
         <button
           disabled={isUploading || isEditing}
-          className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold"
+          className="bg-primary-600 text-white w-40 px-2 py-1 rounded-md font-semibold"
         >
           Edit Event
         </button>

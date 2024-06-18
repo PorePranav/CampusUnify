@@ -21,15 +21,15 @@ export default function EventCard({ event }) {
       <div className="flex gap-2 mt-2">
         <div className="flex flex-col gap-1 text-sm">
           <div className="flex gap-4">
-            <HiCube className="h-6 w-6 fill-primary-orange" />
+            <HiCube className="h-6 w-6 fill-primary-600" />
             <p>{event.name}</p>
           </div>
           <div className="flex gap-4">
-            <HiCalendarDays className="h-6 w-6 fill-primary-orange" />
+            <HiCalendarDays className="h-6 w-6 fill-primary-600" />
             <p>{formatDate(event.date)}</p>
           </div>
           <div className="flex gap-4">
-            <HiBanknotes className="h-6 w-6 fill-primary-orange" />
+            <HiBanknotes className="h-6 w-6 fill-primary-600" />
             <p className="font-sono">{formatCurrency(event.eventCharges)}</p>
           </div>
         </div>

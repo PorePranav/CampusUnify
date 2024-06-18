@@ -29,7 +29,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
     >
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiCube className="h-6 w-6 fill-primary-orange" />
+          <HiCube className="h-6 w-6 fill-primary-600" />
           <label>Serial Number</label>
         </div>
         <input
@@ -43,7 +43,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiCalendarDays className="h-6 w-6 fill-primary-orange" />
+          <HiCalendarDays className="h-6 w-6 fill-primary-600" />
           <label>Date</label>
         </div>
         <input
@@ -56,7 +56,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiMapPin className="h-6 w-6 fill-primary-orange" />
+          <HiMapPin className="h-6 w-6 fill-primary-600" />
           <label>Venue</label>
         </div>
         <input
@@ -70,7 +70,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
       </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="flex gap-2 items-center">
-          <HiDocumentText className="h-6 w-6 fill-primary-orange" />
+          <HiDocumentText className="h-6 w-6 fill-primary-600" />
           <label>Event day description</label>
         </div>
         <input
@@ -92,7 +92,7 @@ export default function CreateEventDayForm({ onCloseModal, event }) {
         </button>
         <button
           disabled={isCreating}
-          className="bg-primary-orange text-white w-40 px-2 py-1 rounded-md font-semibold"
+          className="bg-primary-600 text-white w-40 px-2 py-1 rounded-md font-semibold"
         >
           Add Event Day
         </button>

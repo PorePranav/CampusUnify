@@ -22,7 +22,7 @@ export default function EventDetailClub() {
   return (
     <div className="w-[80%] mx-auto mt-6 pb-6">
       <button onClick={() => moveBack()}>
-        <div className="flex gap-2 items-center bg-primary-orange text-white font-semibold rounded-md px-2 py-1">
+        <div className="flex gap-2 items-center bg-primary-600 text-white font-semibold rounded-md px-2 py-1">
           <HiArrowLeft size={18} />
           Go Back
         </div>
@@ -31,9 +31,9 @@ export default function EventDetailClub() {
       <div className="mt-4">
         <div className="flex gap-4 mt-4">
           <button
-            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-orange hover:text-white ${
+            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-600 hover:text-white ${
               activeTab === 'info'
-                ? 'bg-primary-orange text-white'
+                ? 'bg-primary-600 text-white'
                 : 'bg-[#dadada]'
             }`}
             onClick={() => setActiveTab('info')}
@@ -41,9 +41,9 @@ export default function EventDetailClub() {
             Event Info
           </button>
           <button
-            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-orange hover:text-white ${
+            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-600 hover:text-white ${
               activeTab === 'days'
-                ? 'bg-primary-orange text-white'
+                ? 'bg-primary-600 text-white'
                 : 'bg-[#dadada]'
             }
             `}
@@ -52,10 +52,10 @@ export default function EventDetailClub() {
             Event Days
           </button>
           <button
-            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-orange hover:text-white
+            className={`px-4 py-2 font-bold rounded-md hover:bg-primary-600 hover:text-white
            ${
              activeTab === 'registrations'
-               ? 'bg-primary-orange text-white'
+               ? 'bg-primary-600 text-white'
                : 'bg-[#dadada]'
            } 
             `}

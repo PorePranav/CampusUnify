@@ -10,7 +10,7 @@ export default function PageNotFound() {
           The page you are looking for could not be found
         </h2>
         <button
-          className="bg-primary-orange text-white px-4 py-2 rounded-sm mt-4"
+          className="bg-primary-600 text-white px-4 py-2 rounded-sm mt-4"
           onClick={moveBack}
         >
           &larr; Go Back

@@ -13,7 +13,7 @@ export default function EventInformationCard({ event }) {
       {user.role === 'club' && (
         <Modal>
           <Modal.Open opens="edit-event-form">
-            <button className="bg-primary-orange px-4 py-2 text-white font-bold rounded-lg flex items-center">
+            <button className="bg-primary-600 px-4 py-2 text-white font-bold rounded-lg flex items-center">
               <HiPencil className="mr-1 h-4 w-4" /> Edit Event
             </button>
           </Modal.Open>

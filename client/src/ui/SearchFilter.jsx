@@ -49,7 +49,7 @@ export default function SearchFilter({
       </div>
       <button
         onClick={onReset}
-        className="mt-4 h-12 rounded-md shadow-sm p-2 bg-primary-orange text-white font-semibold"
+        className="mt-4 h-12 rounded-md shadow-sm p-2 bg-primary-600 text-white font-semibold"
       >
         Clear Filters
       </button>

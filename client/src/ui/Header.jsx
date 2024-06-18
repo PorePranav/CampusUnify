@@ -9,12 +9,12 @@ export default function Header() {
       return (
         <>
           <Link to="/registration">
-            <li className="hidden sm:inline hover:text-primary-orange font-bold">
+            <li className="hidden sm:inline hover:text-primary-600 font-bold">
               My Registrations
             </li>
           </Link>
           <Link to="/cart">
-            <li className="hidden sm:inline hover:text-primary-orange font-bold">
+            <li className="hidden sm:inline hover:text-primary-600 font-bold">
               My Cart
             </li>
           </Link>
@@ -27,7 +27,7 @@ export default function Header() {
   const renderClubLinks = () => (
     <>
       <Link to="/events">
-        <li className="hidden sm:inline hover:text-primary-orange font-bold">
+        <li className="hidden sm:inline hover:text-primary-600 font-bold">
           Events
         </li>
       </Link>
@@ -44,18 +44,18 @@ export default function Header() {
 
   const renderGuestLinks = () => (
     <Link to="/login">
-      <li className="hover:underline bg-primary-orange rounded-lg px-4 py-2 text-white font-bold">
+      <li className="hover:underline bg-primary-600 rounded-2xl px-4 py-2 text-white font-bold">
         Sign In
       </li>
     </Link>
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-[#f6f6f6] w-[80%] mx-auto">
+    <header className="bg-[#f6f6f6] w-[80%] mx-auto">
       <div className="flex justify-between items-center mx-auto p-3">
         <Link to={user ? '/events' : '/'}>
           <div className="flex gap-4 items-center">
-            <img src="logo.png" className="h-16 w-16" alt="" />
+            <img src="logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
               <span className="text-[#cf711f]">Campus</span>
               <span className="text-[#eb984e]">Unify</span>
