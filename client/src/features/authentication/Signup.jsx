@@ -9,15 +9,16 @@ export default function Signup() {
     email: '',
     password: '',
     passwordConfirm: '',
+    role: '',
   });
   const { signup, isLoading } = useSignup();
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
     signup({
       name: formData.name,
       email: formData.email,
+      role: formData.role,
       password: formData.password,
       passwordConfirm: formData.passwordConfirm,
     });

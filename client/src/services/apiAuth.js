@@ -11,10 +11,10 @@ export async function login({ email, password }) {
   return data.data;
 }
 
-export async function signup({ name, email, password, passwordConfirm }) {
+export async function signup({ name, email, role, password, passwordConfirm }) {
   const { data, error } = await api.post(
     `/users/signup`,
-    { name, email, password, passwordConfirm },
+    { name, email, role, password, passwordConfirm },
     { withCredentials: true }
   );
 
@@ -53,6 +53,13 @@ export async function getCurrentUser() {
   const { data, error } = await api.get(`/users/me`, {
     withCredentials: true,
   });
+
+  if (error) return new Error(error.message);
+  return data.data;
+}
+
+export async function forgotPassword(email) {
+  const { data, error } = await api.post(`/users/forgotPassword`, { email });
 
   if (error) return new Error(error.message);
   return data.data;

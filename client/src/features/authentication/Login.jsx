@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from './useLogin';
 import { useUser } from './useUser';
 import Logo from '../../ui/Logo';
+import PageLayout from '../../styles/PageLayout';
 
 export default function Login() {
   const { user } = useUser();
@@ -24,52 +25,54 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col w-96 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
-      <Logo />
-      <h1 className="mt-4 text-4xl font-bold">CampusUnify</h1>
-      <p className="mt-2 font-semibold">Sign In To Your Account</p>
+    <PageLayout>
+      <div className="flex flex-col w-96 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
+        <Logo />
+        <h1 className="mt-4 text-4xl font-bold">CampusUnify</h1>
+        <p className="mt-2 font-semibold">Sign In To Your Account</p>
 
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className="mt-4 flex flex-col gap-4"
-      >
-        <input
-          type="email"
-          placeholder="Email"
-          id="email"
-          required
-          className="border p-3 rounded-lg placeholder-primary-900"
-          onChange={handleChange}
-          value={formData.email}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          id="password"
-          required
-          className="border p-3 rounded-lg placeholder-primary-900"
-          onChange={handleChange}
-          value={formData.password}
-        />
-        <Link
-          to="/forgot-password"
-          className="text-sm underline text-primary-900"
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="mt-4 flex flex-col gap-4"
         >
-          Forgot Password?
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+            required
+            className="border p-3 rounded-lg placeholder-primary-900"
+            onChange={handleChange}
+            value={formData.email}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            required
+            className="border p-3 rounded-lg placeholder-primary-900"
+            onChange={handleChange}
+            value={formData.password}
+          />
+          <Link
+            to="/forgot-password"
+            className="text-sm underline text-primary-900"
+          >
+            Forgot Password?
+          </Link>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Sign In
+          </button>
+        </form>
+
+        <Link to="/signup" className="mt-4 text-primary-900 underline text-sm">
+          Don't have an account?
         </Link>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-          onClick={(e) => handleSubmit(e)}
-        >
-          Sign In
-        </button>
-      </form>
-
-      <Link to="/signup" className="mt-4 text-primary-900 underline text-sm">
-        Don't have an account?
-      </Link>
-    </div>
+      </div>
+    </PageLayout>
   );
 }

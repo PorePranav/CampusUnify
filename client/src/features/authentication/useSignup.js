@@ -7,8 +7,8 @@ export function useSignup() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate: signup, isLoading } = useMutation({
-    mutationFn: ({ name, email, password, passwordConfirm }) =>
-      signupApi({ name, email, password, passwordConfirm }),
+    mutationFn: ({ name, email, role, password, passwordConfirm }) =>
+      signupApi({ name, email, role, password, passwordConfirm }),
     onSuccess: (user) => {
       queryClient.setQueryData(['user'], user);
       navigate('/events');

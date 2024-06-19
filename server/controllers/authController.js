@@ -87,7 +87,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordChangedAt: req.body.passwordChangedAt,
   });
 
-  await Cart.create({ userId: newUser._id, eventIds: [], totalAmount: 0 });
+  if (req.body.role !== 'club')
+    await Cart.create({ userId: newUser._id, eventIds: [], totalAmount: 0 });
 
   createSendToken(newUser, 201, res);
 });
@@ -108,6 +109,8 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
+  if (!req.body.email)
+    return next(new AppError('Please enter a email ID', 400));
   const user = await User.findOne({ email: req.body.email });
   if (!user)
     return next(new AppError('No user with the specified email exists', 404));
