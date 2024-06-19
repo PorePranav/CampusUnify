@@ -44,6 +44,15 @@ export async function deleteEvent(eventId) {
   return data.data;
 }
 
+export async function getLatestEvents() {
+  const { data, error } = await api.get('/events/latestEvents', {
+    withCredentials: true,
+  });
+
+  if (error) return new Error(error.message);
+  return data.data;
+}
+
 export async function getEventBookings(eventId) {
   const { data, error } = await api.get(`/bookings/${eventId}`, {
     withCredentials: true,

@@ -4,6 +4,8 @@ const eventController = require('./../controllers/eventController');
 
 const router = express.Router();
 
+router.route('/latestEvents').get(eventController.getLatestEvents);
+
 router.use(authController.protect);
 
 router

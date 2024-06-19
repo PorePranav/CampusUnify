@@ -114,6 +114,10 @@ eventSchema.pre(/^find/, function (next) {
   next();
 });
 
+eventSchema.statics.getLatestEvents = async function () {
+  return this.find().sort({ date: -1 }).limit(3).exec();
+};
+
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;

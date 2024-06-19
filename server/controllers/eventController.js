@@ -4,6 +4,14 @@ const Event = require('../models/eventModel');
 const Bookings = require('../models/bookingsModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
+exports.getLatestEvents = catchAsync(async (req, res, next) => {
+  const latestEvents = await Event.getLatestEvents();
+  res.status(200).json({
+    status: 'success',
+    data: latestEvents,
+  });
+});
+
 exports.getAllEvents = catchAsync(async (req, res, next) => {
   let filter;
 
