@@ -1,6 +1,6 @@
-import { Outlet, Navigate } from "react-router-dom";
-import Spinner from "./Spinner";
-import { useUser } from "../features/authentication/useUser";
+import { Outlet, Navigate } from 'react-router-dom';
+import Spinner from './Spinner';
+import { useUser } from '../features/authentication/useUser';
 
 export default function ProtectedRoute({ children }) {
   const { isLoading, user } = useUser();
