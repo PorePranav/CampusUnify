@@ -64,3 +64,13 @@ export async function forgotPassword(email) {
   if (error) return new Error(error.message);
   return data.data;
 }
+
+export async function resetPassword({ tokenId, password, passwordConfirm }) {
+  const { data, error } = await api.patch(`/users/resetPassword/${tokenId}`, {
+    password,
+    passwordConfirm,
+  });
+
+  if (error) return new Error(error.message);
+  return data.data;
+}

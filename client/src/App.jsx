@@ -15,6 +15,7 @@ import Login from './features/authentication/Login';
 import Signup from './features/authentication/Signup';
 import Event from './pages/Event';
 import ForgotPassword from './features/authentication/ForgotPassword';
+import ResetPassword from './features/authentication/ResetPassword';
 import PageNotFound from './ui/PageNotFound';
 import ProtectedRouteUser from './ui/ProtectedRouteUser';
 import Cart from './pages/Cart';
@@ -41,6 +42,10 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/reset-password/:tokenId"
+              element={<ResetPassword />}
+            />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
