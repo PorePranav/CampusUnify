@@ -5,11 +5,18 @@ import toast from 'react-hot-toast';
 export function useForgotPassword() {
   const { mutate: forgotPassword, isLoading } = useMutation({
     mutationFn: (email) => forgotPasswordApi(email),
+    onMutate: () => {
+      toast.loading('Sending email...', {
+        id: 'forgotPasswordLoading',
+      });
+    },
     onSuccess: () => {
-      toast.success('An email was sent to to you if your account exists');
+      toast.dismiss('forgotPasswordLoading');
+      toast.success('An email was sent to you');
     },
     onError: (err) => {
-      toast.error(err.response.data.message);
+      toast.dismiss('forgotPasswordLoading');
+      toast.error(err.response?.data?.message || 'An error occurred');
     },
   });
 

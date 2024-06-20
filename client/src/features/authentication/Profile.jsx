@@ -77,7 +77,7 @@ export default function Profile() {
   }, [file]);
 
   return (
-    <div className="flex flex-col w-96 mx-auto items-center bg-secondary-orange p-8 rounded-lg shadow-md">
+    <div className="flex flex-col w-96 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
       <h1 className="mt-4 font-semibold text-2xl">Profile</h1>
       <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
         <input

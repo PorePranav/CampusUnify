@@ -6,6 +6,25 @@ const catchAsync = require('./../utils/catchAsync');
 const sendEmail = require('./../utils/email');
 const crypto = require('crypto');
 const Cart = require('./../models/cartModel');
+const Mailgen = require('mailgen');
+
+const Recipient = require('mailersend').Recipient;
+const EmailParams = require('mailersend').EmailParams;
+const MailerSend = require('mailersend').MailerSend;
+const Sender = require('mailersend').Sender;
+
+const mailersend = new MailerSend({
+  apiKey: process.env.MAILSENDER_API_KEY,
+});
+
+const mailGenerator = new Mailgen({
+  theme: 'cerberus',
+  product: {
+    name: 'CampusUnify',
+    link: 'https://campusunify.pranavpore.com/',
+    logo: 'https://campusunify.pranavpore.com/logo.png',
+  },
+});
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
@@ -117,31 +136,39 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/resetPassword/${resetToken}`;
+  const email = {
+    body: {
+      name: user.name,
+      intro:
+        'You have received this email because a password reset request for your account was received.',
+      action: {
+        instructions: 'Click the button below to reset your password:',
+        button: {
+          color: '#E67E22',
+          text: 'Reset your password',
+          link: `https://campusunify.pranavpore.com/reset-password/${resetToken}`,
+        },
+      },
+      outro:
+        'If you did not request a password reset, no further action is required on your part.',
+    },
+  };
 
-  const message = `Forgot your password? Submit a PATCH request with your new password and 
-  confirm password to: http://localhost:5173/reset-password/${resetToken} .\nIf you did not request for this mail, kindly ignore.`;
+  const emailBody = mailGenerator.generate(email);
 
-  try {
-    await sendEmail({
-      email: req.body.email,
-      subject: 'Password Reset Token',
-      message,
-    });
-  } catch (err) {
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save({ validateBeforeSave: false });
+  const recipients = [new Recipient(user.email, user.name)];
+  const sender = new Sender(
+    'no-reply@trial-z3m5jgry6mz4dpyo.mlsender.net ',
+    'CampusUnify'
+  );
 
-    return next(
-      new AppError(
-        'There was an error while sending email. Try again later',
-        500
-      )
-    );
-  }
+  const emailParams = new EmailParams()
+    .setFrom(sender)
+    .setTo(recipients)
+    .setSubject('Reset Password')
+    .setHtml(emailBody);
+
+  await mailersend.email.send(emailParams);
 
   res.status(200).json({
     status: 'success',

@@ -14,7 +14,7 @@ const sendEmail = async (options) => {
     from: 'CampusUnify <hello@campusunify.com>',
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    html: options.emailBody,
   };
 
   await transporter.sendMail(mailOptions);
