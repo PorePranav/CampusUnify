@@ -8,15 +8,6 @@ const crypto = require('crypto');
 const Cart = require('./../models/cartModel');
 const Mailgen = require('mailgen');
 
-const Recipient = require('mailersend').Recipient;
-const EmailParams = require('mailersend').EmailParams;
-const MailerSend = require('mailersend').MailerSend;
-const Sender = require('mailersend').Sender;
-
-const mailersend = new MailerSend({
-  apiKey: process.env.MAILSENDER_API_KEY,
-});
-
 const mailGenerator = new Mailgen({
   theme: 'cerberus',
   product: {
