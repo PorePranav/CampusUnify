@@ -156,20 +156,24 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   const emailBody = mailGenerator.generate(email);
 
-  const recipients = [new Recipient(user.email, user.name)];
-  const sender = new Sender(
-    'no-reply@trial-z3m5jgry6mz4dpyo.mlsender.net ',
-    'CampusUnify'
-  );
+  try {
+    await sendEmail({
+      email: req.body.email,
+      subject: 'Password Reset Token',
+      emailBody,
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
 
-  const emailParams = new EmailParams()
-    .setFrom(sender)
-    .setTo(recipients)
-    .setSubject('Reset Password')
-    .setHtml(emailBody);
-
-  await mailersend.email.send(emailParams);
-
+    return next(
+      new AppError(
+        'There was an error while sending email. Try again later',
+        500
+      )
+    );
+  }
   res.status(200).json({
     status: 'success',
     message: 'Token sent to email!',
