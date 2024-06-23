@@ -51,11 +51,11 @@ export default function Header() {
   );
 
   return (
-    <header className="bg-[#f6f6f6] w-[80%] mx-auto">
+    <header className="bg-[#fcfaf8] w-[80%] mx-auto">
       <div className="flex justify-between items-center mx-auto p-3">
         <Link to={user ? '/events' : '/'}>
           <div className="flex gap-4 items-center">
-            <img src="logo.png" className="h-12 w-12" alt="" />
+            <img src="/logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
               <span className="text-[#cf711f]">Campus</span>
               <span className="text-[#eb984e]">Unify</span>

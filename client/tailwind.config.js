@@ -20,6 +20,7 @@ export default {
           800: '#cf711f',
           900: '#b8651b',
         },
+        skin: '#f3ede9',
       },
     },
   },

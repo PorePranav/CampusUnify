@@ -1,11 +1,11 @@
+import PageLayout from '../styles/PageLayout';
 import { useCart } from '../features/cart/useCart';
-import { HiTrash } from 'react-icons/hi2';
-import { Link } from 'react-router-dom';
-import Spinner from '../ui/Spinner';
-import { formatCurrency } from '../utils/helpers';
 import { useDeleteCartItem } from '../features/cart/useDeleteCartItem';
 import { useClearCart } from '../features/cart/useClearCart';
 import { usePayment } from '../features/cart/usePayment';
+import Spinner from '../ui/Spinner';
+import { formatCurrency, formatDateTimeDetailed } from '../utils/helpers';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { cart, isLoading } = useCart();
@@ -14,75 +14,69 @@ export default function Cart() {
   const { initiatePayment } = usePayment();
 
   return (
-    <>
+    <PageLayout>
+      <h2 className="text-3xl font-bold mt-4">Your Cart</h2>
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-[80%] my-6 mx-auto">
-          <p className="text-2xl">My Cart</p>
-          {cart.eventIds.length > 0 ? (
+        <div className="flex flex-col gap-4 mt-4">
+          {cart.eventIds.length === 0 ? (
+            <p className="mt-2">
+              There are no items present your cart!
+              <Link to="/events" className="text-blue-500 hover:text-blue-700">
+                {' '}
+                Add new items to your car &rarr;
+              </Link>
+            </p>
+          ) : (
             <>
-              <div className="flex gap-4">
+              {cart.eventIds.map((event) => (
+                <div className="flex gap-4">
+                  <img
+                    src={event.cardImage}
+                    className="w-28 h-28 rounded-lg"
+                    alt=""
+                  />
+                  <div className="flex flex-col justify-between py-4">
+                    <p className="text-lg">{event.name}</p>
+                    <p className="text-primary-700 font-light">
+                      {formatCurrency(event.eventCharges)}
+                    </p>
+                    <p className="text-primary-700 font-light">
+                      {formatDateTimeDetailed(event.date)}
+                    </p>
+                  </div>
+                  <button
+                    className="justify-self-end self-center ml-auto bg-skin px-4 py-2 rounded-lg font-bold"
+                    disabled={isDeleting}
+                    onClick={() => deleteFromCart(event._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+              <p className="text-xl font-semibold">
+                Total: {formatCurrency(cart.totalAmount)}
+              </p>
+              <div className="flex justify-end gap-4">
                 <button
-                  className="bg-red-700 mt-4 text-white px-4 py-2 mb-4 font-semibold rounded-md"
+                  className="bg-skin px-4 py-2 rounded-lg font-bold"
                   onClick={clearCart}
                   disabled={isClearing}
                 >
                   Clear Cart
                 </button>
                 <button
-                  className="bg-green-700 mt-4 text-white px-4 py-2 mb-4 font-semibold rounded-md"
+                  className="bg-primary-700 px-4 py-2 rounded-lg font-bold text-white"
                   onClick={initiatePayment}
-                  disabled={cart.eventIds.length === 0}
                 >
-                  Check Out
+                  Proceed to Checkout
                 </button>
               </div>
-              {cart.eventIds.map((event) => (
-                <div
-                  key={event._id}
-                  className="flex flex-col md:flex-row bg-white shadow-md p-4 rounded-md mb-4"
-                >
-                  <img
-                    src={event.coverImage}
-                    alt={event.name}
-                    className="w-full md:w-40 h-40 object-cover rounded-md mb-4 md:mb-0 md:mr-4"
-                  />
-                  <div className="flex flex-col justify-between flex-grow">
-                    <div>
-                      <h2 className="text-xl font-bold mb-2">{event.name}</h2>
-                      <p className="text-gray-600 mb-2">{event.description}</p>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                      <p className="text-sm text-gray-500 mb-2 md:mb-0">
-                        {new Date(event.date).toLocaleDateString()}
-                      </p>
-                      <p className="text-lg text-green-600 font-semibold font-sono">
-                        {formatCurrency(event.eventCharges)}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    disabled={isDeleting}
-                    onClick={() => deleteFromCart(event._id)}
-                    className="flex items-center justify-center text-red-600 hover:text-red-800 transition-colors"
-                  >
-                    <HiTrash size={24} />
-                  </button>
-                </div>
-              ))}
             </>
-          ) : (
-            <h2 className="mt-2">
-              There are no items present your cart!
-              <Link to="/events" className="text-blue-500 hover:text-blue-700">
-                {' '}
-                Add new items to your car &rarr;
-              </Link>
-            </h2>
           )}
         </div>
       )}
-    </>
+    </PageLayout>
   );
 }

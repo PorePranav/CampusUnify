@@ -22,7 +22,11 @@ export default function EventInformationCard({ event }) {
           </Modal.Window>
         </Modal>
       )}
-      <img className="w-full h-128 rounded-lg mt-4" src={event.coverImage} />
+      <img
+        className="w-full h-128 rounded-lg mt-4"
+        alt="event-cover"
+        src={event.coverImage}
+      />
       <h2 className="font-bold text-2xl mt-4">{event.name}</h2>
       <div className="mt-2">
         <p className="text-xl font-bold">About the event</p>
