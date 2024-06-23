@@ -1,11 +1,15 @@
-import { useRegistrations } from '../features/registrations/useRegistrations';
 import Spinner from '../ui/Spinner';
+import PageLayout from '../styles/PageLayout';
+import { useRegistrations } from '../features/registrations/useRegistrations';
 import { formatCurrency } from '../utils/helpers';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
+import { formatDateTimeDetailed } from '../utils/helpers';
+import { useState } from 'react';
 
 export default function MyRegistrations() {
-  const { isLoading, error, registrations } = useRegistrations();
+  const { isLoading, registrations } = useRegistrations();
+  const [tab, setTab] = useState('all');
 
   function handleDownloadTicket(registrationId) {
     api
@@ -32,71 +36,65 @@ export default function MyRegistrations() {
       });
   }
 
+  const filterRegistrations = (registrations) => {
+    const now = new Date();
+
+    switch (tab) {
+      case 'upcoming':
+        return registrations.filter((reg) => new Date(reg.eventId.date) > now);
+      case 'past':
+        return registrations.filter((reg) => new Date(reg.eventId.date) < now);
+      case 'all':
+      default:
+        return registrations;
+    }
+  };
+
+  const filteredRegistrations =
+    registrations && filterRegistrations(registrations);
+
   return (
-    <>
+    <PageLayout>
+      <h2 className="text-3xl font-bold mt-4">Your Registrations</h2>
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-[80%] my-6 mx-auto">
-          <p className="text-2xl">My Registrations</p>
-          <div className="flex flex-col gap-4 mt-4 bg-gray-100">
-            {registrations.length !== 0 ? (
-              registrations.map((registration) => {
-                const { eventId, paymentId, currentStatus } = registration;
-                const eventDate = new Date(eventId.date).toLocaleDateString();
-
-                return (
-                  <div
-                    key={registration._id}
-                    className="flex flex-col md:flex-row bg-white shadow-md p-4 rounded-md"
-                  >
-                    <img
-                      src={eventId.coverImage}
-                      alt={eventId.name}
-                      className="w-full md:w-40 h-40 object-cover rounded-md mb-4 md:mb-0 md:mr-4"
-                    />
-                    <div className="flex flex-col justify-between flex-1">
-                      <h2 className="text-xl font-bold mb-2">{eventId.name}</h2>
-                      <p className="text-gray-600 mb-2">
-                        {eventId.description}
-                      </p>
-                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                        <p className="text-sm text-gray-500">
-                          Date: {eventDate}
-                        </p>
-                        <p className="text-lg text-green-600 font-semibold">
-                          Charges:{' '}
-                          <span className="font-sono">
-                            {formatCurrency(eventId.eventCharges)}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <p className="text-sm text-gray-500">
-                          Payment ID: {paymentId.internalPaymentId}
-                        </p>
-                        <p
-                          className={`text-sm font-semibold ${
-                            currentStatus === 'confirmed'
-                              ? 'text-green-500'
-                              : 'text-red-500'
-                          }`}
-                        >
-                          Status: {currentStatus.toUpperCase()}
-                        </p>
-                      </div>
-                      <button
-                        className="mt-4 bg-primary-600 font-semibold text-white py-2 px-4 rounded-md self-start"
-                        onClick={() => handleDownloadTicket(registration._id)}
-                      >
-                        Download Ticket
-                      </button>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <h2 className="mt-2">
+        <>
+          <div className="mt-4 border-b-2 p-2 border-skin flex gap-6">
+            <button
+              className={`font-semibold hover:text-black pb-1 ${
+                tab === 'all'
+                  ? 'text-black  border-b-2 border-primary-700'
+                  : 'text-primary-900'
+              }`}
+              onClick={() => setTab('all')}
+            >
+              All
+            </button>
+            <button
+              className={`font-semibold hover:text-black pb-1 ${
+                tab === 'upcoming'
+                  ? 'text-black  border-b-2 border-primary-700'
+                  : 'text-primary-900'
+              }`}
+              onClick={() => setTab('upcoming')}
+            >
+              Upcoming
+            </button>
+            <button
+              className={`font-semibold hover:text-black pb-1 ${
+                tab === 'past'
+                  ? 'text-black  border-b-2 border-primary-700'
+                  : 'text-primary-900'
+              }`}
+              onClick={() => setTab('past')}
+            >
+              Past
+            </button>
+          </div>
+          <div>
+            {filteredRegistrations.length === 0 ? (
+              <p className="mt-2">
                 You have not registered for any events yet!
                 <Link
                   to="/events"
@@ -105,11 +103,53 @@ export default function MyRegistrations() {
                   {' '}
                   Browse for new events &rarr;
                 </Link>
-              </h2>
+              </p>
+            ) : (
+              <>
+                <p className="text-xl mt-6 font-semibold">
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)} events
+                </p>
+                <div className="mt-2 rounded-lg border-2 border-skin text-center">
+                  <div className="grid grid-cols-[1fr_2fr_1fr_2fr_1fr_1fr] border-b p-3 items-center">
+                    <div className="font-bold">Event</div>
+                    <div className="font-bold">Date</div>
+                    <div className="font-bold">Total Charges</div>
+                    <div className="font-bold">Payment ID</div>
+                    <div className="font-bold">Status</div>
+                    <div className="font-bold">Actions</div>
+                  </div>
+
+                  {filteredRegistrations.map((registration) => (
+                    <div
+                      key={registration._id}
+                      class="grid grid-cols-[1fr_2fr_1fr_2fr_1fr_1fr] border-b p-3 items-center"
+                    >
+                      <p>{registration.eventId.name}</p>
+                      <p className="text-primary-900">
+                        {formatDateTimeDetailed(registration.eventId.date)}
+                      </p>
+                      <p className="text-primary-900">
+                        {formatCurrency(registration.paymentId.totalAmount)}
+                      </p>
+                      <p>{registration.paymentId.razorpayPaymentId}</p>
+                      <p className="bg-skin py-1 px-3 rounded-3xl self-center text-center">
+                        {registration.currentStatus.charAt(0).toUpperCase() +
+                          registration.currentStatus.slice(1)}
+                      </p>
+                      <button
+                        onClick={() => handleDownloadTicket(registration._id)}
+                        className="text-primary-900"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
-        </div>
+        </>
       )}
-    </>
+    </PageLayout>
   );
 }
