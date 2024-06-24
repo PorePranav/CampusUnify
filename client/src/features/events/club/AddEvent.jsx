@@ -5,7 +5,7 @@ export default function AddEvent() {
   return (
     <Modal>
       <Modal.Open opens="event-form">
-        <button className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md">
+        <button className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md mt-4">
           Add New Event
         </button>
       </Modal.Open>

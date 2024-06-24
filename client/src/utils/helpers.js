@@ -14,3 +14,6 @@ export const formatDateTime = (value) =>
 
 export const formatDateTimeDetailed = (value) =>
   format(new Date(value), 'MMMM dd, yyyy @ h.mm a');
+
+export const formatDateTimeEvent = (value) =>
+  format(new Date(value), `EEEE, MMMM dd @ h a`);

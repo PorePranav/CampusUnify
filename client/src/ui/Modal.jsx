@@ -3,17 +3,17 @@ import React, {
   useState,
   cloneElement,
   createContext,
-} from "react";
-import { createPortal } from "react-dom";
-import { HiXMark } from "react-icons/hi2";
-import useOutsideClick from "../hooks/useOutsideClick";
+} from 'react';
+import { createPortal } from 'react-dom';
+import { HiXMark } from 'react-icons/hi2';
+import useOutsideClick from '../hooks/useOutsideClick';
 
 const ModalContext = createContext();
 
 function Modal({ children }) {
-  const [openName, setOpenName] = useState("");
+  const [openName, setOpenName] = useState('');
 
-  const close = () => setOpenName("");
+  const close = () => setOpenName('');
   const open = setOpenName;
 
   return (
@@ -37,11 +37,11 @@ function Window({ children, name }) {
   return createPortal(
     <div className="fixed inset-0 bg-backdrop-color backdrop-blur-sm z-50 transition-all">
       <div
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#f6f6f6] rounded-lg shadow-lg p-8 transition-all"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#fcfaf8] rounded-lg shadow-lg p-8 transition-all"
         ref={ref}
       >
         <button
-          className="absolute top-3 right-4 p-1 bg-transparent hover:bg-gray-200 rounded-sm transition"
+          className="absolute top-3 right-4 p-1 bg-transparent rounded-sm transition"
           onClick={close}
         >
           <HiXMark className="w-6 h-6 text-gray-500" />
@@ -49,7 +49,7 @@ function Window({ children, name }) {
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }
 

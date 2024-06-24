@@ -9,12 +9,12 @@ export default function Header() {
       return (
         <>
           <Link to="/registration">
-            <li className="hidden sm:inline hover:text-primary-600 font-bold">
+            <li className="hidden sm:inline hover:text-primary-900 font-bold">
               My Registrations
             </li>
           </Link>
           <Link to="/cart">
-            <li className="hidden sm:inline hover:text-primary-600 font-bold">
+            <li className="hidden sm:inline hover:text-primary-900 font-bold">
               My Cart
             </li>
           </Link>
@@ -27,7 +27,7 @@ export default function Header() {
   const renderClubLinks = () => (
     <>
       <Link to="/events">
-        <li className="hidden sm:inline hover:text-primary-600 font-bold">
+        <li className="hidden sm:inline hover:text-primary-900 font-bold">
           Events
         </li>
       </Link>
@@ -44,7 +44,7 @@ export default function Header() {
 
   const renderGuestLinks = () => (
     <Link to="/login">
-      <li className="hover:underline bg-primary-600 rounded-2xl px-4 py-2 text-white font-bold">
+      <li className="hover:underline bg-primary-700 rounded-2xl px-4 py-2 text-white font-bold">
         Sign In
       </li>
     </Link>
@@ -57,8 +57,8 @@ export default function Header() {
           <div className="flex gap-4 items-center">
             <img src="/logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-              <span className="text-[#cf711f]">Campus</span>
-              <span className="text-[#eb984e]">Unify</span>
+              <span className="text-primary-500">Campus</span>
+              <span className="text-primary-800">Unify</span>
             </h1>
           </div>
         </Link>

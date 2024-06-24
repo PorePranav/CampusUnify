@@ -7,7 +7,6 @@ import Header from './ui/Header';
 import GlobalStyles from './styles/GlobalStyles';
 
 import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard';
 import Events from './pages/Events';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Profile from './features/authentication/Profile';
@@ -46,7 +45,6 @@ export default function App() {
             />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<Event />} />
               <Route path="/profile" element={<Profile />} />

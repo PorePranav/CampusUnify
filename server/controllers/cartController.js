@@ -3,6 +3,7 @@ const AppError = require('./../utils/appError');
 const Cart = require('./../models/cartModel');
 const Event = require('./../models/eventModel');
 const Bookings = require('./../models/bookingsModel');
+const Registrations = require('../models/registrationModel');
 
 exports.getCart = catchAsync(async (req, res, next) => {
   const fetchedCart =
@@ -21,6 +22,16 @@ exports.addToCart = catchAsync(async (req, res, next) => {
       new AppError(`No event with id ${req.params.eventId} exists`, 404)
     );
   }
+
+  const fetchedRegistrations = await Registrations.find({
+    eventId: req.params.eventId,
+    userId: req.user.id,
+  });
+
+  if (fetchedRegistrations.length > 0)
+    return next(
+      new AppError('You have already registered for this event', 403)
+    );
 
   let fetchedCart = await Cart.findOne({ userId: req.user.id });
   if (!fetchedCart)
