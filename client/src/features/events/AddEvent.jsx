@@ -1,4 +1,4 @@
-import Modal from '../../../ui/Modal';
+import Modal from '../../ui/Modal';
 import CreateEventForm from './CreateEventForm';
 
 export default function AddEvent() {

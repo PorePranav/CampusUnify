@@ -1,7 +1,7 @@
 import { HiEye, HiPencil, HiTrash, HiShoppingCart } from 'react-icons/hi2';
 import Modal from '../../ui/Modal';
 import Menus from '../../ui/Menus';
-import EditEventForm from './club/EditEventForm';
+import EditEventForm from './EditEventForm';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 
 import { useNavigate } from 'react-router-dom';

@@ -14,9 +14,9 @@ import {
   HiDocumentText,
   HiArrowUpOnSquare,
 } from 'react-icons/hi2';
-import { app } from '../../../firebase';
+import { app } from '../../firebase';
 import toast from 'react-hot-toast';
-import { useEditEvent } from '../useEditEvent';
+import { useEditEvent } from './useEditEvent';
 
 export default function EditEventForm({ event, onCloseModal }) {
   const [formData, setFormData] = useState({});
@@ -32,7 +32,6 @@ export default function EditEventForm({ event, onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
     editEvent({ eventId: event._id, newEventData: formData });
     onCloseModal?.();
   }

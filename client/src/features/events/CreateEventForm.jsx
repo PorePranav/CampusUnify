@@ -1,4 +1,4 @@
-import { useCreateEvent } from '../useCreateEvent';
+import { useCreateEvent } from './useCreateEvent';
 import { useEffect, useState } from 'react';
 import {
   getDownloadURL,
@@ -15,7 +15,7 @@ import {
   HiDocumentText,
   HiArrowUpOnSquare,
 } from 'react-icons/hi2';
-import { app } from '../../../firebase';
+import { app } from '../../firebase';
 import toast from 'react-hot-toast';
 
 export default function CreateEventForm({ onCloseModal }) {

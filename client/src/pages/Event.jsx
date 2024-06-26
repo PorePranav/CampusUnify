@@ -20,8 +20,6 @@ export default function Event() {
       </PageLayout>
     );
 
-  console.log(event);
-
   return (
     <PageLayout>
       {isLoadingOne || isLoadingTwo ? (

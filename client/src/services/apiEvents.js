@@ -20,7 +20,6 @@ export async function createEvent(newEvent) {
   const { data, error } = await api.post('/events/', newEvent, {
     withCredentials: true,
   });
-  console.log(error);
 
   if (error) return new Error(error.message);
   return data.data;

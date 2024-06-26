@@ -1,12 +1,12 @@
 import PageLayout from '../styles/PageLayout';
 import SpinnerMini from '../ui/SpinnerMini';
-import SearchFilterNew from '../ui/SearchFilterNew';
+import SearchFilter from '../ui/SearchFilter';
 
 import { useState } from 'react';
 import { useUser } from './../features/authentication/useUser';
 import { useEvents } from '../features/events/useEvents';
 import { formatDateTimeEvent } from '../utils/helpers';
-import AddEvent from '../features/events/club/AddEvent';
+import AddEvent from '../features/events/AddEvent';
 import EventMenu from '../features/events/EventMenu';
 
 export default function Events() {
@@ -58,7 +58,7 @@ export default function Events() {
   return (
     <PageLayout>
       <h2 className="text-3xl font-bold mt-4">Events</h2>
-      <SearchFilterNew
+      <SearchFilter
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         categoryQuery={categoryQuery}

@@ -229,7 +229,6 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteEventDay = catchAsync(async (req, res, next) => {
-  console.log('inDeleteEventDay');
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
