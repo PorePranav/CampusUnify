@@ -44,7 +44,7 @@ export default function Event() {
             </div>
           </div>
           <h2 className="text-4xl mt-4 font-bold">{event.name}</h2>
-          <div className="mt-4 flex gap-4 border-b-2 p-4 border-primary-100">
+          <div className="w-full mt-4 flex items-center gap-4 border-b-2 p-4 border-primary-100">
             <button
               className={`font-semibold hover:text-black pb-2 ${
                 activeTab === 'info'

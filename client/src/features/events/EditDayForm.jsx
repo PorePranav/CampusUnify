@@ -1,4 +1,4 @@
-import { useEditEventDay } from '../../useEditEventDay';
+import { useEditEventDay } from './useEditEventDay';
 import {
   HiCube,
   HiCalendarDays,

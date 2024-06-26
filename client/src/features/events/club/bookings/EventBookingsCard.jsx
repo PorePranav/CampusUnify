@@ -2,13 +2,11 @@ import { formatDateTime, formatCurrency } from '../../../../utils/helpers';
 import { useEventBookings } from '../../useEventBookings';
 
 import SpinnerMini from '../../../../ui/SpinnerMini';
-import toast from 'react-hot-toast';
 import BookingDetailMenu from './BookingDetailMenu';
 
 export default function EventBookingsCard({ event }) {
-  const { isLoading, isError, eventBookings } = useEventBookings(event._id);
+  const { isLoading, eventBookings } = useEventBookings(event._id);
 
-  if (isError) toast.error('There was an error fetching event registrations');
   if (isLoading) return <SpinnerMini />;
 
   return (

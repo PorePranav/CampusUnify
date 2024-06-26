@@ -26,7 +26,7 @@ export default function SearchFilterNew({
             onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             placeholder="Search for events"
-            className="w-full pl-4 pr-10 py-2 rounded-lg bg-skin placeholder-primary-900"
+            className="w-full pl-4 pr-10 py-2 rounded-lg bg-skin placeholder-primary-900 focus:outline-none"
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <HiMagnifyingGlass className="text-primary-900" size={18} />

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteEventDay as deleteEventDayApi } from '../../services/apiEvents';
 import toast from 'react-hot-toast';
 
-export default function useDeleteEventDay() {
+export function useDeleteEventDay() {
   const queryClient = useQueryClient();
 
   const { mutate: deleteEventDay, isLoading: isDeleting } = useMutation({

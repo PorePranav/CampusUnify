@@ -1,4 +1,4 @@
-import Modal from '../../../../ui/Modal';
+import Modal from '../../ui/Modal';
 import CreateEventDayForm from './CreateEventDayForm';
 
 export default function AddEventDay({ event }) {
@@ -7,7 +7,7 @@ export default function AddEventDay({ event }) {
       <Modal>
         <Modal.Open opens="event-day-form">
           <button className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md">
-            Add Event Day
+            Add New Day
           </button>
         </Modal.Open>
         <Modal.Window name="event-day-form">
