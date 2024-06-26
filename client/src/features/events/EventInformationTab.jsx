@@ -1,3 +1,5 @@
+import { formatShortDate, formatShortTime } from '../../utils/helpers';
+
 export default function EventInformationTab({ event }) {
   console.log(event.date);
 
@@ -11,11 +13,11 @@ export default function EventInformationTab({ event }) {
         <div className="flex justify-between mt-4">
           <div className="w-1/2">
             <p className="text-primary-900">Start Date</p>
-            <p className="text-lg">Start Date</p>
+            <p className="text-lg">{formatShortDate(event.date)}</p>
           </div>
           <div className="w-1/2">
             <p className="text-primary-900">Start Time</p>
-            <p className="text-lg">Start Time</p>
+            <p className="text-lg">{formatShortTime(event.date)}</p>
           </div>
         </div>
       </div>

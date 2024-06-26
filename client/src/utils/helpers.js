@@ -17,3 +17,8 @@ export const formatDateTimeDetailed = (value) =>
 
 export const formatDateTimeEvent = (value) =>
   format(new Date(value), `EEEE, MMMM dd @ h a`);
+
+export const formatShortDate = (value) =>
+  format(new Date(value), 'EEE, MMM d, yyyy');
+
+export const formatShortTime = (value) => format(new Date(value), 'h:mm a');
