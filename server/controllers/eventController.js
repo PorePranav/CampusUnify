@@ -37,7 +37,7 @@ exports.getAllEvents = catchAsync(async (req, res, next) => {
 
 exports.getSingleEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id)
-    .populate('bookings')
+    .populate('bookings clubId')
     .select('-bookings');
 
   if (!fetchedEvent) {
@@ -46,7 +46,10 @@ exports.getSingleEvent = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (req.user.role === 'club' && !isAuthorized(req.user.id, fetchedEvent))
+  if (
+    req.user.role === 'club' &&
+    !isAuthorized(req.user.id, fetchedEvent, true)
+  )
     return next(
       new AppError(`You are unauthorized to perform this action`, 403)
     );
@@ -256,6 +259,8 @@ exports.deleteEventDay = catchAsync(async (req, res, next) => {
   });
 });
 
-function isAuthorized(userId, fetchedEvent) {
+function isAuthorized(userId, fetchedEvent, singleEventFlag) {
+  if (singleEventFlag)
+    return userId.toString() === fetchedEvent.clubId._id.toString();
   return userId.toString() === fetchedEvent.clubId.toString();
 }

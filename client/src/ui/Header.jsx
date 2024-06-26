@@ -57,8 +57,8 @@ export default function Header() {
           <div className="flex gap-4 items-center">
             <img src="/logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-              <span className="text-primary-500">Campus</span>
-              <span className="text-primary-800">Unify</span>
+              <span className="text-primary-800">Campus</span>
+              <span className="text-primary-500">Unify</span>
             </h1>
           </div>
         </Link>
