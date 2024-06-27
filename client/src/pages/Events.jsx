@@ -3,6 +3,7 @@ import SpinnerMini from '../ui/SpinnerMini';
 import SearchFilter from '../ui/SearchFilter';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from './../features/authentication/useUser';
 import { useEvents } from '../features/events/useEvents';
 import { formatDateTimeEvent } from '../utils/helpers';
@@ -10,6 +11,7 @@ import AddEvent from '../features/events/AddEvent';
 import EventMenu from '../features/events/EventMenu';
 
 export default function Events() {
+  const navigate = useNavigate();
   const { user } = useUser();
 
   const { events = [], isLoading } = useEvents();
@@ -79,16 +81,21 @@ export default function Events() {
             ) : (
               filteredEvents.map((event) => (
                 <div key={event._id} className="flex gap-4">
-                  <img
-                    src={event.cardImage}
-                    className="w-20 h-20 rounded-lg"
-                    alt="Event cover image"
-                  />
-                  <div className="flex flex-col justify-center">
-                    <p className="font-semibold">{event.name}</p>
-                    <p className="text-primary-900">
-                      {formatDateTimeEvent(event.date)}
-                    </p>
+                  <div
+                    className="flex gap-4 hover:cursor-pointer"
+                    onClick={() => navigate(`/events/${event._id}`)}
+                  >
+                    <img
+                      src={event.cardImage}
+                      className="w-20 h-20 rounded-lg"
+                      alt="Event cover image"
+                    />
+                    <div className="flex flex-col justify-center">
+                      <p className="font-semibold">{event.name}</p>
+                      <p className="text-primary-900">
+                        {formatDateTimeEvent(event.date)}
+                      </p>
+                    </div>
                   </div>
                   <div className="ml-auto justify-center my-auto">
                     <EventMenu event={event} user={user} />

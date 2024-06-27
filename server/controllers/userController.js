@@ -41,7 +41,6 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
-//Admin Routes
 exports.getAllUsers = userHandlerFactory.getAll(User);
 exports.getUser = userHandlerFactory.getOne(User);
 exports.updateUser = userHandlerFactory.updateOne(User);
