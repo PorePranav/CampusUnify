@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getEvents } from "../../services/apiEvents";
+import { useQuery } from '@tanstack/react-query';
+import { getEvents } from '../../services/apiEvents';
 
 export function useEvents() {
   const {
@@ -7,7 +7,7 @@ export function useEvents() {
     data: events,
     error,
   } = useQuery({
-    queryKey: ["events"],
+    queryKey: ['events'],
     queryFn: getEvents,
   });
 

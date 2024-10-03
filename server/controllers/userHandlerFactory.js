@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('../utils/apiFeatures');
 
 exports.createOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+  catchAsync(async (req, res) => {
     const newDoc = await Model.create(req.body);
 
     res.status(201).json({
@@ -20,7 +20,7 @@ exports.getOne = (Model, popOptions) =>
 
     if (!doc)
       return next(
-        new AppError(`No document was found with id ${req.params.id}`)
+        new AppError(`No document was found with id ${req.params.id}`),
       );
 
     res.status(200).json({
@@ -30,8 +30,8 @@ exports.getOne = (Model, popOptions) =>
   });
 
 exports.getAll = (Model) =>
-  catchAsync(async (req, res, next) => {
-    let filter = {};
+  catchAsync(async (req, res) => {
+    const filter = {};
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()

@@ -5,7 +5,7 @@ const Event = require('./../models/eventModel');
 const Bookings = require('./../models/bookingsModel');
 const Registrations = require('../models/registrationModel');
 
-exports.getCart = catchAsync(async (req, res, next) => {
+exports.getCart = catchAsync(async (req, res) => {
   const fetchedCart =
     (await Cart.findOne({ userId: req.user.id }).populate('eventIds')) || {};
 
@@ -19,7 +19,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with id ${req.params.eventId} exists`, 404)
+      new AppError(`No event with id ${req.params.eventId} exists`, 404),
     );
   }
 
@@ -30,7 +30,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 
   if (fetchedRegistrations.length > 0)
     return next(
-      new AppError('You have already registered for this event', 403)
+      new AppError('You have already registered for this event', 403),
     );
 
   let fetchedCart = await Cart.findOne({ userId: req.user.id });
@@ -43,11 +43,11 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 
   if (fetchedEventBookings.registeredUsers.length == fetchedEvent.maxCapacity)
     return next(
-      new AppError('Maximum bookings have been reached for this event', 403)
+      new AppError('Maximum bookings have been reached for this event', 403),
     );
 
   const existingEventId = fetchedCart.eventIds.find(
-    (id) => id.toString() === req.params.eventId
+    (id) => id.toString() === req.params.eventId,
   );
 
   if (existingEventId)
@@ -69,15 +69,15 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
   }
 
   const eventIdx = fetchedCart.eventIds.findIndex(
-    (id) => id.toString() === req.params.eventId
+    (id) => id.toString() === req.params.eventId,
   );
 
   if (eventIdx === -1)
     return next(
       new AppError(
         `Event with id ${req.params.eventId} was not found in your cart`,
-        404
-      )
+        404,
+      ),
     );
 
   fetchedCart.eventIds.splice(eventIdx, 1);
@@ -101,7 +101,7 @@ exports.clearCart = catchAsync(async (req, res, next) => {
   await fetchedCart.save();
 
   res.status(204).json({
-    data: 'success',
+    status: 'success',
     data: fetchedCart,
   });
 });

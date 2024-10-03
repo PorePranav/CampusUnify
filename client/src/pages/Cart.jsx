@@ -31,7 +31,7 @@ export default function Cart() {
           ) : (
             <>
               {cart.eventIds.map((event) => (
-                <div className="flex gap-4">
+                <div key={event._id} className="flex gap-4">
                   <img
                     src={event.cardImage}
                     className="w-28 h-28 rounded-lg"

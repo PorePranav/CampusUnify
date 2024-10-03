@@ -20,7 +20,10 @@ export default function EventDaysTab({ event }) {
           <p className="text-lg">No days have been added for this event yet!</p>
         ) : (
           eventDays.map((eventDay) => (
-            <div className="flex justify-between items-center">
+            <div
+              key={eventDay._id}
+              className="flex justify-between items-center"
+            >
               <div className="flex gap-4">
                 <div className="p-3 bg-skin rounded-lg">
                   <HiCalendar size={32} />

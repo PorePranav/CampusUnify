@@ -49,7 +49,7 @@ export default function EventRegistrationsTab({ event }) {
               filteredUsers.map((booking) => (
                 <div
                   key={booking._id}
-                  class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] border-b p-3 items-center"
+                  className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] border-b p-3 items-center"
                 >
                   <p>{booking.userId.name}</p>
                   <p className="text-primary-900">

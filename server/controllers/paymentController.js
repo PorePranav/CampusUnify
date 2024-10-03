@@ -59,14 +59,14 @@ exports.createOrder = catchAsync(async (req, res, next) => {
 exports.paymentCaptured = catchAsync(async (req, res, next) => {
   const shaSum = crypto.createHmac(
     'sha256',
-    process.env.RAZORPAY_WEBHOOK_SECRET
+    process.env.RAZORPAY_WEBHOOK_SECRET,
   );
   shaSum.update(JSON.stringify(req.body));
   const digest = shaSum.digest('hex');
 
   if (digest !== req.headers['x-razorpay-signature']) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -78,7 +78,7 @@ exports.paymentCaptured = catchAsync(async (req, res, next) => {
 
   await Order.findOneAndUpdate(
     { razorpayOrderId: orderId },
-    { status: 'captured' }
+    { status: 'captured' },
   );
 
   const {
@@ -106,14 +106,14 @@ exports.paymentCaptured = catchAsync(async (req, res, next) => {
 exports.paymentFailed = catchAsync(async (req, res, next) => {
   const shaSum = crypto.createHmac(
     'sha256',
-    process.env.RAZORPAY_WEBHOOK_SECRET
+    process.env.RAZORPAY_WEBHOOK_SECRET,
   );
   shaSum.update(JSON.stringify(req.body));
   const digest = shaSum.digest('hex');
 
   if (digest !== req.headers['x-razorpay-signature']) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -121,7 +121,7 @@ exports.paymentFailed = catchAsync(async (req, res, next) => {
 
   await Order.findOneAndUpdate(
     { razorpayOrderId: failedOrderId },
-    { status: 'failed' }
+    { status: 'failed' },
   );
 
   res.status(200).json({

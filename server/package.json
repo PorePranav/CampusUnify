@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production & node server.js",
-    "start:prod:onrender": "NODE_ENV=production & node server.js"
+    "start:prod:onrender": "NODE_ENV=production & node server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
   },
   "author": "Pranav Pore",
   "license": "ISC",
@@ -27,5 +30,13 @@
     "qrcode": "^1.5.3",
     "razorpay": "^2.9.2",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.10.0",
+    "prettier": "^3.3.3"
   }
 }

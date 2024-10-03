@@ -40,13 +40,13 @@ exports.getEventBookings = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -61,7 +61,7 @@ exports.getEventBookings = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUserRegistrations = catchAsync(async (req, res, next) => {
+exports.getUserRegistrations = catchAsync(async (req, res) => {
   const userRegistrations = await Registrations.find({
     userId: req.user.id,
   }).populate('eventId paymentId');
@@ -77,13 +77,13 @@ exports.deleteEventBooking = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -92,7 +92,7 @@ exports.deleteEventBooking = catchAsync(async (req, res, next) => {
   }).populate('registeredUsers.userId registeredUsers.paymentId');
 
   const newBookings = fetchedBookings.registeredUsers.filter(
-    (booking) => booking._id.toString() !== req.params.bookingId
+    (booking) => booking._id.toString() !== req.params.bookingId,
   );
 
   fetchedBookings.registeredUsers = newBookings;
@@ -109,13 +109,13 @@ exports.getSingleEventDetails = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -124,12 +124,12 @@ exports.getSingleEventDetails = catchAsync(async (req, res, next) => {
   }).populate('registeredUsers.userId registeredUsers.paymentId');
 
   const searchedBooking = fetchedBookings.registeredUsers.find(
-    (booking) => booking._id.toString() === req.params.bookingId
+    (booking) => booking._id.toString() === req.params.bookingId,
   );
 
   if (!searchedBooking) {
     return next(
-      new AppError(`There is no booking with ${req.params.bookingId}`, 404)
+      new AppError(`There is no booking with ${req.params.bookingId}`, 404),
     );
   }
 
@@ -141,7 +141,7 @@ exports.getSingleEventDetails = catchAsync(async (req, res, next) => {
 
 exports.generateTicket = catchAsync(async (req, res, next) => {
   const fetchedRegistration = await Registrations.findById(
-    req.params.id
+    req.params.id,
   ).populate('userId eventId paymentId');
 
   if (!fetchedRegistration) {
@@ -150,7 +150,7 @@ exports.generateTicket = catchAsync(async (req, res, next) => {
 
   if (req.user.id.toString() !== fetchedRegistration.userId._id.toString()) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -164,14 +164,6 @@ exports.generateTicket = catchAsync(async (req, res, next) => {
     if (err) {
       return next(new AppError('Error sending file', 500));
     }
-
-    fs.unlink(pdfPath, (err) => {
-      if (err) console.error(`Error deleting PDF file: ${pdfPath}`, err);
-    });
-
-    fs.unlink(qrCodePath, (err) => {
-      if (err) console.error(`Error deleting QR code file: ${qrCodePath}`, err);
-    });
   });
 });
 
@@ -180,7 +172,7 @@ const createTicketPDF = async (registration, qrCodePath) => {
 
   const pdfPath = path.join(
     __dirname,
-    `ticket-${eventId._id}-${userId._id}.pdf`
+    `ticket-${eventId._id}-${userId._id}.pdf`,
   );
 
   const drawBorder = (doc) => {
@@ -274,7 +266,7 @@ const generateQrCode = async (fetchedRegistration) => {
 
   const filePath = path.join(
     __dirname,
-    `qrcode-${eventId._id}-${userId._id}.png`
+    `qrcode-${eventId._id}-${userId._id}.png`,
   );
 
   await QRCode.toFile(filePath, JSON.stringify(qrData), { width: 200 });

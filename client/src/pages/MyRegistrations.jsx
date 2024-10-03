@@ -122,7 +122,7 @@ export default function MyRegistrations() {
                   {filteredRegistrations.map((registration) => (
                     <div
                       key={registration._id}
-                      class="grid grid-cols-[1fr_2fr_1fr_2fr_1fr_1fr] border-b p-3 items-center"
+                      className="grid grid-cols-[1fr_2fr_1fr_2fr_1fr_1fr] border-b p-3 items-center"
                     >
                       <p>{registration.eventId.name}</p>
                       <p className="text-primary-900">

@@ -85,7 +85,7 @@ const eventSchema = new mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 eventSchema.virtual('bookings', {

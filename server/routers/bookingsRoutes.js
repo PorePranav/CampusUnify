@@ -7,13 +7,13 @@ router.use(authController.protect);
 router.get(
   '/',
   authController.restrictTo('user'),
-  bookingsController.getUserRegistrations
+  bookingsController.getUserRegistrations,
 );
 
 router.get(
   '/generateTicket/:id',
   authController.restrictTo('user'),
-  bookingsController.generateTicket
+  bookingsController.generateTicket,
 );
 
 router.use(authController.restrictTo('club'));
@@ -21,11 +21,11 @@ router.use(authController.restrictTo('club'));
 router.get('/:eventId', bookingsController.getEventBookings);
 router.get(
   '/:eventId/booking/:bookingId',
-  bookingsController.getSingleEventDetails
+  bookingsController.getSingleEventDetails,
 );
 router.delete(
   '/:eventId/booking/:bookingId',
-  bookingsController.deleteEventBooking
+  bookingsController.deleteEventBooking,
 );
 
 module.exports = router;

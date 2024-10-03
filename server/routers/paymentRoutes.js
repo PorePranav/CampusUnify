@@ -12,7 +12,7 @@ router.post(
   '/capturedPayment',
   paymentController.paymentCaptured,
   bookingsController.addBooking,
-  cartController.clearCart
+  cartController.clearCart,
 );
 
 router.use(authController.protect);

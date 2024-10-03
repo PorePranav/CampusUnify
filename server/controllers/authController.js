@@ -21,7 +21,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role))
       return next(
-        new AppError('You do not have permission to perform this action', 403)
+        new AppError('You do not have permission to perform this action', 403),
       );
     next();
   };
@@ -38,7 +38,7 @@ const createSendToken = (user, statusCode, res) => {
 
   const cookieOptions = {
     expiresIn: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 86400000
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 86400000,
     ),
     httpOnly: true,
     SameSite: 'none',
@@ -74,7 +74,7 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
   if (req.cookies.jwt) {
     const decoded = await promisify(jwt.verify)(
       req.cookies.jwt,
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
     );
 
     const freshUser = await User.findById(decoded.id);
@@ -87,7 +87,7 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.signup = catchAsync(async (req, res, next) => {
+exports.signup = catchAsync(async (req, res) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -153,7 +153,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       subject: 'Password Reset Token',
       emailBody,
     });
-  } catch (err) {
+  } catch {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
@@ -161,8 +161,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         'There was an error while sending email. Try again later',
-        500
-      )
+        500,
+      ),
     );
   }
   res.status(200).json({
@@ -199,7 +199,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(
-      new AppError('You have entered the wrong current password', 401)
+      new AppError('You have entered the wrong current password', 401),
     );
   }
 
@@ -210,7 +210,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.oAuth = catchAsync(async (req, res, next) => {
+exports.oAuth = catchAsync(async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) {
     createSendToken(user, 200, res);
@@ -233,7 +233,7 @@ exports.oAuth = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.logout = (req, res, next) => {
+exports.logout = (req, res) => {
   res.clearCookie('jwt').status(200).json({
     status: 'success',
     data: null,

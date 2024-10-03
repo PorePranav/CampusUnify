@@ -74,7 +74,7 @@ userSchema.pre(/^find/, async function (next) {
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
-  userPassword
+  userPassword,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
@@ -83,7 +83,7 @@ userSchema.methods.changedPasswordAfter = async function (JWTTimeStamp) {
   if (this.passwordChangedAt) {
     const changedTimeStamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
-      10
+      10,
     );
     return JWTTimeStamp < changedTimeStamp;
   }

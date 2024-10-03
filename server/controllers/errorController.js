@@ -42,7 +42,7 @@ const handleValidationErrorDB = (err) => {
   Object.values(err.errors).forEach((el) => {
     if (el.kind === 'minlength' && el.path === 'password') {
       errors.push(
-        `The password should be at least ${el.properties.minlength} characters long.`
+        `The password should be at least ${el.properties.minlength} characters long.`,
       );
       passwordMinLengthErrorHandled = true;
     } else if (el.path === 'passwordConfirm' && !passwordMinLengthErrorHandled)
@@ -62,9 +62,9 @@ const handleJWTError = () =>
 const handleExpiredTokenError = () =>
   new AppError(`Token expired. Please log in again`, 401);
 
-module.exports = (err, req, res, next) => {
-  err.statusCode ||= 500;
-  err.status ||= 'error';
+module.exports = (err, req, res) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') sendErrorDev(err, res);
   else {

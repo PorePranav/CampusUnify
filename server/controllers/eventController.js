@@ -4,7 +4,7 @@ const Event = require('../models/eventModel');
 const Bookings = require('../models/bookingsModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
-exports.getLatestEvents = catchAsync(async (req, res, next) => {
+exports.getLatestEvents = catchAsync(async (req, res) => {
   const latestEvents = await Event.getLatestEvents();
   res.status(200).json({
     status: 'success',
@@ -12,14 +12,14 @@ exports.getLatestEvents = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllEvents = catchAsync(async (req, res, next) => {
+exports.getAllEvents = catchAsync(async (req, res) => {
   let filter;
 
   if (req.user.role === 'club') filter = { clubId: req.user.id };
 
   const features = new APIFeatures(
     Event.find(filter).populate('bookings'),
-    req.query
+    req.query,
   )
     .filter()
     .sort()
@@ -42,7 +42,7 @@ exports.getSingleEvent = catchAsync(async (req, res, next) => {
 
   if (!fetchedEvent) {
     return next(
-      new AppError(`Event with id ${req.params.id} does not exist`, 404)
+      new AppError(`Event with id ${req.params.id} does not exist`, 404),
     );
   }
 
@@ -51,7 +51,7 @@ exports.getSingleEvent = catchAsync(async (req, res, next) => {
     !isAuthorized(req.user.id, fetchedEvent, true)
   )
     return next(
-      new AppError(`You are unauthorized to perform this action`, 403)
+      new AppError(`You are unauthorized to perform this action`, 403),
     );
 
   res.status(200).json({
@@ -64,7 +64,7 @@ exports.createEvent = catchAsync(async (req, res, next) => {
   const eventData = req.body;
   if (new Date(eventData.date) < new Date())
     return next(
-      new AppError('Cannot create an event for a day in the past', 403)
+      new AppError('Cannot create an event for a day in the past', 403),
     );
 
   eventData.clubId = req.user.id;
@@ -85,13 +85,13 @@ exports.updateEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id);
   if (!fetchedEvent) {
     return next(
-      new AppError(`There is no event with the id ${req.params.id}`, 404)
+      new AppError(`There is no event with the id ${req.params.id}`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -112,13 +112,13 @@ exports.deleteEvent = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.id);
   if (!fetchedEvent) {
     return next(
-      new AppError(`There is no event with the id ${req.params.id}`, 404)
+      new AppError(`There is no event with the id ${req.params.id}`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
@@ -134,7 +134,7 @@ exports.getEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
@@ -143,8 +143,8 @@ exports.getEventDay = catchAsync(async (req, res, next) => {
     return next(
       new AppError(
         `No event day with the given ${req.params.dayId} exists`,
-        404
-      )
+        404,
+      ),
     );
   }
 
@@ -158,7 +158,7 @@ exports.getAllEventDays = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with ${req.params.eventId} exists`, 404)
+      new AppError(`No event with ${req.params.eventId} exists`, 404),
     );
   }
 
@@ -176,13 +176,13 @@ exports.createEventDay = catchAsync(async (req, res, next) => {
 
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are not authorized to eprform this action', 403)
+      new AppError('You are not authorized to eprform this action', 403),
     );
   }
 
@@ -199,23 +199,23 @@ exports.updateEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
   const updationDay = fetchedEvent.days.find(
-    (day) => day._id.toString() === req.params.dayId
+    (day) => day._id.toString() === req.params.dayId,
   );
 
   if (!updationDay) {
     return next(
-      new AppError(`There is no event day with the id ${req.params.dayId}`)
+      new AppError(`There is no event day with the id ${req.params.dayId}`),
     );
   }
 
@@ -232,20 +232,20 @@ exports.deleteEventDay = catchAsync(async (req, res, next) => {
   const fetchedEvent = await Event.findById(req.params.eventId);
   if (!fetchedEvent) {
     return next(
-      new AppError(`No event with the given ${req.params.eventId} exists`, 404)
+      new AppError(`No event with the given ${req.params.eventId} exists`, 404),
     );
   }
 
   if (!isAuthorized(req.user.id, fetchedEvent)) {
     return next(
-      new AppError('You are unauthorized to perform this action', 403)
+      new AppError('You are unauthorized to perform this action', 403),
     );
   }
 
   const deletionDay = fetchedEvent.days.id(req.params.dayId);
   if (!deletionDay) {
     return next(
-      new AppError(`There is no event day with the id ${req.params.dayId}`)
+      new AppError(`There is no event day with the id ${req.params.dayId}`),
     );
   }
 

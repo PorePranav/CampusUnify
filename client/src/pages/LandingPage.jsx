@@ -5,7 +5,7 @@ import SpinnerMini from '../ui/SpinnerMini';
 import { format } from 'date-fns';
 
 export default function LandingPage() {
-  const { isLoading, error, latestEvents } = useLatestEvents();
+  const { isLoading, latestEvents } = useLatestEvents();
 
   return (
     <PageLayout>
@@ -136,8 +136,8 @@ export default function LandingPage() {
                 University of California, Berkeley
               </p>
               <p className="text-md font-light text-primary-900 mt-2">
-                "I love how easy it is to create and manage events. It's saved
-                us so much time!"
+                &quot;I love how easy it is to create and manage events.
+                It&apos;s saved us so much time!&quot;
               </p>
             </div>
           </div>
@@ -152,8 +152,8 @@ export default function LandingPage() {
                 University of Southern California
               </p>
               <p className="text-md font-light text-primary-900 mt-2">
-                "CampusUnify has been a game changer for us. Our events have
-                never looked better."
+                &quot;CampusUnify has been a game changer for us. Our events
+                have never looked better.&quot;
               </p>
             </div>
           </div>
@@ -166,8 +166,8 @@ export default function LandingPage() {
             <div>
               <p className="font-semibold mt-4 sm:mt-0">Stanford University</p>
               <p className="text-md font-light text-primary-900 mt-2">
-                "Our students are loving the new registration process. It's so
-                much faster and intuitive"
+                &quot;Our students are loving the new registration process.
+                It&apos;s so much faster and intuitive&quot;
               </p>
             </div>
           </div>
