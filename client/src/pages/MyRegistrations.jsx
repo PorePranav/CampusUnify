@@ -5,12 +5,13 @@ import { formatCurrency } from '../utils/helpers';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { formatDateTimeDetailed } from '../utils/helpers';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
+import { Context } from '../main';
 
 export default function MyRegistrations() {
   const { isLoading, registrations } = useRegistrations();
   const [tab, setTab] = useState('all');
-
+  const { isDarkMode, setIsDarkMode } = useContext(Context);
   function handleDownloadTicket(registrationId) {
     api
       .get(`/bookings/generateTicket/${registrationId}`, {
@@ -55,7 +56,12 @@ export default function MyRegistrations() {
 
   return (
     <PageLayout>
-      <h2 className="text-3xl font-bold mt-4">Your Registrations</h2>
+    <div className="w-[80%] mx-auto"
+      style={{
+        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
+        color: isDarkMode ? 'white' : 'black',
+      }}>
+    <h2 className="text-3xl font-bold mt-4">Your Registrations</h2>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -150,6 +156,7 @@ export default function MyRegistrations() {
           </div>
         </>
       )}
+    </div>
     </PageLayout>
   );
 }

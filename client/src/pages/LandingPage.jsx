@@ -3,12 +3,20 @@ import { Link } from 'react-router-dom';
 import { useLatestEvents } from '../features/events/useLatestEvents';
 import SpinnerMini from '../ui/SpinnerMini';
 import { format } from 'date-fns';
+import { Context } from '../main';
+import { useContext } from 'react';
 
 export default function LandingPage() {
   const { isLoading, latestEvents } = useLatestEvents();
+  const { isDarkMode, setIsDarkMode } = useContext(Context);
 
   return (
-    <PageLayout>
+    <PageLayout >
+      <div className="w-[80%] mx-auto"
+      style={{
+        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
+        color: isDarkMode ? 'white' : 'black',
+      }}>
       <div className="relative flex flex-col items-center px-4 sm:px-8">
         <img
           className="w-full sm:w-[75%] mx-auto rounded-lg shadow-md"
@@ -172,6 +180,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </PageLayout>
   );

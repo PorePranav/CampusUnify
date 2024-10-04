@@ -2,17 +2,20 @@ import PageLayout from '../styles/PageLayout';
 import SpinnerMini from '../ui/SpinnerMini';
 import SearchFilter from '../ui/SearchFilter';
 
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './../features/authentication/useUser';
 import { useEvents } from '../features/events/useEvents';
 import { formatDateTimeEvent } from '../utils/helpers';
 import AddEvent from '../features/events/AddEvent';
 import EventMenu from '../features/events/EventMenu';
+import { Context } from '../main';
 
 export default function Events() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { isDarkMode, setIsDarkMode } = useContext(Context);
+
 
   const { events = [], isLoading } = useEvents();
   const [searchQuery, setSearchQuery] = useState('');
@@ -59,7 +62,12 @@ export default function Events() {
 
   return (
     <PageLayout>
-      <h2 className="text-3xl font-bold mt-4">Events</h2>
+     <div className="w-[80%] mx-auto"
+      style={{
+        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
+        color: isDarkMode ? 'white' : 'black',
+      }}>
+     <h2 className="text-3xl font-bold mt-4">Events</h2>
       <SearchFilter
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -106,6 +114,7 @@ export default function Events() {
           </div>
         </>
       )}
+     </div>
     </PageLayout>
   );
 }

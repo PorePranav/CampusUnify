@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { useEvent } from '../features/events/useEvent';
 import PageLayout from '../styles/PageLayout';
 import PageNotFound from '../ui/PageNotFound';
@@ -7,11 +7,14 @@ import { useUser } from '../features/authentication/useUser';
 import EventInformationTab from '../features/events/EventInformationTab';
 import EventDaysTab from '../features/events/EventDaysTab';
 import EventRegistrationsTab from '../features/events/EventRegistrationsTab';
+import { Context } from '../main';
 
 export default function Event() {
   const { event, isLoading: isLoadingOne } = useEvent();
   const { user, isLoading: isLoadingTwo } = useUser();
   const [activeTab, setActiveTab] = useState('info');
+  const { isDarkMode } = useContext(Context);
+
 
   if (!isLoadingOne && !event)
     return (
@@ -22,7 +25,12 @@ export default function Event() {
 
   return (
     <PageLayout>
-      {isLoadingOne || isLoadingTwo ? (
+    <div  className="w-[80%] mx-auto"
+      style={{
+        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
+        color: isDarkMode ? 'white' : 'black',
+      }}>
+    {isLoadingOne || isLoadingTwo ? (
         <Spinner />
       ) : (
         <>
@@ -83,6 +91,7 @@ export default function Event() {
           )}
         </>
       )}
+    </div>
     </PageLayout>
   );
 }

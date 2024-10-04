@@ -6,8 +6,12 @@ import { usePayment } from '../features/cart/usePayment';
 import Spinner from '../ui/Spinner';
 import { formatCurrency, formatDateTimeDetailed } from '../utils/helpers';
 import { Link } from 'react-router-dom';
+import { Context } from '../main';
+import { useContext } from 'react';
 
 export default function Cart() {
+  const { isDarkMode, setIsDarkMode } = useContext(Context);
+
   const { cart, isLoading } = useCart();
   const { deleteFromCart, isDeleting } = useDeleteCartItem();
   const { clearCart, isClearing } = useClearCart();
@@ -15,7 +19,12 @@ export default function Cart() {
 
   return (
     <PageLayout>
-      <h2 className="text-3xl font-bold mt-4">Your Cart</h2>
+     <div className="w-[80%] mx-auto"
+      style={{
+        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
+        color: isDarkMode ? 'white' : 'black',
+      }}>
+     <h2 className="text-3xl font-bold mt-4">Your Cart</h2>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -77,6 +86,7 @@ export default function Cart() {
           )}
         </div>
       )}
+     </div>
     </PageLayout>
   );
 }
