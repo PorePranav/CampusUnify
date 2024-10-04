@@ -12,11 +12,10 @@ export default function LandingPage() {
 
   return (
     <PageLayout >
-      <div className="w-[80%] mx-auto"
-      style={{
-        backgroundColor: isDarkMode ? '#2D2D2D' : '#fcfaf8',
-        color: isDarkMode ? 'white' : 'black',
-      }}>
+      <div  className={`w-[80%] mx-auto transition-colors duration-300 ${
+          isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'
+        }`}
+      >
       <div className="relative flex flex-col items-center px-4 sm:px-8">
         <img
           className="w-full sm:w-[75%] mx-auto rounded-lg shadow-md"

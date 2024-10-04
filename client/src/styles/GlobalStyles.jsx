@@ -6,12 +6,11 @@ export default function GlobalStyles({ children }) {
 
   return (
     <div
-      className={`font-inter min-h-screen text-[#333] ${
-        isDarkMode ? 'bg-[#2D2D2D]' : 'bg-[#fcfaf8]'
+      className={`font-inter min-h-screen transition-colors duration-300 ${
+        isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'
       }`}
     >
       {children}
     </div>
   );
 }
-
