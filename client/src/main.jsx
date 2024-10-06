@@ -1,32 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-import { createContext,useState } from 'react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
 
-const config = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
-};
-export const Context = createContext();
-
-const AppWrapper = ()=>{
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  return(
-      <Context.Provider value={{
-         isDarkMode,
-         setIsDarkMode
-      }}>
- 
-
-  <App />
-
-      </Context.Provider>
-  )
-} 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <AppWrapper/>
+ReactDOM.createRoot(document.getElementById("root")).render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
 );
-
