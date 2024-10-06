@@ -1,0 +1,33 @@
+version: '3.8' # Specifies the Docker Compose file version
+
+services: 
+  # Backend service definition
+  backend:
+    build:
+      context: ./server # The location of the Dockerfile for the backend (Node.js) service
+      dockerfile: Dockerfile # Dockerfile name used to build the backend (default is 'Dockerfile')
+    container_name: backend_container # Assigns a custom name to the backend container
+    ports:
+      - "${BACKEND_PORT:-3000}:${BACKEND_PORT:-3000}" # Uses the BACKEND_PORT env variable, or defaults to 3000 if not set
+    networks:
+      - app_network # Assigns the backend service to the custom network
+    environment:
+      - NODE_ENV=development # Example environment variable for backend setup
+      - PORT=${BACKEND_PORT:-3000} # Pass the port env variable to the backend container, defaults to 3000 if not set
+
+  # Frontend service definition (Vite)
+  frontend:
+    build:
+      context: ./client # The location of the Dockerfile for the frontend (Vite) service
+      dockerfile: Dockerfile # Dockerfile name used to build the frontend
+    container_name: frontend_container # Assigns a custom name to the frontend container
+    ports:
+      - "5173:5173" # Maps port 5173 on the host machine to port 5173 inside the container for Vite
+    networks:
+      - app_network # Assigns the frontend service to the same custom network as the backend
+    depends_on:
+      - backend # Ensures the frontend service starts after the backend service is up and running
+
+networks:
+  app_network:
+    driver: bridge # Creates a network with the 'bridge' driver for communication between services
