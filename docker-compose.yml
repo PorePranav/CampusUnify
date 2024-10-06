@@ -17,16 +17,16 @@ services:
 
   # Frontend service definition (Vite)
   frontend:
-    build:
-      context: ./client # The location of the Dockerfile for the frontend (Vite) service
-      dockerfile: Dockerfile # Dockerfile name used to build the frontend
-    container_name: frontend_container # Assigns a custom name to the frontend container
-    ports:
-      - "5173:5173" # Maps port 5173 on the host machine to port 5173 inside the container for Vite
-    networks:
-      - app_network # Assigns the frontend service to the same custom network as the backend
-    depends_on:
-      - backend # Ensures the frontend service starts after the backend service is up and running
+  build:
+    context: ./client
+    dockerfile: Dockerfile
+  container_name: frontend_container
+  ports:
+    - "5173:5173"
+  networks:
+    - app_network
+  depends_on:
+    - backend # Ensures the frontend service starts after the backend service is up and running
 
 networks:
   app_network:
