@@ -57,7 +57,6 @@ export default function MyRegistrations() {
   return (
     <PageLayout>
       <div
-       
         className={`flex justify-between items-center mx-auto p-3 transition-colors duration-300 ${
           isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
         }`}

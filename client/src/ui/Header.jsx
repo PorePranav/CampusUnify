@@ -69,8 +69,16 @@ export default function Header() {
           <div className="flex gap-4 items-center">
             <img src="/logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-              <span className={`${isDarkMode ? 'text-primary-300' : 'text-primary-800'}`}>Campus</span>
-              <span className={`${isDarkMode ? 'text-primary-400' : 'text-primary-500'}`}>Unify</span>
+              <span
+                className={`${isDarkMode ? 'text-primary-300' : 'text-primary-800'}`}
+              >
+                Campus
+              </span>
+              <span
+                className={`${isDarkMode ? 'text-primary-400' : 'text-primary-500'}`}
+              >
+                Unify
+              </span>
             </h1>
           </div>
         </Link>
@@ -85,9 +93,7 @@ export default function Header() {
               isDarkMode ? 'bg-gray-700' : 'bg-gray-300'
             }`}
           >
-            <span className="text-lg">
-              {isDarkMode ? '🌙' : '☀️'}
-            </span>
+            <span className="text-lg">{isDarkMode ? '🌙' : '☀️'}</span>
           </li>
         </ul>
       </div>

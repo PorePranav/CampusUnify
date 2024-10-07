@@ -49,7 +49,6 @@ export default function Events() {
         const dateB = new Date(b.date);
 
         if (sortQuery === 'date') {
-          console.log('date', dateA.getTime() - dateB.getTime());
           return dateA.getTime() - dateB.getTime();
         } else if (sortQuery === 'priceL2H') {
           return a.eventCharges - b.eventCharges;

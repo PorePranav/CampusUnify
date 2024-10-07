@@ -1,5 +1,5 @@
-import { Context } from "../main";
-import { useContext } from "react";
+import { Context } from '../main';
+import { useContext } from 'react';
 
 export default function GlobalStyles({ children }) {
   const { isDarkMode } = useContext(Context);
