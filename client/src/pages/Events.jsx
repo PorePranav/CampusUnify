@@ -19,7 +19,7 @@ export default function Events() {
   const { events = [], isLoading } = useEvents();
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryQuery, setCategoryQuery] = useState('all');
-  const [dateQuery, setDateQuery] = useState(new Date('1970-01-01'));
+  const [dateQuery, setDateQuery] = useState('');
   const [sortQuery, setSortQuery] = useState('all');
 
   const filteredEvents = filterAndSortEvents();
@@ -39,7 +39,7 @@ export default function Events() {
           categoryQuery === 'all' || event.category === categoryQuery;
 
         const matchesDate = filterDate
-          ? new Date(event.date).getTime() >= filterDate.getTime()
+          ? new Date(event.date).getTime() === filterDate.getTime()
           : true;
 
         return matchesSearch && matchesCategory && matchesDate;
@@ -48,10 +48,13 @@ export default function Events() {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
 
-        if (sortQuery === 'upcoming') {
+        if (sortQuery === 'date') {
+          console.log('date', dateA.getTime() - dateB.getTime());
           return dateA.getTime() - dateB.getTime();
-        } else if (sortQuery === 'past') {
-          return dateB.getTime() - dateA.getTime();
+        } else if (sortQuery === 'priceL2H') {
+          return a.eventCharges - b.eventCharges;
+        } else if (sortQuery === 'priceH2L') {
+          return b.eventCharges - a.eventCharges;
         }
         return 0;
       });
