@@ -4,6 +4,7 @@ import { useLogin } from './useLogin';
 import { useUser } from './useUser';
 import Logo from '../../ui/Logo';
 import PageLayout from '../../styles/PageLayout';
+import PasswordInput from '../../ui/PasswordInput';
 
 export default function Login() {
   const { user } = useUser();
@@ -44,14 +45,11 @@ export default function Login() {
             onChange={handleChange}
             value={formData.email}
           />
-          <input
-            type="password"
-            placeholder="Password"
+          <PasswordInput
             id="password"
-            required
-            className="border p-3 rounded-lg placeholder-primary-900"
-            onChange={handleChange}
+            placeholder="Password"
             value={formData.password}
+            onChange={handleChange}
           />
           <Link
             to="/forgot-password"
