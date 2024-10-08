@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSignup } from './useSignup';
 import Logo from '../../ui/Logo';
+import PasswordInput from '../../ui/PasswordInput';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -50,20 +51,16 @@ export default function Signup() {
           className="border p-3 rounded-lg placeholder-primary-900"
           onChange={handleChange}
         />
-        <input
-          type="password"
-          placeholder="Password"
+        <PasswordInput
           id="password"
-          required
-          className="border p-3 rounded-lg placeholder-primary-900"
+          placeholder="Password"
+          value={formData.password}
           onChange={handleChange}
         />
-        <input
-          type="password"
-          placeholder="Confirm Password"
+        <PasswordInput
           id="passwordConfirm"
-          required
-          className="border p-3 rounded-lg placeholder-primary-900"
+          placeholder="Confirm Password"
+          value={formData.passwordConfirm}
           onChange={handleChange}
         />
         <select
