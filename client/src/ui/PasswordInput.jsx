@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { HiEye, HiEyeSlash } from 'react-icons/hi2';
 
 export default function PasswordInput({ id, placeholder, value, onChange }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,12 +25,9 @@ export default function PasswordInput({ id, placeholder, value, onChange }) {
         className="absolute right-3 top-3"
       >
         {showPassword ? (
-          <FontAwesomeIcon
-            icon={faEyeSlash}
-            className="text-gray-600 h-5 w-5"
-          />
+          <HiEyeSlash className="text-gray-600 h-5 w-5" />
         ) : (
-          <FontAwesomeIcon icon={faEye} className="text-gray-600 h-5 w-5" />
+          <HiEye className="text-gray-600 h-5 w-5" />
         )}
       </button>
     </div>
