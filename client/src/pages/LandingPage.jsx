@@ -8,7 +8,7 @@ import { useContext } from 'react';
 
 export default function LandingPage() {
   const { isLoading, latestEvents } = useLatestEvents();
-  const { isDarkMode, setIsDarkMode } = useContext(Context);
+  const { isDarkMode } = useContext(Context);
 
   return (
     <PageLayout>
