@@ -21,8 +21,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.0",
-    "react-router-dom": "^6.22.3",
-    "remove": "^0.1.5"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
