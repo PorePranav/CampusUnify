@@ -51,7 +51,15 @@ export default function MyRegistrations() {
 
   return (
     <PageLayout>
+<<<<<<< HEAD
       <div className="flex justify-between items-center mx-auto p-3 transition-colors duration-300 bg-white text-black dark:bg-gray-800 dark:text-white">
+=======
+      <div
+        className={`flex justify-between items-center mx-auto p-3 transition-colors duration-300 ${
+          isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
+        }`}
+      >
+>>>>>>> da3e271997fea15943e51e8ac47a3818cb3a831d
         <h2 className="text-3xl font-bold mt-4">Your Registrations</h2>
         {isLoading ? (
           <Spinner />

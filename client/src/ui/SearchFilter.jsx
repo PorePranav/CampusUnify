@@ -13,7 +13,7 @@ export default function SearchFilterNew({
   function handleReset() {
     setSearchQuery('');
     setCategoryQuery('all');
-    setDateQuery(new Date('1970-01-01'));
+    setDateQuery('');
     setSortQuery('all');
   }
 
@@ -76,8 +76,9 @@ export default function SearchFilterNew({
             onChange={(e) => setSortQuery(e.target.value)}
           >
             <option value="all">All</option>
-            <option value="upcoming">Upcoming</option>
-            <option value="past">Past</option>
+            <option value="date">Date</option>
+            <option value="priceL2H">Price: Low to High</option>
+            <option value="priceH2L">Price: High to Low</option>
           </select>
         </div>
       </div>
