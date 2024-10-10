@@ -1,17 +1,14 @@
-import Spinner from '../ui/Spinner';
-import PageLayout from '../styles/PageLayout';
-import { useRegistrations } from '../features/registrations/useRegistrations';
-import { formatCurrency } from '../utils/helpers';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useRegistrations } from '../features/registrations/useRegistrations';
 import api from '../services/api';
-import { formatDateTimeDetailed } from '../utils/helpers';
-import { useState, useContext } from 'react';
-import { Context } from '../main';
+import PageLayout from '../styles/PageLayout';
+import Spinner from '../ui/Spinner';
+import { formatCurrency, formatDateTimeDetailed } from '../utils/helpers';
 
 export default function MyRegistrations() {
   const { isLoading, registrations } = useRegistrations();
   const [tab, setTab] = useState('all');
-  const { isDarkMode } = useContext(Context); // Retrieve isDarkMode from context
 
   function handleDownloadTicket(registrationId) {
     api
@@ -46,21 +43,23 @@ export default function MyRegistrations() {
       case 'past':
         return registrations.filter((reg) => new Date(reg.eventId.date) < now);
       case 'all':
-      default:
         return registrations;
     }
   };
-
   const filteredRegistrations =
     registrations && filterRegistrations(registrations);
 
   return (
     <PageLayout>
+<<<<<<< HEAD
+      <div className="flex justify-between items-center mx-auto p-3 transition-colors duration-300 bg-white text-black dark:bg-gray-800 dark:text-white">
+=======
       <div
         className={`flex justify-between items-center mx-auto p-3 transition-colors duration-300 ${
           isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
         }`}
       >
+>>>>>>> da3e271997fea15943e51e8ac47a3818cb3a831d
         <h2 className="text-3xl font-bold mt-4">Your Registrations</h2>
         {isLoading ? (
           <Spinner />
@@ -68,6 +67,7 @@ export default function MyRegistrations() {
           <>
             <div className="mt-4 border-b-2 p-2 border-skin flex gap-6">
               <button
+                type="button"
                 className={`font-semibold hover:text-black pb-1 ${
                   tab === 'all'
                     ? 'text-black border-b-2 border-primary-700'
@@ -78,6 +78,7 @@ export default function MyRegistrations() {
                 All
               </button>
               <button
+                type="button"
                 className={`font-semibold hover:text-black pb-1 ${
                   tab === 'upcoming'
                     ? 'text-black border-b-2 border-primary-700'
@@ -88,6 +89,7 @@ export default function MyRegistrations() {
                 Upcoming
               </button>
               <button
+                type="button"
                 className={`font-semibold hover:text-black pb-1 ${
                   tab === 'past'
                     ? 'text-black border-b-2 border-primary-700'
@@ -107,7 +109,7 @@ export default function MyRegistrations() {
                     className="text-blue-500 hover:text-blue-700"
                   >
                     {' '}
-                    Browse for new events &rarr;
+                    Browse for new events →
                   </Link>
                 </p>
               ) : (
@@ -143,6 +145,7 @@ export default function MyRegistrations() {
                             registration.currentStatus.slice(1)}
                         </p>
                         <button
+                          type="button"
                           onClick={() => handleDownloadTicket(registration._id)}
                           className="text-primary-900"
                         >

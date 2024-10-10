@@ -43,6 +43,7 @@ function Window({ children, name }) {
         <button
           className="absolute top-3 right-4 p-1 bg-transparent rounded-sm transition"
           onClick={close}
+          type="button"
         >
           <HiXMark className="w-6 h-6 text-gray-500" />
         </button>
@@ -52,7 +53,6 @@ function Window({ children, name }) {
     document.body
   );
 }
-
 Modal.Open = Open;
 Modal.Window = Window;
 

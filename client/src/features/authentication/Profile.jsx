@@ -1,17 +1,17 @@
-import { useRef, useState, useEffect } from 'react';
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-import { app } from '../../firebase';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { app } from '../../firebase';
 
+import { useDelete } from './useDelete';
+import { useLogout } from './useLogout';
 import { useUpdate } from './useUpdate';
 import { useUser } from './useUser';
-import { useLogout } from './useLogout';
-import { useDelete } from './useDelete';
 
 export default function Profile() {
   const { user } = useUser();
@@ -110,6 +110,7 @@ export default function Profile() {
           defaultValue={user.email}
         />
         <button
+          type="submit"
           disabled={isLoading}
           className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
@@ -117,10 +118,10 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex gap-8 mt-5 justify-between text-sm">
-        <button className="text-red-700" onClick={logout}>
+        <button type="button" className="text-red-700" onClick={logout}>
           Logout
         </button>
-        <button className="text-red-700" onClick={deleteUser}>
+        <button type="button" className="text-red-700" onClick={deleteUser}>
           Delete Account
         </button>
       </div>

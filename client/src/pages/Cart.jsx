@@ -1,17 +1,13 @@
-import PageLayout from '../styles/PageLayout';
+import { Link } from 'react-router-dom';
 import { useCart } from '../features/cart/useCart';
-import { useDeleteCartItem } from '../features/cart/useDeleteCartItem';
 import { useClearCart } from '../features/cart/useClearCart';
+import { useDeleteCartItem } from '../features/cart/useDeleteCartItem';
 import { usePayment } from '../features/cart/usePayment';
+import PageLayout from '../styles/PageLayout';
 import Spinner from '../ui/Spinner';
 import { formatCurrency, formatDateTimeDetailed } from '../utils/helpers';
-import { Link } from 'react-router-dom';
-import { Context } from '../main';
-import { useContext } from 'react';
 
 export default function Cart() {
-  const { isDarkMode } = useContext(Context);
-
   const { cart, isLoading } = useCart();
   const { deleteFromCart, isDeleting } = useDeleteCartItem();
   const { clearCart, isClearing } = useClearCart();
@@ -19,11 +15,7 @@ export default function Cart() {
 
   return (
     <PageLayout>
-      <div
-        className={`w-[80%] mx-auto p-6 transition-colors duration-300 ${
-          isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'
-        }`}
-      >
+      <div className="w-[80%] mx-auto p-6 transition-colors duration-300 bg-gray-100 text-black dark:bg-gray-800 dark:text-white">
         <h2 className="text-3xl font-bold mt-4">Your Cart</h2>
         {isLoading ? (
           <Spinner />
@@ -62,6 +54,7 @@ export default function Cart() {
                       </p>
                     </div>
                     <button
+                      type="button"
                       className="bg-red-600 text-white px-4 py-2 rounded-lg font-bold self-center ml-auto
                                  transition-colors duration-300 hover:bg-red-500 disabled:opacity-50"
                       disabled={isDeleting}
@@ -76,6 +69,7 @@ export default function Cart() {
                 </p>
                 <div className="flex justify-end gap-4 mt-4">
                   <button
+                    type="button"
                     className="bg-yellow-500 px-4 py-2 rounded-lg font-bold transition-colors 
                                duration-300 hover:bg-yellow-400 disabled:opacity-50"
                     onClick={clearCart}
@@ -84,6 +78,7 @@ export default function Cart() {
                     Clear Cart
                   </button>
                   <button
+                    type="button"
                     className="bg-primary-700 text-white px-4 py-2 rounded-lg font-bold 
                                transition-colors duration-300 hover:bg-primary-600"
                     onClick={initiatePayment}
