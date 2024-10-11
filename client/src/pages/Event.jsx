@@ -1,21 +1,19 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
+import { useUser } from '../features/authentication/useUser';
+import EventDaysTab from '../features/events/EventDaysTab';
+import EventInformationTab from '../features/events/EventInformationTab';
+import EventRegistrationsTab from '../features/events/EventRegistrationsTab';
 import { useEvent } from '../features/events/useEvent';
 import PageLayout from '../styles/PageLayout';
 import PageNotFound from '../ui/PageNotFound';
 import Spinner from '../ui/Spinner';
-import { useUser } from '../features/authentication/useUser';
-import EventInformationTab from '../features/events/EventInformationTab';
-import EventDaysTab from '../features/events/EventDaysTab';
-import EventRegistrationsTab from '../features/events/EventRegistrationsTab';
-import { Context } from '../main';
 
 export default function Event() {
-  const { event, isLoading: isLoadingOne } = useEvent();
-  const { user, isLoading: isLoadingTwo } = useUser();
+  const { event, isLoading: isLoadingEvent } = useEvent();
+  const { user, isLoading: isLoadingUser } = useUser();
   const [activeTab, setActiveTab] = useState('info');
-  const { isDarkMode } = useContext(Context);
 
-  if (!isLoadingOne && !event)
+  if (!isLoadingEvent && !event)
     return (
       <PageLayout>
         <PageNotFound />
@@ -24,12 +22,8 @@ export default function Event() {
 
   return (
     <PageLayout>
-      <div
-        className={`w-[80%] mx-auto p-6 transition-colors duration-300 ${
-          isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'
-        }`}
-      >
-        {isLoadingOne || isLoadingTwo ? (
+      <div className="w-[80%] mx-auto p-6 transition-colors duration-300 rounded-md text-black dark:bg-gray-800 dark:text-white">
+        {isLoadingEvent || isLoadingUser ? (
           <Spinner />
         ) : (
           <>
@@ -51,6 +45,7 @@ export default function Event() {
             <h2 className="text-4xl mt-4 font-bold">{event.name}</h2>
             <div className="w-full mt-4 flex items-center gap-4 border-b-2 p-4 transition-colors duration-300 border-gray-300 dark:border-gray-600">
               <button
+                type="button"
                 className={`font-semibold pb-2 transition-colors duration-300 ${
                   activeTab === 'info'
                     ? 'text-black dark:text-white border-b-2 border-primary-700'
@@ -61,6 +56,7 @@ export default function Event() {
                 Event Information
               </button>
               <button
+                type="button"
                 className={`font-semibold pb-2 transition-colors duration-300 ${
                   activeTab === 'daydetails'
                     ? 'text-black dark:text-white border-b-2 border-primary-700'
@@ -72,10 +68,11 @@ export default function Event() {
               </button>
               {user.role === 'club' && (
                 <button
+                  type="button"
                   className={`font-semibold pb-2 transition-colors duration-300 ${
                     activeTab === 'registrations'
                       ? 'text-black dark:text-white border-b-2 border-primary-700'
-                      : 'text-primary-900 dark:text-primary-400 hover:text-black dark:hover:text-white'
+                      : 'text-primary-900 dark:text-primary-400 hover:text:black dark:hover:text-white'
                   }`}
                   onClick={() => setActiveTab('registrations')}
                 >

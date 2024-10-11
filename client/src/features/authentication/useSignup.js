@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { signup as signupApi } from '../../services/apiAuth.js';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { signup as signupApi } from '../../services/apiAuth.js';
 
 export function useSignup() {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export function useSignup() {
       toast.success('Account created successfully');
     },
     onError: (err) => {
+      console.log('err', err);
       toast.error(err.response.data.message);
     },
   });
