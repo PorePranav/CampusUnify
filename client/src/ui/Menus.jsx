@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
-import { createContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { HiEllipsisVertical } from 'react-icons/hi2';
 import useOutsideClick from '../hooks/useOutsideClick';
@@ -25,6 +24,7 @@ function Toggle({ id }) {
 
   return (
     <button
+      type="button"
       className="bg-none border-none p-2 rounded-sm transition-transform translate-x-2 hover:bg-primary-50"
       onClick={handleClick}
     >
@@ -32,7 +32,6 @@ function Toggle({ id }) {
     </button>
   );
 }
-
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
   const ref = useOutsideClick(() => close(), false);
@@ -62,6 +61,7 @@ function Button({ children, icon, onClick }) {
   return (
     <li>
       <button
+        type="button"
         className="w-full text-left bg-none border-none p-2 text-base transition-all flex items-center gap-4 hover:bg-primary-50 hover:rounded-md"
         onClick={handleClick}
       >

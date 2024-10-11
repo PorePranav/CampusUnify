@@ -16,7 +16,7 @@ export default function PasswordInput({ id, placeholder, value, onChange }) {
         id={id}
         value={value}
         onChange={onChange}
-        className="border p-3 rounded-lg placeholder-primary-900 w-full"
+        className="border p-3 rounded-lg placeholder-primary-900 text-primary-900 w-full"
         required
       />
       <button

@@ -1,17 +1,17 @@
-import { useRef, useState, useEffect } from 'react';
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-import { app } from '../../firebase';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { app } from '../../firebase';
 
+import { useDelete } from './useDelete';
+import { useLogout } from './useLogout';
 import { useUpdate } from './useUpdate';
 import { useUser } from './useUser';
-import { useLogout } from './useLogout';
-import { useDelete } from './useDelete';
 
 export default function Profile() {
   const { user } = useUser();
@@ -77,9 +77,9 @@ export default function Profile() {
   }, [file]);
 
   return (
-    <div className="flex flex-col w-96 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
-      <h1 className="mt-4 font-semibold text-2xl">Profile</h1>
-      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+    <div className="flex flex-col w-[600px] mt-5 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
+      <h1 className="mt-4 font-semibold text-2xl text-primary-900">Profile</h1>
+      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4 w-full">
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
@@ -97,7 +97,7 @@ export default function Profile() {
           type="text"
           placeholder="Name"
           id="name"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
           onChange={handleChange}
           defaultValue={user.name}
         />
@@ -105,11 +105,12 @@ export default function Profile() {
           type="email"
           placeholder="Email"
           id="email"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
           onChange={handleChange}
           defaultValue={user.email}
         />
         <button
+          type="submit"
           disabled={isLoading}
           className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
@@ -117,10 +118,10 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex gap-8 mt-5 justify-between text-sm">
-        <button className="text-red-700" onClick={logout}>
+        <button type="button" className="text-red-700" onClick={logout}>
           Logout
         </button>
-        <button className="text-red-700" onClick={deleteUser}>
+        <button type="button" className="text-red-700" onClick={deleteUser}>
           Delete Account
         </button>
       </div>

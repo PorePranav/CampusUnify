@@ -1,28 +1,23 @@
-import { useContext } from 'react';
+import { FaMoon, FaSun } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useUser } from '../features/authentication/useUser';
-import { Context } from '../main';
+import useTheme from '../hooks/useTheme';
 
 export default function Header() {
   const { user } = useUser();
-  const { isDarkMode, setIsDarkMode } = useContext(Context);
-
-  // Function to toggle dark mode
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
+  const { theme, toggleTheme } = useTheme();
 
   const renderUserLinks = () => {
     if (user?.role === 'user') {
       return (
         <>
           <Link to="/registration">
-            <li className="hidden sm:inline hover:text-primary-900 font-bold">
+            <li className="hidden text-gray-800 dark:text-white/90 sm:inline hover:text-primary-600 font-bold">
               My Registrations
             </li>
           </Link>
           <Link to="/cart">
-            <li className="hidden sm:inline hover:text-primary-900 font-bold">
+            <li className="hidden text-gray-800 dark:text-white/90 sm:inline hover:text-primary-600 font-bold">
               My Cart
             </li>
           </Link>
@@ -35,7 +30,7 @@ export default function Header() {
   const renderClubLinks = () => (
     <>
       <Link to="/events">
-        <li className="hidden sm:inline hover:text-primary-900 font-bold">
+        <li className="hidden sm:inline text-gray-800 dark:text-white/90 hover:text-primary-600 font-bold">
           Events
         </li>
       </Link>
@@ -59,24 +54,16 @@ export default function Header() {
   );
 
   return (
-    <header className="w-[80%] mx-auto">
-      <div
-        className={`flex justify-between items-center mx-auto p-3 transition-colors duration-300 ${
-          isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
-        }`}
-      >
+    <header className="w-full sm:w-[80%] mx-auto px-5 sm:px-0">
+      <div className="flex justify-between items-center mx-auto py-3 sm:py-3 transition-colors duration-300 text-black dark:text-white">
         <Link to={user ? '/events' : '/'}>
           <div className="flex gap-4 items-center">
             <img src="/logo.png" className="h-12 w-12" alt="" />
             <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-              <span
-                className={`${isDarkMode ? 'text-primary-300' : 'text-primary-800'}`}
-              >
+              <span className="text-primary-800 dark:text-primary-300">
                 Campus
               </span>
-              <span
-                className={`${isDarkMode ? 'text-primary-400' : 'text-primary-500'}`}
-              >
+              <span className="text-primary-500 dark:text-primary-400">
                 Unify
               </span>
             </h1>
@@ -87,13 +74,14 @@ export default function Header() {
           {user ? renderClubLinks() : renderGuestLinks()}
 
           {/* Dark/Light mode toggle button */}
-          <li
-            onClick={toggleDarkMode}
-            className={`cursor-pointer p-2 rounded-full transition-colors duration-300 ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-300'
-            }`}
-          >
-            <span className="text-lg">{isDarkMode ? '🌙' : '☀️'}</span>
+          <li>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-full transition-colors duration-300 bg-gray-300 dark:bg-gray-700"
+            >
+              {theme === 'dark' ? <FaMoon /> : <FaSun />}
+            </button>
           </li>
         </ul>
       </div>
