@@ -42,7 +42,7 @@ function Window({ children, name }) {
       >
         <div className="relative">
           <button
-            className="absolute top-4 right-4 p-1 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-200"
+            className="absolute top-4 right-4 p-1 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300"
             onClick={close}
             type="button"
           >
