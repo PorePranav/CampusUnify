@@ -60,7 +60,7 @@ export default function Events() {
 
 	return (
 		<PageLayout>
-			<div className="w-[80%] mx-auto transition-colors duration-300 bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-white">
+			<div className="w-[80%] mx-auto transition-colors duration-300 text-gray-900  dark:text-white">
 				<h2 className="text-3xl font-bold mt-4">Events</h2>
 				<SearchFilter
 					searchQuery={searchQuery}
@@ -76,10 +76,12 @@ export default function Events() {
 					<SpinnerMini />
 				) : (
 					<>
-						{user.role === "club" && <AddEvent />}
+						{user?.role === "club" && <AddEvent />}
 						<div className="mt-4 flex flex-col gap-4 mb-24">
 							{filteredEvents.length === 0 ? (
-								<p className="text-xl">No events match your filters</p>
+								<p className="text-lg my-8 text-center">
+									No events match your filters
+								</p>
 							) : (
 								filteredEvents.map((event) => (
 									<div key={event._id} className="flex gap-4">

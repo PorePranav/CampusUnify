@@ -12,12 +12,12 @@ export default function Header() {
 			return (
 				<>
 					<Link to="/registration">
-						<li className="hidden sm:inline hover:text-primary-900 font-bold">
+						<li className="hidden text-gray-800 dark:text-white/90 sm:inline hover:text-primary-600 font-bold">
 							My Registrations
 						</li>
 					</Link>
 					<Link to="/cart">
-						<li className="hidden sm:inline hover:text-primary-900 font-bold">
+						<li className="hidden text-gray-800 dark:text-white/90 sm:inline hover:text-primary-600 font-bold">
 							My Cart
 						</li>
 					</Link>
@@ -30,7 +30,7 @@ export default function Header() {
 	const renderClubLinks = () => (
 		<>
 			<Link to="/events">
-				<li className="hidden sm:inline hover:text-primary-900 font-bold">
+				<li className="hidden sm:inline text-gray-800 dark:text-white/90 hover:text-primary-600 font-bold">
 					Events
 				</li>
 			</Link>
