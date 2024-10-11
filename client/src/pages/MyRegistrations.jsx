@@ -91,7 +91,7 @@ export default function MyRegistrations() {
                   <h3 className="text-xl font-semibold mb-4">
                     {tab.charAt(0).toUpperCase() + tab.slice(1)} events
                   </h3>
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto rounded-md">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                       <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>

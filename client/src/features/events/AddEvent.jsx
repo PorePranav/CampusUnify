@@ -8,7 +8,7 @@ export default function AddEvent() {
       <Modal.Open opens="event-form">
         <button
           type="button"
-          className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md hover:bg-primary-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          className="py-2 px-4 bg-primary-600 text-white font-semibold rounded-md hover:bg-primary-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         >
           Add New Event
         </button>

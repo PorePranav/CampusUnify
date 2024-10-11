@@ -25,7 +25,7 @@ function Toggle({ id }) {
   return (
     <button
       type="button"
-      className="bg-none border-none p-2 rounded-sm transition-transform translate-x-2 hover:bg-primary-50"
+      className="bg-none border-none p-2 rounded-sm transition-transform translate-x-2"
       onClick={handleClick}
     >
       <HiEllipsisVertical className="w-6 h-6 fill-primary-900" />
@@ -62,7 +62,7 @@ function Button({ children, icon, onClick }) {
     <li>
       <button
         type="button"
-        className="w-full text-left bg-none border-none p-2 text-base transition-all flex items-center gap-4 hover:bg-primary-50 hover:rounded-md"
+        className="w-full text-left bg-none border-none p-2 text-base transition-all flex items-center gap-4 hover:bg-primary-25 hover:rounded-md"
         onClick={handleClick}
       >
         {icon}
