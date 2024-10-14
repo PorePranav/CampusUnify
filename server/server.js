@@ -15,14 +15,19 @@ const DB = process.env.DATABASE;
 mongoose.connect(DB).then(() => console.log('DB Connection Successful!'));
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
-  console.log(`App is running on localhost:${port}`);
-});
 
-process.on('unhandledRejection', (err) => {
-  console.log('Unhandled Rejection, Shutting Down!');
-  console.log(err);
-  server.close(() => {
-    process.exit(1);
+if (process.env.NODE_ENV !== 'production') {
+  const server = app.listen(port, () => {
+    console.log(`App is running on localhost:${port}`);
   });
-});
+
+  process.on('unhandledRejection', (err) => {
+    console.log('Unhandled Rejection, Shutting Down!');
+    console.log(err);
+    server.close(() => {
+      process.exit(1);
+    });
+  });
+}
+
+module.exports = app;

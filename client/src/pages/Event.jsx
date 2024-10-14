@@ -22,7 +22,7 @@ export default function Event() {
 
   return (
     <PageLayout>
-      <div className="w-[80%] mx-auto p-6 transition-colors duration-300 bg-gray-100 text-black dark:bg-gray-800 dark:text-white">
+      <div className="w-[80%] mx-auto p-6 transition-colors duration-300 rounded-md text-black dark:bg-gray-800 dark:text-white">
         {isLoadingEvent || isLoadingUser ? (
           <Spinner />
         ) : (
