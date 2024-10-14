@@ -78,7 +78,7 @@ export default function Events() {
 					<SpinnerMini />
 				) : (
 					<>
-						<AddEvent />
+						{user?.role === "club" && <AddEvent />}
 						<div className="mt-4 flex flex-col gap-4 mb-24">
 							{filteredEvents.length === 0 ? (
 								<p className="text-lg my-8 text-center">
