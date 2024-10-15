@@ -37,19 +37,19 @@ function Window({ children, name }) {
   return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 transition-all duration-300 flex items-center justify-center">
       <div
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto transition-all duration-300 transform scale-100 opacity-100"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto transition-all duration-300 transform scale-100 opacity-100 relative"
         ref={ref}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative">
-          <button
-            className="absolute top-4 right-4 p-1 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-200"
-            onClick={close}
-            type="button"
-          >
-            <HiXMark className="w-6 h-6 text-gray-600" />
-          </button>
-          <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <button
+          className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+          onClick={close}
+          type="button"
+        >
+          <HiXMark className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+        </button>
+        <div className="mt-8">
+          {cloneElement(children, { onCloseModal: close })}
         </div>
       </div>
     </div>,
