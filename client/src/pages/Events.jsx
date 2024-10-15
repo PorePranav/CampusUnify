@@ -1,7 +1,6 @@
 import PageLayout from '../styles/PageLayout';
 import SearchFilter from '../ui/SearchFilter';
 import SpinnerMini from '../ui/SpinnerMini';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddEvent from '../features/events/AddEvent';
@@ -13,8 +12,8 @@ import { useUser } from './../features/authentication/useUser';
 export default function Events() {
   const navigate = useNavigate();
   const { user } = useUser();
-
   const { events = [], isLoading } = useEvents();
+
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryQuery, setCategoryQuery] = useState('all');
   const [dateQuery, setDateQuery] = useState('');
@@ -57,12 +56,13 @@ export default function Events() {
         }
         return 0;
       });
+      
     return filteredEvents;
   }
 
   return (
     <PageLayout>
-      <div className="w-[80%] mx-auto transition-colors duration-300 text-gray-900  dark:text-white">
+      <div className="w-[80%] mx-auto transition-colors duration-300 text-gray-900 dark:text-white">
         <h2 className="text-3xl font-bold mt-4">Events</h2>
         <SearchFilter
           searchQuery={searchQuery}
