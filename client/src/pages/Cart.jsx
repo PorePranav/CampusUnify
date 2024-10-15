@@ -46,11 +46,11 @@ export default function Cart() {
                 {cart.eventIds.map((event) => (
                   <div
                     key={event._id}
-                    className="flex items-center space-x-4 p-4 dark:bg-gray-700 hover:bg-primary-25 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300"
+                    className="flex flex-col md:flex-row items-center space-x-0 md:space-x-4 p-4 dark:bg-gray-700 hover:bg-primary-25 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300"
                   >
                     <img
                       src={event.cardImage}
-                      className="w-24 h-24 rounded-md object-cover"
+                      className="w-full h-48 md:w-24 md:h-24 rounded-md object-cover"
                       alt={event.name}
                     />
                     <div className="flex-grow">
@@ -73,11 +73,11 @@ export default function Cart() {
                     </button>
                   </div>
                 ))}
-                <div className="flex justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xl font-semibold">
                     Total: {formatCurrency(cart.totalAmount)}
                   </p>
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                     <button
                       type="button"
                       className="px-4 py-2 text-sm font-medium text-red-600 bg-red-100 rounded-lg transition-colors duration-300 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800 disabled:opacity-50"
