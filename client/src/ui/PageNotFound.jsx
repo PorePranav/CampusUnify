@@ -13,8 +13,9 @@ export default function PageNotFound() {
         </h2>
         <button
           type="button"
-          className="bg-primary-600 text-white px-4 py-2 rounded-xl mt-4"
+          className="bg-primary-600 text-white px-4 py-2 rounded-xl mt-4 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition duration-200"
           onClick={moveBack}
+          aria-label="Go back to the previous page"
         >
           ← Go Back
         </button>
