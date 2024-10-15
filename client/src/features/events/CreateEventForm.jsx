@@ -1,3 +1,5 @@
+'use client';
+
 import {
   getDownloadURL,
   getStorage,
@@ -5,6 +7,9 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/style.css';
+import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import {
   HiArrowUpOnSquare,
@@ -20,9 +25,12 @@ import { useCreateEvent } from './useCreateEvent';
 
 export default function CreateEventForm({ onCloseModal }) {
   const [formData, setFormData] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState('');
   const [coverImage, setCoverImage] = useState(undefined);
   const [cardImage, setCardImage] = useState(undefined);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const { createEvent, isCreating } = useCreateEvent();
 
@@ -32,7 +40,20 @@ export default function CreateEventForm({ onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    createEvent(formData);
+    if (selectedDate && selectedTime) {
+      const dateTime = new Date(selectedDate);
+      const [hours, minutes] = selectedTime.split(':');
+      const DECIMAL_RADIX = 10; // Decimal base
+      dateTime.setHours(
+        Number.parseInt(hours, DECIMAL_RADIX),
+        Number.parseInt(minutes, DECIMAL_RADIX)
+      );
+      const formattedDateTime = dateTime.toISOString();
+
+      createEvent({ ...formData, date: formattedDateTime });
+    } else {
+      toast.error('Please select both date and time');
+    }
     onCloseModal?.();
   }
 
@@ -119,14 +140,36 @@ export default function CreateEventForm({ onCloseModal }) {
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             <HiCalendarDays className="inline-block mr-2 h-5 w-5 text-primary-600" />
-            Date
+            Date and Time
           </label>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+              className="w-full px-3 py-2 text-left border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            >
+              {selectedDate ? format(selectedDate, 'PPP') : 'Pick a date'}
+            </button>
+            {isDatePickerOpen && (
+              <div className="right-0.5 absolute z-10 mt-1 p-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg dark:text-white text-gray-800">
+                <DayPicker
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    setSelectedDate(date);
+                    setIsDatePickerOpen(false);
+                  }}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                />
+              </div>
+            )}
+          </div>
           <input
-            id="date"
-            required
-            onChange={handleChange}
-            type="date"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            type="time"
+            value={selectedTime}
+            onChange={(e) => setSelectedTime(e.target.value)}
+            className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
 

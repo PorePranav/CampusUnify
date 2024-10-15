@@ -39,10 +39,11 @@ function Window({ children, name }) {
       <div
         className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto transition-all duration-300 transform scale-100 opacity-100"
         ref={ref}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="relative">
           <button
-            className="absolute top-4 right-4 p-1 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-300"
+            className="absolute top-4 right-4 p-1 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-200"
             onClick={close}
             type="button"
           >

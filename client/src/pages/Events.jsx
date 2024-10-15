@@ -48,9 +48,11 @@ export default function Events() {
 
         if (sortQuery === 'date') {
           return dateA.getTime() - dateB.getTime();
-        } else if (sortQuery === 'priceL2H') {
+        }
+        if (sortQuery === 'priceL2H') {
           return a.eventCharges - b.eventCharges;
-        } else if (sortQuery === 'priceH2L') {
+        }
+        if (sortQuery === 'priceH2L') {
           return b.eventCharges - a.eventCharges;
         }
         return 0;
@@ -84,10 +86,7 @@ export default function Events() {
                 </p>
               ) : (
                 filteredEvents.map((event) => (
-                  <div
-                    key={event._id}
-                    className="flex gap-4 rounded-md transition-colors duration-300 "
-                  >
+                  <div key={event._id} className="flex gap-4">
                     <button
                       type="button"
                       className="flex gap-4 hover:cursor-pointer"
@@ -103,9 +102,9 @@ export default function Events() {
                         className="w-20 h-20 rounded-lg"
                         alt="Event cover"
                       />
-                      <div className="flex flex-col justify-center text-left">
+                      <div className="flex flex-col justify-center">
                         <p className="font-semibold">{event.name}</p>
-                        <p className="text-primary-900 dark:text-primary-400">
+                        <p className="text-primary-900">
                           {formatDateTimeEvent(event.date)}
                         </p>
                       </div>
