@@ -27,7 +27,7 @@ export default function Login() {
 
   return (
     <PageLayout>
-      <div className="flex flex-col w-[600px] mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
+      <div className="flex flex-col w-full max-w-md mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
         <Logo />
         <h1 className="mt-4 text-4xl font-bold text-primary-900">
           CampusUnify
@@ -67,7 +67,6 @@ export default function Login() {
             type="submit"
             disabled={isLoading}
             className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-            onClick={(e) => handleSubmit(e)}
           >
             Sign In
           </button>

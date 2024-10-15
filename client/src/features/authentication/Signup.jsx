@@ -32,7 +32,7 @@ export default function Signup() {
 
   return (
     <PageLayout>
-      <div className="flex flex-col w-[600px] mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
+      <div className="flex flex-col w-full max-w-md mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
         <Logo />
         <h1 className="mt-4 text-4xl font-bold text-primary-900">
           CampusUnify
