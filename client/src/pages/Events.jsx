@@ -102,7 +102,7 @@ export default function Events() {
                         className="w-20 h-20 rounded-lg"
                         alt="Event cover"
                       />
-                      <div className="flex flex-col justify-center">
+                      <div className="flex flex-col justify-center items-start">
                         <p className="font-semibold">{event.name}</p>
                         <p className="text-primary-900">
                           {formatDateTimeEvent(event.date)}

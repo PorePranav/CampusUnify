@@ -27,10 +27,10 @@ export default function SearchFilterNew({
             onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             placeholder="Search for events"
-            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:text-gray-800 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
           <HiMagnifyingGlass
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-600"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:white"
             size={18}
           />
         </div>
@@ -56,7 +56,7 @@ export default function SearchFilterNew({
           <div className="relative mt-2">
             <select
               id="category"
-              className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md appearance-none bg-white dark:text-gray-800"
+              className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md appearance-none bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               value={categoryQuery}
               onChange={(e) => setCategoryQuery(e.target.value)}
             >
@@ -86,7 +86,7 @@ export default function SearchFilterNew({
           <input
             type="date"
             id="date"
-            className="block mt-2 w-full pl-3 pr-10 py-2 border text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md bg-white dark:text-gray-800"
+            className="block mt-2 w-full pl-3 pr-10 py-2 border text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white "
             onChange={(e) => setDateQuery(e.target.value)}
             value={dateQuery}
           />
@@ -101,7 +101,7 @@ export default function SearchFilterNew({
           <div className="relative mt-2">
             <select
               id="sort"
-              className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md appearance-none bg-white dark:text-gray-800"
+              className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md appearance-none bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               value={sortQuery}
               onChange={(e) => setSortQuery(e.target.value)}
             >
