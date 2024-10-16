@@ -9,7 +9,7 @@ export default function LandingPage() {
 
   return (
     <PageLayout>
-      <div className=" mx-auto transition-colors duration-300">
+      <div className="mx-auto transition-colors duration-300">
         <div className="relative flex flex-col items-center px-4 sm:px-8">
           <div className="w-full sm:w-[75%] mx-auto relative">
             <img
@@ -22,7 +22,7 @@ export default function LandingPage() {
                 College event management, <br />
                 simplified!
               </h1>
-              <p className="mt-2 text-sm sm:text-base md:text-lg">
+              <p className="hidden sm:block mt-2 text-sm sm:text-base md:text-lg">
                 Plan, promote, and manage college events with ease
               </p>
               <Link to="/login">

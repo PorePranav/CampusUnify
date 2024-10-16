@@ -20,7 +20,6 @@ export default function MyRegistrations() {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-
         const filename = 'ticket.pdf';
         link.setAttribute('download', filename);
 
@@ -44,8 +43,11 @@ export default function MyRegistrations() {
         return registrations.filter((reg) => new Date(reg.eventId.date) < now);
       case 'all':
         return registrations;
+      default:
+        return registrations;
     }
   };
+
   const filteredRegistrations =
     registrations && filterRegistrations(registrations);
 
@@ -125,30 +127,22 @@ export default function MyRegistrations() {
                               )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                              {formatCurrency(
-                                registration.paymentId.totalAmount
-                              )}
+                              {formatCurrency(registration.totalCharges)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                              {registration.paymentId.razorpayPaymentId}
+                              {registration.paymentId}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
-                                {registration.currentStatus
-                                  .charAt(0)
-                                  .toUpperCase() +
-                                  registration.currentStatus.slice(1)}
-                              </span>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              {registration.status}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                               <button
-                                type="button"
                                 onClick={() =>
                                   handleDownloadTicket(registration._id)
                                 }
-                                className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
+                                className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                               >
-                                Download
+                                Download Ticket
                               </button>
                             </td>
                           </tr>
