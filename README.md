@@ -72,7 +72,7 @@ To get started with CampusUnify, follow these steps:
 
    ```bash
    cd ../server
-   npm start
+   npm run dev
    ```
 
 7. In a new terminal, run the frontend development server:
