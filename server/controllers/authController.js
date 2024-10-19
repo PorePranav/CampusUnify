@@ -7,6 +7,7 @@ const sendEmail = require('./../utils/email');
 const crypto = require('crypto');
 const Cart = require('./../models/cartModel');
 const Mailgen = require('mailgen');
+const emailService = require('./../utils/emailService');
 
 const mailGenerator = new Mailgen({
   theme: 'cerberus',
@@ -87,21 +88,61 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.signup = catchAsync(async (req, res) => {
+exports.signup = catchAsync(async (req, res, next) => {
+  const { name, email, role, password, passwordConfirm } = req.body;
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser && existingUser.isVerified) {
+    return next(new AppError('Email already in use', 400));
+  }
+
+  const otp = emailService.generateOTP();
+  const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
   const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    role: req.body.role,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt,
+    name,
+    email,
+    role,
+    password,
+    passwordConfirm,
+    otp,
+    otpExpires,
   });
 
-  if (req.body.role !== 'club')
-    await Cart.create({ userId: newUser._id, eventIds: [], totalAmount: 0 });
-
-  createSendToken(newUser, 201, res);
+  try {
+    await emailService.sendVerificationEmail(email, otp);
+    res.status(201).json({
+      status: 'success',
+      message: 'User created. Please verify your email.',
+    });
+  } catch (error) {
+    await User.findByIdAndDelete(newUser._id);
+    return next(new AppError('Error sending verification email. Please try again.', 500));
+  }
 });
+
+exports.verifyEmail = catchAsync(async (req, res, next) => {
+  const { email, otp } = req.body;
+
+  const user = await User.findOne({
+    email,
+    otp,
+    otpExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new AppError('Invalid or expired OTP', 400));
+  }
+
+  user.isVerified = true;
+  user.otp = undefined;
+  user.otpExpires = undefined;
+  await user.save({ validateBeforeSave: false });
+
+  createSendToken(user, 200, res);
+});
+
+
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -120,28 +161,30 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   if (!req.body.email)
-    return next(new AppError('Please enter a email ID', 400));
+    return next(new AppError('Please enter an email address', 400));
+
   const user = await User.findOne({ email: req.body.email });
   if (!user)
-    return next(new AppError('No user with the specified email exists', 404));
+    return next(new AppError('No user found with that email address', 404));
+
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
+
+  const resetURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
   const email = {
     body: {
       name: user.name,
-      intro:
-        'You have received this email because a password reset request for your account was received.',
+      intro: 'You have received this email because a password reset request for your account was received.',
       action: {
         instructions: 'Click the button below to reset your password:',
         button: {
           color: '#E67E22',
           text: 'Reset your password',
-          link: `https://campusunify.pranavpore.com/reset-password/${resetToken}`,
+          link: resetURL,
         },
       },
-      outro:
-        'If you did not request a password reset, no further action is required on your part.',
+      outro: 'If you did not request a password reset, no further action is required on your part.',
     },
   };
 
@@ -149,26 +192,22 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   try {
     await sendEmail({
-      email: req.body.email,
-      subject: 'Password Reset Token',
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
       emailBody,
     });
-  } catch {
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to email!',
+    });
+  } catch (err) {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
 
-    return next(
-      new AppError(
-        'There was an error while sending email. Try again later',
-        500,
-      ),
-    );
+    return next(new AppError('There was an error sending the email. Try again later!', 500));
   }
-  res.status(200).json({
-    status: 'success',
-    message: 'Token sent to email!',
-  });
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
@@ -234,8 +273,18 @@ exports.oAuth = catchAsync(async (req, res) => {
 });
 
 exports.logout = (req, res) => {
-  res.clearCookie('jwt').status(200).json({
-    status: 'success',
-    data: null,
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
   });
+  res.status(200).json({ status: 'success' });
 };
+
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});

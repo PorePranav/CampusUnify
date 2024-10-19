@@ -1,5 +1,4 @@
 import api from './api';
-
 export async function login({ email, password }) {
   const { data, error } = await api.post(
     `/users/login`,
@@ -12,14 +11,23 @@ export async function login({ email, password }) {
 }
 
 export async function signup({ name, email, role, password, passwordConfirm }) {
-  const { data, error } = await api.post(
-    `/users/signup`,
-    { name, email, role, password, passwordConfirm },
-    { withCredentials: true }
-  );
+  try {
+    const res = await api.post('/users/signup', {
+      name,
+      email,
+      role,
+      password,
+      passwordConfirm,
+    });
+    return res.data;
+  } catch (error) {
+    throw error.response ? error.response.data : error;
+  }
+}
 
-  if (error) return new Error(error.message);
-  return data.data;
+export async function verifyEmail({ email, otp }) {
+  const res = await api.post('/users/verifyEmail', { email, otp });
+  return res.data;
 }
 
 export async function updateUser(updatedData) {
@@ -59,10 +67,12 @@ export async function getCurrentUser() {
 }
 
 export async function forgotPassword(email) {
-  const { data, error } = await api.post(`/users/forgotPassword`, { email });
-
-  if (error) return new Error(error.message);
-  return data.data;
+  try {
+    const res = await api.post('/users/forgotPassword', { email });
+    return res.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
 }
 
 export async function resetPassword({ tokenId, password, passwordConfirm }) {
