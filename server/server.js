@@ -7,14 +7,14 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-dotenv.config({ path: './config/.env' });
+dotenv.config({ path: './config.env' });
 const app = require('./app');
 
 const DB = process.env.DATABASE;
 
 mongoose.connect(DB).then(() => console.log('DB Connection Successful!'));
 
-const port = process.env.PORT || 3500;
+const port = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV !== 'production') {
   const server = app.listen(port, () => {
