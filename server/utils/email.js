@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
-
-const sendEmail = async (options) => {
+const otpGenerator = require('otp-generator');
+exports.SEND = async (options) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -19,4 +19,10 @@ const sendEmail = async (options) => {
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = sendEmail;
+exports.generateOTP = () => {
+  return otpGenerator.generate(6, {
+    upperCase: false,
+    specialChars: false,
+    alphabets: false,
+  });
+};

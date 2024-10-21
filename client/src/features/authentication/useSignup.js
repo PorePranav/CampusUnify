@@ -1,24 +1,22 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import { signup as signupApi } from '../../services/apiAuth.js';
+import { useState } from 'react';
 
 export function useSignup() {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { mutate: signup, isLoading } = useMutation({
-    mutationFn: ({ name, email, role, password, passwordConfirm }) =>
-      signupApi({ name, email, role, password, passwordConfirm }),
-    onSuccess: (user) => {
-      queryClient.setQueryData(['user'], user);
-      navigate('/events');
-      toast.success('Account created successfully');
+  const [showOtpInput, setShowOtpInput] = useState(false);
+
+  const { mutate: signup, isLoading: isSigningUp } = useMutation({
+    mutationFn: signupApi,
+    onSuccess: (data) => {
+      toast.success(data.message);
+      setShowOtpInput(true);
     },
     onError: (err) => {
-      console.log('err', err);
-      toast.error(err.response.data.message);
+      console.error('Signup error:', err);
+      toast.error(err.message || 'An error occurred during signup');
     },
   });
 
-  return { signup, isLoading };
+  return { signup, isSigningUp, showOtpInput, setShowOtpInput };
 }

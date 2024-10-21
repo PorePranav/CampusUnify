@@ -5,7 +5,7 @@ const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const sendEmail = require('./../utils/email');
 const crypto = require('crypto');
-const Cart = require('./../models/cartModel');
+
 const Mailgen = require('mailgen');
 
 const mailGenerator = new Mailgen({
@@ -45,7 +45,7 @@ const createSendToken = (user, statusCode, res) => {
   };
 
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-  const { password, ...rest } = user._doc;
+  const {password, ...rest } = user._doc;
 
   res.cookie('jwt', token, cookieOptions).status(statusCode).json({
     status: 'success',
@@ -87,20 +87,47 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.signup = catchAsync(async (req, res) => {
+exports.signup = catchAsync(async (req, res, next) => {
+  const { name, email, role, password, passwordConfirm } = req.body;
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser && existingUser.isVerified) {
+    return next(new AppError('Email already in use', 400));
+  }
+
+  const otp = sendEmail.generateOTP();
+  const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
   const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    role: req.body.role,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt,
+    name,
+    email,
+    role,
+    password,
+    passwordConfirm,
+    otp,
+    otpExpires,
   });
 
-  if (req.body.role !== 'club')
-    await Cart.create({ userId: newUser._id, eventIds: [], totalAmount: 0 });
+  const options = {
+    email,
+    subject: 'Email Verification for CampusUnify',
+    emailBody: `
+      <h1>Welcome to CampusUnify!</h1>
+      <p>Your verification code is: <strong>${otp}</strong></p>
+      <p>This code will expire in 10 minutes.</p>
+    `,
+  };
 
-  createSendToken(newUser, 201, res);
+  try {
+    await sendEmail.SEND(options); // Use sendEmail function from email.js
+    res.status(201).json({
+      status: 'success',
+      message: 'User created. Please verify your email.',
+    });
+  } catch (error) {
+    await User.findByIdAndDelete(newUser._id);
+    return next(new AppError('Error sending verification email. Please try again.', 500));
+  }
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -114,6 +141,27 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password entered', 401));
   }
+
+  createSendToken(user, 200, res);
+});
+
+exports.verifyEmail = catchAsync(async (req, res, next) => {
+  const { email, otp } = req.body;
+
+  const user = await User.findOne({
+    email,
+    otp,
+    otpExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new AppError('Invalid or expired OTP', 400));
+  }
+
+  user.isVerified = true;
+  user.otp = undefined;
+  user.otpExpires = undefined;
+  await user.save({ validateBeforeSave: false });
 
   createSendToken(user, 200, res);
 });
@@ -239,3 +287,12 @@ exports.logout = (req, res) => {
     data: null,
   });
 };
+
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

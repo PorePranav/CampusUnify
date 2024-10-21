@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import PageLayout from '../../styles/PageLayout';
 import Logo from '../../ui/Logo';
 import { useForgotPassword } from './useForgotPassword';
@@ -10,14 +9,22 @@ export default function ForgotPassword() {
   const { forgotPassword, isLoading } = useForgotPassword();
   const { user } = useUser();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   if (user) navigate('/events');
 
   const [formData, setFormData] = useState({ email: '' });
 
-  function handleSubmit(e) {
+  
+  async function handleSubmit(e) {
     e.preventDefault();
-    forgotPassword(formData.email);
+    setError(null);
+    try {
+      await forgotPassword({ email: formData.email });
+    } catch (error) {
+      console.error('Forgot password error:', error);
+      setError(error.message || 'An error occurred. Please try again.');
+    }
   }
 
   function handleChange(e) {
@@ -36,8 +43,12 @@ export default function ForgotPassword() {
           Reset Your Password
         </p>
 
+        {error && (
+          <p className="text-red-500 mt-2">{error}</p>
+        )}
+
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={handleSubmit}
           className="mt-4 flex flex-col gap-4 w-full"
         >
           <input
@@ -56,14 +67,13 @@ export default function ForgotPassword() {
             type="submit"
             disabled={isLoading}
             className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-            onClick={(e) => handleSubmit(e)}
           >
-            Mail Me
+            {isLoading ? 'Sending...' : 'Mail Me'}
           </button>
         </form>
 
         <Link to="/signup" className="mt-4 text-primary-900 underline text-sm">
-          Don&apos;t have an account?
+          Dont have an account?
         </Link>
       </div>
     </PageLayout>
