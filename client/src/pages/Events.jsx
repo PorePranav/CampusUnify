@@ -62,8 +62,8 @@ export default function Events() {
 
   return (
     <PageLayout>
-      <div className="w-[80%] mx-auto transition-colors duration-300 text-gray-900  dark:text-white">
-        <h2 className="text-3xl font-bold mt-4">Events</h2>
+      <div className="w-full sm:w-[90%] lg:w-[80%] mx-auto px-4 sm:px-0 transition-colors duration-300 text-gray-900 dark:text-white">
+        <h2 className="text-2xl sm:text-3xl font-bold mt-4">Events</h2>
         <SearchFilter
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -84,12 +84,12 @@ export default function Events() {
                 <p className="text-lg my-8 text-center">
                   No events match your filters
                 </p>
-              ) : (
+              ) : 
                 filteredEvents.map((event) => (
-                  <div key={event._id} className="flex gap-4">
+                  <div key={event._id} className="flex flex-col sm:flex-row gap-4 bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
                     <button
                       type="button"
-                      className="flex gap-4 hover:cursor-pointer"
+                      className="flex flex-col sm:flex-row gap-4 hover:cursor-pointer w-full text-left"
                       onClick={() => navigate(`/events/${event._id}`)}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -99,22 +99,21 @@ export default function Events() {
                     >
                       <img
                         src={event.cardImage}
-                        className="w-20 h-20 rounded-lg"
+                        className="w-full sm:w-20 h-40 sm:h-20 rounded-lg object-cover"
                         alt="Event cover"
                       />
                       <div className="flex flex-col justify-center items-start">
                         <p className="font-semibold">{event.name}</p>
-                        <p className="text-primary-900">
+                        <p className="text-primary-900 dark:text-primary-400">
                           {formatDateTimeEvent(event.date)}
                         </p>
                       </div>
                     </button>
-                    <div className="ml-auto justify-center my-auto">
+                    <div className="ml-auto flex justify-center items-center">
                       <EventMenu event={event} user={user} />
                     </div>
                   </div>
-                ))
-              )}
+                ))}
             </div>
           </>
         )}

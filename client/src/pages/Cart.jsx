@@ -1,8 +1,4 @@
-import {
-  HiOutlineShoppingCart,
-  HiOutlineTrash,
-  HiOutlineX,
-} from 'react-icons/hi';
+import { HiOutlineShoppingCart, HiOutlineTrash, HiOutlineX } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { useCart } from '../features/cart/useCart';
 import { useClearCart } from '../features/cart/useClearCart';
@@ -20,8 +16,8 @@ export default function Cart() {
 
   return (
     <PageLayout>
-      <div className="max-w-4xl mx-auto p-6 transition-colors duration-300 bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-        <h2 className="text-3xl font-bold mb-6 flex items-center">
+      <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 flex items-center text-gray-800 dark:text-white">
           <HiOutlineShoppingCart className="mr-2" />
           Your Cart
         </h2>
@@ -33,7 +29,7 @@ export default function Cart() {
           <div className="space-y-6">
             {cart.eventIds.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-xl mb-4">Your cart is empty</p>
+                <p className="text-xl mb-4 text-gray-600 dark:text-gray-300">Your cart is empty</p>
                 <Link
                   to="/events"
                   className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 hover:bg-primary-700"
@@ -46,16 +42,16 @@ export default function Cart() {
                 {cart.eventIds.map((event) => (
                   <div
                     key={event._id}
-                    className="flex items-center space-x-4 p-4 dark:bg-gray-700 hover:bg-primary-25 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300"
+                    className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 p-4 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300"
                   >
                     <img
                       src={event.cardImage}
-                      className="w-24 h-24 rounded-md object-cover"
+                      className="w-full sm:w-24 h-48 sm:h-24 rounded-md object-cover"
                       alt={event.name}
                     />
-                    <div className="flex-grow">
-                      <h3 className="text-lg font-semibold">{event.name}</h3>
-                      <p className="text-primary-600 dark:text-primary-400">
+                    <div className="flex-grow text-center sm:text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{event.name}</h3>
+                      <p className="text-primary-600 dark:text-primary-400 font-medium">
                         {formatCurrency(event.eventCharges)}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -73,11 +69,11 @@ export default function Cart() {
                     </button>
                   </div>
                 ))}
-                <div className="flex justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <p className="text-xl font-semibold">
+                <div className="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-xl font-semibold mb-4 sm:mb-0 text-gray-800 dark:text-white">
                     Total: {formatCurrency(cart.totalAmount)}
                   </p>
-                  <div className="flex space-x-4">
+                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                     <button
                       type="button"
                       className="px-4 py-2 text-sm font-medium text-red-600 bg-red-100 rounded-lg transition-colors duration-300 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800 disabled:opacity-50"

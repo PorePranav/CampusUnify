@@ -77,53 +77,63 @@ export default function Profile() {
   }, [file]);
 
   return (
-    <div className="flex flex-col w-[600px] mt-5 mx-auto items-center bg-primary-50 p-8 rounded-lg shadow-md">
-      <h1 className="mt-4 font-semibold text-2xl text-primary-900">Profile</h1>
-      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4 w-full">
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          ref={fileRef}
-          className="hidden"
-          accept="image/*"
-        />
-        <img
-          onClick={() => fileRef.current.click()}
-          src={formData.avatar || user.avatar}
-          alt="Profile"
-          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-        />
-        <input
-          type="text"
-          placeholder="Name"
-          id="name"
-          className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
-          onChange={handleChange}
-          defaultValue={user.name}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          id="email"
-          className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
-          onChange={handleChange}
-          defaultValue={user.email}
-        />
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
-        >
-          Update
-        </button>
-      </form>
-      <div className="flex gap-8 mt-5 justify-between text-sm">
-        <button type="button" className="text-red-700" onClick={logout}>
-          Logout
-        </button>
-        <button type="button" className="text-red-700" onClick={deleteUser}>
-          Delete Account
-        </button>
+    <div className="flex flex-col sm:w-full max-w-[600px] mt-5 mx-5 sm:mx-auto items-center bg-primary-50 p-4 sm:p-8 rounded-lg shadow-md">
+      <div className="w-full px-4 sm:px-8">
+        <h1 className="mt-4 font-semibold text-2xl text-primary-900 text-center">Profile</h1>
+        <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4 w-full">
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            ref={fileRef}
+            className="hidden"
+            accept="image/*"
+          />
+          <img
+            onClick={() => fileRef.current.click()}
+            src={formData.avatar || user.avatar}
+            alt="Profile"
+            className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          />
+          <input
+            type="text"
+            placeholder="Name"
+            id="name"
+            className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
+            onChange={handleChange}
+            defaultValue={user.name}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+            className="border p-3 rounded-lg placeholder-primary-900 w-full text-primary-900"
+            onChange={handleChange}
+            defaultValue={user.email}
+          />
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="bg-primary-600 font-bold text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          >
+            Update
+          </button>
+        </form>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-5 justify-between text-sm w-full">
+          <button
+            type="button"
+            className="text-red-700 bg-red-100 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors duration-300 w-full sm:w-auto"
+            onClick={logout}
+          >
+            Logout
+          </button>
+          <button
+            type="button"
+            className="text-red-700 bg-red-100 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors duration-300 w-full sm:w-auto"
+            onClick={deleteUser}
+          >
+            Delete Account
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export default function Event() {
 
   return (
     <PageLayout>
-      <div className="w-[80%] mx-auto p-6 transition-colors duration-300 rounded-md text-black dark:bg-gray-800 dark:text-white">
+      <div className="w-full sm:w-[90%] lg:w-[80%] mx-auto p-4 sm:p-6 transition-colors duration-300 rounded-md text-black dark:bg-gray-800 dark:text-white">
         {isLoadingEvent || isLoadingUser ? (
           <Spinner />
         ) : (
@@ -34,7 +34,7 @@ export default function Event() {
                 alt={event.name}
               />
               <div className="absolute bottom-[10%] sm:bottom-[5%] left-[10%] sm:left-[15%] p-2 text-white">
-                <p className="text-xl sm:text-6xl font-bold leading-tight">
+                <p className="text-xl sm:text-4xl md:text-6xl font-bold leading-tight">
                   {event.name}
                 </p>
                 <p className="mt-2 text-sm sm:text-base">
@@ -42,8 +42,8 @@ export default function Event() {
                 </p>
               </div>
             </div>
-            <h2 className="text-4xl mt-4 font-bold">{event.name}</h2>
-            <div className="w-full mt-4 flex items-center gap-4 border-b-2 p-4 transition-colors duration-300 border-gray-300 dark:border-gray-600">
+            <h2 className="text-2xl sm:text-4xl mt-4 font-bold">{event.name}</h2>
+            <div className="w-full mt-4 flex flex-wrap items-center gap-4 border-b-2 p-4 transition-colors duration-300 border-gray-300 dark:border-gray-600">
               <button
                 type="button"
                 className={`font-semibold pb-2 transition-colors duration-300 ${
