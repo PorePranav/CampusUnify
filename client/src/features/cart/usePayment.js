@@ -13,7 +13,7 @@ export function usePayment() {
       const { orderId, amount, currency } = await initiatePaymentApi();
 
       const options = {
-        key: import.meta.env.VITE_APP_RAZORPAYKEY,
+        key: import.meta.env.VITE_APP_RAZORPAY_KEY,
         amount,
         currency,
         name: 'CampusUnify',
